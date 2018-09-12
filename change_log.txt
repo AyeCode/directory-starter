@@ -1,2 +1,2 @@
-v2.0.0.0-beta
+v2.0.0.1-beta
 First beta release - INFO
