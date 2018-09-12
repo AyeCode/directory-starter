@@ -2,7 +2,7 @@
 // Enable header top?
 if (!defined('DT_ENABLE_HEADER_TOP')) define('DT_ENABLE_HEADER_TOP', '');
 // Enable blog sidebar?
-if (!defined('DT_ENABLE_BLOG_SIDEBAR')) define('DT_ENABLE_BLOG_SIDEBAR', '0');
+if (!defined('DT_ENABLE_BLOG_SIDEBAR')) define('DT_ENABLE_BLOG_SIDEBAR', '1');
 if (!defined('DT_ENABLE_WOO_SIDEBAR')) define('DT_ENABLE_WOO_SIDEBAR', '0');
 if (!defined('DT_BLOG_SIDEBAR_POSITION')) define('DT_BLOG_SIDEBAR_POSITION', 'right');
 // Number of footer sidebars you need
@@ -25,7 +25,7 @@ if (!defined('DT_LOGO_MARGIN_LEFT')) define('DT_LOGO_MARGIN_LEFT', '0px');
 if (!defined('DT_LOGO_MARGIN_TOP')) define('DT_LOGO_MARGIN_TOP', '15px');
 //typography
 if (!defined('DT_FONT_FAMILY')) define('DT_FONT_FAMILY', "'Lato','Helvetica Neue',Helvetica,Arial,sans-serif");
-if (!defined('DT_FONT_SIZE')) define('DT_FONT_SIZE', '14px');
+if (!defined('DT_FONT_SIZE')) define('DT_FONT_SIZE', '16px');
 if (!defined('DT_LINE_HEIGHT')) define('DT_LINE_HEIGHT', '20px');
 
 //colors

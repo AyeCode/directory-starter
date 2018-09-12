@@ -1,6 +1,19 @@
 <?php
 // GeoDirectory Plugin compatibility functions.
 
+if (defined('GEODIRECTORY_VERSION') && version_compare(GEODIRECTORY_VERSION,'2.0.0','<')) {
+    add_action( 'admin_notices', 'dt_gdv2_notice' );
+}
+
+/**
+ * Warn about using GDv1 with DTv2
+ */
+function dt_gdv2_notice() {
+    $class = 'notice notice-error';
+    $message = __( 'Warning: Only GeoDirectory v2 should be used with the Directory Starter v2 theme.', 'directory-starter' );
+
+    printf( '<div class="%1$s"><p><b>%2$s</b></p></div>', esc_attr( $class ), esc_html( $message ) );
+}
 
 // Actions to fire if GeoDirectory installed.
 if (defined('GEODIRECTORY_VERSION')) {
@@ -140,9 +153,37 @@ function dt_add_mobile_gd_account_menu()
     <div class="dt-mobile-account-wrap"><a href="#gd-account-nav"><i class="fa fa-user"></i></a></div>
     <div id="gd-account-nav" >
         <div >
-            <?php if (class_exists('geodir_loginwidget')) {
-                the_widget('geodir_loginwidget', 'mobile-login-widget', array('before_title'=>'<strong class="mobile-login-widget-title">','after_title'=>'</strong>'));
-            }?>
+            <?php
+
+            if($user_id = get_current_user_id()){
+                $my_dashbaord_text = __('My Dashboard','directory-starter');
+                echo do_shortcode( '[gd_dashboard title="'.$my_dashbaord_text.'"]' );
+                echo '<a href="'.wp_logout_url().'">'.__('Logout','directory-starter').'</a>';
+            }else{
+
+                wp_login_form();
+                $login_link_separator = "|";
+
+                ?>
+                <br />
+                <p id="nav">
+                    <?php if ( ! isset( $_GET['checkemail'] ) || ! in_array( $_GET['checkemail'], array( 'confirm', 'newpass' ) ) ) :
+                        if ( get_option( 'users_can_register' ) ) :
+                            $registration_url = sprintf( '<a href="%s">%s</a>', esc_url( wp_registration_url() ), __( 'Register','directory-starter' ) );
+
+                            /** This filter is documented in wp-includes/general-template.php */
+                            echo apply_filters( 'register', $registration_url );
+
+                            echo esc_html( $login_link_separator );
+                        endif;
+                        ?>
+                        <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php _e( 'Lost your password?','directory-starter' ); ?></a>
+                    <?php endif; ?>
+                </p>
+                <?php
+            }
+
+            ?>
         </div>
     </div>
 <?php

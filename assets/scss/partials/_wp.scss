@@ -491,3 +491,9 @@ a img.aligncenter {
     float: none;
   }
 }
+
+
+.sidebar .widget,
+.dt-sidebar .widget{
+  @extend .content-box;
+}

@@ -1,9 +1,18 @@
-<?php get_header(); 
+<?php
+/**
+ * Template Name: GD Page
+ */
+get_header();
 
 do_action('dt_page_before_main_content'); 
-$sidebar = 'pages';
+
 $dt_blog_sidebar_position = esc_attr(get_theme_mod('dt_blog_sidebar_position', DT_BLOG_SIDEBAR_POSITION));
 ?>
+<div class="fullwidth-sidebar-container">
+	<div class="sidebar top-sidebar">
+		<?php dynamic_sidebar('sidebar-gd-top'); ?>
+	</div>
+</div>
 
 <div class="container">
 
@@ -11,7 +20,7 @@ $dt_blog_sidebar_position = esc_attr(get_theme_mod('dt_blog_sidebar_position', D
 	<?php if ($dt_blog_sidebar_position == 'left') { ?>
 		<div class="col-lg-4 col-md-3">
 			<div class="sidebar blog-sidebar page-sidebar">
-				<?php dynamic_sidebar($sidebar); ?>
+				<?php dynamic_sidebar('sidebar-gd'); ?>
 			</div>
 		</div>
 	<?php } ?>
@@ -42,13 +51,18 @@ $dt_blog_sidebar_position = esc_attr(get_theme_mod('dt_blog_sidebar_position', D
 	<?php if ($dt_blog_sidebar_position == 'right') { ?>
 		<div class="col-lg-4 col-md-3">
 			<div class="sidebar blog-sidebar page-sidebar">
-				<?php dynamic_sidebar($sidebar); ?>
+				<?php dynamic_sidebar('sidebar-gd'); ?>
 			</div>
 		</div>
 	<?php } ?>
 	</div>
 </div>
 
+<div class="fullwidth-sidebar-container">
+	<div class="sidebar bottom-sidebar">
+		<?php dynamic_sidebar('sidebar-gd-bottom'); ?>
+	</div>
+</div>
 
 <?php do_action('dt_page_after_main_content'); ?>
 
