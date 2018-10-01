@@ -1,2 +1,5 @@
+v2.0.0.2-beta
+Update font awesome version - CHANGED
+
 v2.0.0.1-beta
 First beta release - INFO
