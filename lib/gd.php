@@ -16,7 +16,7 @@ function dt_gdv2_notice() {
 }
 
 // Actions to fire if GeoDirectory installed.
-if (defined('GEODIRECTORY_VERSION')) {
+if (defined('GEODIRECTORY_VERSION') && version_compare(GEODIRECTORY_VERSION,'2.0.0','>')) {
     // Add mobile account menu
     add_action('dt_before_site_logo', 'dt_add_mobile_gd_account_menu');
 }
@@ -150,7 +150,7 @@ function dt_geodir_add_custom_fields($fieldsets = array(), $fields = array(), $f
 
 function dt_add_mobile_gd_account_menu()
 { ?>
-    <div class="dt-mobile-account-wrap"><a href="#gd-account-nav"><i class="fa fa-user"></i></a></div>
+    <div class="dt-mobile-account-wrap"><a href="#gd-account-nav"><i class="fas fa-user"></i></a></div>
     <div id="gd-account-nav" >
         <div >
             <?php

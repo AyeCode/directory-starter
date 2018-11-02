@@ -1,3 +1,6 @@
+v2.0.0.3
+Update font awesome version - CHANGED
+
 v2.0.0.2-beta
 Update font awesome version - CHANGED
 
