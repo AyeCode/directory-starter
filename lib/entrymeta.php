@@ -62,3 +62,14 @@ function directory_theme_entry_meta() {
 		echo '</span>';
 	}
 }
+
+/**
+ * Adds a responsive embed wrapper around oEmbed content
+ * @param  string $html The oEmbed markup
+ * @param  string $url  The URL being embedded
+ * @param  array  $attr An array of attributes
+ * @return string       Updated embed markup
+ */
+function dt_responsive_embed($html, $url, $attr) {
+	return $html !== '' ? '<div class="embed-container">' . $html . '</div>' : '';
+}
