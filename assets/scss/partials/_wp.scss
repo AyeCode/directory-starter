@@ -495,5 +495,6 @@ a img.aligncenter {
 
 .sidebar .widget,
 .dt-sidebar .widget{
+  display: block;
   @extend .content-box;
 }
