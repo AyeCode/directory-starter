@@ -65,7 +65,7 @@ function dt_theme_editor_dynamic_styles( $mceInit ) {
 	ob_start();
 	?>
 	body.mce-content-body {
-	font-family: <?php echo get_theme_mod('dt_font_family', DT_FONT_FAMILY); ?>;
+	font-family: <?php echo str_replace('"',"'", get_theme_mod('dt_font_family', DT_FONT_FAMILY)); ?>;
 	font-size: <?php echo esc_attr(get_theme_mod('dt_font_size', DT_FONT_SIZE)); ?>;
 	line-height: <?php echo esc_attr(get_theme_mod('dt_line_height', DT_LINE_HEIGHT)); ?>;
 	color: <?php echo esc_attr(get_theme_mod('dt_body_color', DT_BODY_COLOR)); ?>;
