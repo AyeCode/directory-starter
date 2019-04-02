@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Directory Starter 2.0.0.4\n"
+"Project-Id-Version: Directory Starter 2.0.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 16:02+0000\n"
-"PO-Revision-Date: 2018-11-14 16:03+0000\n"
+"POT-Creation-Date: 2019-04-02 14:30+0100\n"
+"PO-Revision-Date: 2019-04-02 14:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: AyeCode Ltd <contact@ayecode.io>\n"
 "Language: en_US\n"
@@ -69,14 +69,6 @@ msgstr ""
 #: comments.php:84
 #, php-format
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-msgstr ""
-
-#: content.php:28
-msgid "Pages:"
-msgstr ""
-
-#: content.php:37 lib/comments.php:34
-msgid "Edit"
 msgstr ""
 
 #: lib/admin/customizer.php:131
@@ -475,6 +467,11 @@ msgstr ""
 msgid "%1$s at %2$s"
 msgstr ""
 
+#: lib/comments.php:34 template-parts/content/content.php:27
+#: template-parts/post/content.php:27
+msgid "Edit"
+msgstr ""
+
 #: lib/comments.php:36
 msgid "Reply"
 msgstr ""
@@ -657,6 +654,10 @@ msgstr ""
 
 #: single.php:49
 msgid "Previous post:"
+msgstr ""
+
+#: template-parts/content/content.php:18 template-parts/post/content.php:18
+msgid "Pages:"
 msgstr ""
 
 #, fuzzy
