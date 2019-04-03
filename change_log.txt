@@ -1,6 +1,8 @@
 v2.0.0.5
 * No way to get to parent page link if it has submenu - FIXED
 * Setting typography settings with double quotation can break WYSIWYG editor in backend - FIXED
+* Archive page title is h2 instead of h1 - FIXED
+* First v2 release on wp.org - INFO
 
 v2.0.0.4
 Added wrapper CSS for WordPress embeds to make them responsive - ADDED

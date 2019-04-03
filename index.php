@@ -33,7 +33,7 @@ if ($dt_enable_blog_sidebar == '1') {
 			while ( have_posts() ) : the_post();
 
 				// Include the page content template.
-				get_template_part( 'content' );
+				get_template_part( 'template-parts/content/content' );
 
 				// End the loop.
 			endwhile;
