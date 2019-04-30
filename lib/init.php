@@ -46,7 +46,10 @@ function directory_theme_setup(){
 	add_theme_support( 'custom-header', $args );
 
 	// Filters the oEmbed process to run the dt_responsive_embed() function
-	add_filter('embed_oembed_html', 'dt_responsive_embed', 10, 3);
+	// don't fire if GD core is wrapping it
+	if(!function_exists('geodir_responsive_embeds')){
+		add_filter('embed_oembed_html', 'dt_responsive_embed', 10, 3);
+	}
 
 	add_filter('tiny_mce_before_init','dt_theme_editor_dynamic_styles',10,1);
 

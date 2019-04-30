@@ -1,0 +1,21 @@
+{
+  "name": "ayecode/directory-starter",
+  "type": "project",
+  "description": "Directory Starter is a starter theme for our GeoDirectory plugin.",
+  "keywords": ["directory", "business-directory","theme"],
+  "homepage": "https://wpgeodirectory.com/",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "AyeCode Ltd",
+      "email": "contact@ayecode.io",
+      "homepage": "https://ayecode.io/",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "ayecode/wp-font-awesome-settings": "^1.0"
+  },
+  "minimum-stability": "dev"
+}
