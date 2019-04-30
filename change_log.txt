@@ -1,4 +1,4 @@
-v2.0.0.6
+v2.0.0.7
 * CSS tweak for multiratings - FIXED
 * Font Awesome now loaded via Font Awesome Settings Class - CHANGED
 
