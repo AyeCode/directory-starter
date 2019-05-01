@@ -8,8 +8,9 @@ Include each function file here.
 */
 
 // Define the version number for quick access
-if (!defined('DIRECTORY_STARTER_VER')) define('DIRECTORY_STARTER_VER', '2.0.0.5');
+if (!defined('DIRECTORY_STARTER_VER')) define('DIRECTORY_STARTER_VER', '2.0.0.7');
 
+require_once('vendor/autoload.php');             // Composer autoload
 require_once('lib/utils.php');             // Utility functions goes here
 require_once('lib/config.php');            // Configuration goes here
 require_once('lib/init.php');              // Theme setup functions goes here
