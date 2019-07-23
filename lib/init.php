@@ -53,6 +53,13 @@ function directory_theme_setup(){
 
 	add_filter('tiny_mce_before_init','dt_theme_editor_dynamic_styles',10,1);
 
+	// Registers theme support for various WooCommerce features.
+	if ( class_exists( 'WooCommerce' ) ) {
+		add_theme_support( 'woocommerce' );
+		add_theme_support( 'wc-product-gallery-zoom' );
+		add_theme_support( 'wc-product-gallery-lightbox' );
+		add_theme_support( 'wc-product-gallery-slider' );
+	}
 }
 add_action('after_setup_theme', 'directory_theme_setup');
 

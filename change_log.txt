@@ -1,3 +1,6 @@
+v2.0.0.8
+* Declare WooCommerce support for the theme - FIXED
+
 v2.0.0.7
 * CSS tweak for multiratings - FIXED
 * Font Awesome now loaded via Font Awesome Settings Class - CHANGED
