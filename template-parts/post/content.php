@@ -4,8 +4,6 @@
 	</header>
 	<div class="entry-content entry-summary">
 		<?php
-		global $more;
-		$more = 0;
 		if (is_singular() || (function_exists('is_bbpress') && is_bbpress())) {
 			the_content();
 		} else {

@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Directory Starter 2.0.0.7\n"
+"Project-Id-Version: Directory Starter 2.0.0.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-30 17:24+0100\n"
-"PO-Revision-Date: 2019-04-30 17:24+0100\n"
+"POT-Creation-Date: 2019-07-23 14:55+0100\n"
+"PO-Revision-Date: 2019-07-23 14:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: AyeCode Ltd <contact@ayecode.io>\n"
 "Language: en_US\n"
@@ -18,23 +18,6 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: 404.php:6
-msgid "Not Found"
-msgstr ""
-
-#: 404.php:11
-msgid "This is somewhat embarrassing, isn&rsquo;t it?"
-msgstr ""
-
-#: 404.php:12
-msgid "It looks like nothing was found at this location. Maybe try a search?"
-msgstr ""
-
-#: archive.php:28 geodirectory.php:31 index.php:28 page.php:22
-#: page_full-width.php:18 single.php:28 woocommerce.php:28
-msgid "Sorry, no results were found."
-msgstr ""
-
 #: archive.php:43 index.php:43 single.php:48
 msgid "Previous"
 msgstr ""
@@ -43,32 +26,37 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: comments.php:27 lib/entrymeta.php:61
+#: comments.php:27
 #, php-format
-msgid "1 Comment"
+msgid "%1$s Comment"
 msgid_plural "%1$s Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: comments.php:63
+#: comments.php:62
 msgid "Comments are closed."
 msgstr ""
 
-#: comments.php:81
+#: comments.php:80
 msgid "Leave a Comment"
 msgstr ""
 
-#: comments.php:82
+#: comments.php:81
 msgid "Post Comment"
 msgstr ""
 
-#: comments.php:83
+#: comments.php:82
 msgid "Comment text"
 msgstr ""
 
-#: comments.php:84
+#: comments.php:83
 #, php-format
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr ""
+
+#: geodirectory.php:31 index.php:28 page.php:22 page_full-width.php:18
+#: single.php:28 woocommerce.php:28
+msgid "Sorry, no results were found."
 msgstr ""
 
 #: lib/admin/customizer.php:131
@@ -467,8 +455,8 @@ msgstr ""
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: lib/comments.php:34 template-parts/content/content.php:27
-#: template-parts/post/content.php:27
+#: lib/comments.php:34 template-parts/content/content.php:25
+#: template-parts/post/content.php:25
 msgid "Edit"
 msgstr ""
 
@@ -521,6 +509,10 @@ msgid "Leave a comment"
 msgstr ""
 
 #: lib/entrymeta.php:61
+msgid "1 Comment"
+msgstr ""
+
+#: lib/entrymeta.php:61
 msgid "% Comments"
 msgstr ""
 
@@ -530,32 +522,32 @@ msgid ""
 "theme."
 msgstr ""
 
-#: lib/gd.php:159
+#: lib/gd.php:73
 msgid "My Dashboard"
 msgstr ""
 
-#: lib/gd.php:161
+#: lib/gd.php:75
 msgid "Logout"
 msgstr ""
 
-#: lib/gd.php:172
+#: lib/gd.php:86
 msgid "Register"
 msgstr ""
 
-#: lib/gd.php:180
+#: lib/gd.php:94
 msgid "Lost your password?"
 msgstr ""
 
-#: lib/init.php:132
+#: lib/init.php:139
 msgid "WordPress"
 msgstr ""
 
-#: lib/init.php:133
+#: lib/init.php:140
 #, php-format
 msgid "Copyright &copy; %1$s %2$s %3$s Theme %4$s"
 msgstr ""
 
-#: lib/init.php:134
+#: lib/init.php:141
 #, php-format
 msgid " - Powered by %s."
 msgstr ""
@@ -656,7 +648,7 @@ msgstr ""
 msgid "Previous post:"
 msgstr ""
 
-#: template-parts/content/content.php:18 template-parts/post/content.php:18
+#: template-parts/content/content.php:16 template-parts/post/content.php:16
 msgid "Pages:"
 msgstr ""
 

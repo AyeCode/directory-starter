@@ -24,8 +24,7 @@ if ( post_password_required() ) {
 	<div class="commentlist-wrap">
 		<h2 class="comments-title">
 			<?php
-			printf( _nx( '1 Comment', '%1$s Comments', get_comments_number(), 'comments title', 'directory-starter' ),
-				number_format_i18n( get_comments_number() ));
+			echo esc_html(sprintf( _nx( '%1$s Comment', '%1$s Comments', get_comments_number(), 'comments title', 'directory-starter' ), number_format_i18n( get_comments_number() )));
 			?>
 		</h2>
 
