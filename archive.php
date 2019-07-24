@@ -21,11 +21,11 @@ if ($dt_enable_blog_sidebar) {
             </div>
           </div>
         <?php } ?>
-        <div class="<?php echo $content_class; ?>">
+        <div class="<?php echo esc_attr($content_class); ?>">
             <div class="content-box content-archive">
                 <?php if (!have_posts()) : ?>
                     <div class="alert-error">
-                        <p><?php _e('Sorry, no results were found.', 'directory-starter'); ?></p>
+                        <p><?php esc_html_e('Sorry, no results were found.', 'directory-starter'); ?></p>
                     </div>
                     <?php get_search_form(); ?>
                 <?php endif; ?>
