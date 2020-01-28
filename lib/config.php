@@ -49,6 +49,7 @@ if (!defined('DT_HEADER_TOP_LINK_HOVER')) define('DT_HEADER_TOP_LINK_HOVER', '#E
 if (!defined('DT_HEADER_TOP_BG_COLOR')) define('DT_HEADER_TOP_BG_COLOR', '#202020');
 //header
 if (!defined('DT_HEADER_HEIGHT')) define('DT_HEADER_HEIGHT', '85px');
+if (!defined('DT_HEADER_WIDTH')) define('DT_HEADER_WIDTH', '1600px');
 if (!defined('DT_HEADER_FIXED_TOP')) define('DT_HEADER_FIXED_TOP', '32px');
 if (!defined('DT_HEADER_BG_COLOR')) define('DT_HEADER_BG_COLOR', "#2F2F2F");
 if (!defined('DT_HEADER_TEXT_COLOR')) define('DT_HEADER_TEXT_COLOR', "#FFFFFF");

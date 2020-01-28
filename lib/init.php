@@ -40,7 +40,7 @@ function directory_theme_setup(){
 	$args = array(
 		'default-text-color'      => 'FFFFFF',
 		'height'                 => DT_HEADER_HEIGHT,
-		'width'                  => 1600
+		'width'                  => DT_HEADER_WIDTH
 	);
 
 	add_theme_support( 'custom-header', $args );
