@@ -19,7 +19,7 @@
     float: right;
 
     @for $i from 1 to 20 {
-      li:nth-child(#{$i}) { z-index: 1500 - $i; }
+      li:nth-child(#{$i}) { z-index: 200 - $i; }
     }
 
     li {
