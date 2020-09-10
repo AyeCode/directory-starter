@@ -76,17 +76,13 @@ if ( post_password_required() ) {
 	 *
 	 * @since 1.0.0
 	 */
-	$args = apply_filters( 'dt_comment_form_args', 
-		array(
+	$args = apply_filters('dt_comment_form_args', array(
 			'title_reply' => __('Leave a Comment', 'directory-starter'),
 			'label_submit' => __('Post Comment', 'directory-starter'),
 			'comment_field' => '<p class="comment-form-comment"><label for="comment">' . __('Comment text', 'directory-starter') . '</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>',
-			'must_log_in' => '<p class="must-log-in">' . sprintf(__('You must be <a href="%s">logged in</a> to post a comment.', 'directory-starter'), $login_url) . '</p>',
-			'class_submit'	=> 'btn btn-primary submit',
-		)
-	);
-	
-	comment_form( $args );
+			'must_log_in' => '<p class="must-log-in">' . sprintf(__('You must be <a href="%s">logged in</a> to post a comment.', 'directory-starter'), $login_url) . '</p>'
+	));
+	comment_form($args);
 	?>
 
 	<?php

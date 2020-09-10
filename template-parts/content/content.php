@@ -1,12 +1,6 @@
 <article <?php post_class(); ?>>
 	<header>
-		<?php 
-			if ( is_singular() ) {
-				the_title( '<h1 class="entry-title h1 text-secondary">', '</h1>' );
-			} else {
-				the_title( '<h2 class="entry-title h2"><a class="text-primary" href="' . esc_url( get_permalink() ) . '">', '</a></h2>' );
-			}
-		?>
+		<h1 class="entry-title"><?php the_title(); ?></h1>
 	</header>
 	<div class="entry-content entry-summary">
 		<?php
@@ -19,15 +13,9 @@
 		?>
 		<?php
 		wp_link_pages( array(
-			'before'      => '<nav aria-label="post navigation">
-								<ul class="pagination ml-0">
-									<li class="page-item disabled">
-										<span class="page-link">
-											' . __( 'Pages:', 'directory-starter' ) . '
-										</span>
-									</li>',
-			'after'       => '</ul></nav>',
-			'link_before' => '<span class="page-link">',
+			'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'directory-starter' ) . '</span>',
+			'after'       => '</div>',
+			'link_before' => '<span>',
 			'link_after'  => '</span>',
 		) );
 		?>

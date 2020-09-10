@@ -61,6 +61,7 @@ function dt_geodir_reviews_g_size()
 add_filter('geodir_recent_reviews_g_size', 'dt_geodir_reviews_g_size');
 
 // If GeoDirectory Installed add account mobile menu
+
 function dt_add_mobile_gd_account_menu()
 { ?>
     <div class="dt-mobile-account-wrap"><a href="#gd-account-nav"><i class="fas fa-user"></i></a></div>

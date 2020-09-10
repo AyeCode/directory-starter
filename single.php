@@ -42,10 +42,12 @@ if ($dt_enable_blog_sidebar == '1') {
 
 				// Previous/next post navigation.
 				the_post_navigation( array(
-						'next_text' => '<span aria-hidden="true" class="screen-reader-text">' . __( 'Next post:', 'directory-starter' ) . '</span> ' .
-								'<span class="post-title">%title &rarr;</span>',
-						'prev_text' => '<span aria-hidden="true" class="screen-reader-text">' . __( 'Previous post:', 'directory-starter' ) . '</span> ' .
-								'<span class="post-title">&larr; %title</span>'
+						'next_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Next', 'directory-starter' ) . '</span> ' .
+								'<span class="screen-reader-text">' . __( 'Next post:', 'directory-starter' ) . '</span> ' .
+								'<span class="post-title">%title</span>',
+						'prev_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'directory-starter' ) . '</span> ' .
+								'<span class="screen-reader-text">' . __( 'Previous post:', 'directory-starter' ) . '</span> ' .
+								'<span class="post-title">%title</span>',
 				) );
 
 				// End the loop.
