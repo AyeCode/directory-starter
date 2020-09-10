@@ -13,15 +13,9 @@
 		?>
 		<?php
 		wp_link_pages( array(
-			'before'      => '<nav aria-label="post navigation">
-								<ul class="pagination ml-0">
-									<li class="page-item disabled">
-										<span class="page-link">
-											' . __( 'Pages:', 'directory-starter' ) . '
-										</span>
-									</li>',
-			'after'       => '</ul></nav>',
-			'link_before' => '<span class="page-link">',
+			'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'directory-starter' ) . '</span>',
+			'after'       => '</div>',
+			'link_before' => '<span>',
 			'link_after'  => '</span>',
 		) );
 		?>
