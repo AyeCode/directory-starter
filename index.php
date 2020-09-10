@@ -38,11 +38,9 @@ if ($dt_enable_blog_sidebar == '1') {
 				// End the loop.
 			endwhile;
 
-			// Previous/next page navigation.
-			the_posts_pagination( array(
-				'prev_text'          => __( 'Previous', 'directory-starter' ),
-				'next_text'          => __( 'Next', 'directory-starter' ),
-			) );
+			// AUI Pagination
+			echo aui()->pagination();
+			wp_reset_postdata(); // reset the query 
 			?>
 		</div>
 	</div>
