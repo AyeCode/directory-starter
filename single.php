@@ -12,7 +12,7 @@ if ($dt_enable_blog_sidebar == '1') {
 	$content_class = 'col-lg-12';
 }
 ?>
-<div class="container">
+<section class="<?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?> py-4">
 	<div class="row">
 	<?php if ($dt_enable_blog_sidebar == '1' && $dt_blog_sidebar_position == 'left') { ?>
 		<div class="col-lg-4 col-md-3">
@@ -22,7 +22,7 @@ if ($dt_enable_blog_sidebar == '1') {
 		</div>
 	<?php } ?>
 	<div class="<?php echo $content_class; ?>">
-		<div class="content-box content-single">
+		<div class="content-single">
 			<?php if (!have_posts()) : ?>
 				<div class="alert-error">
 					<p><?php _e('Sorry, no results were found.', 'directory-starter'); ?></p>
@@ -63,7 +63,7 @@ if ($dt_enable_blog_sidebar == '1') {
 		</div>
 	<?php } ?>
 	</div>
-</div>
+</section>
 
 
 <?php do_action('dt_single_after_main_content'); ?>

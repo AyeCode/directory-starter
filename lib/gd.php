@@ -18,7 +18,7 @@ function dt_gdv2_notice() {
 // Actions to fire if GeoDirectory installed.
 if (defined('GEODIRECTORY_VERSION') && version_compare(GEODIRECTORY_VERSION,'2.0.0','>')) {
     // Add mobile account menu
-    add_action('dt_before_site_logo', 'dt_add_mobile_gd_account_menu');
+//    add_action('dt_before_site_logo', 'dt_add_mobile_gd_account_menu');
 }
 
 // Change avatar size

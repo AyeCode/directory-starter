@@ -9,10 +9,10 @@
 get_header(); 
 
 do_action('dt_page_before_main_content'); ?>
-<div class="container">
+<section class="<?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?> py-4">
 	<div class="row">
 	<div class="col-lg-12">
-		<div class="content-box content-single">
+		<div class="content-single">
 			<?php if (!have_posts()) : ?>
 				<div class="alert alert-warning">
 					<?php _e('Sorry, no results were found.', 'directory-starter'); ?>
@@ -36,7 +36,7 @@ do_action('dt_page_before_main_content'); ?>
 		</div>
 	</div>
 	</div>
-</div>
+</section>
 
 <?php do_action('dt_page_after_main_content'); ?>
 

@@ -17,37 +17,100 @@ function directory_theme_comment_nav() {
 				?>
 			</div><!-- .nav-links -->
 		</nav><!-- .comment-navigation -->
-	<?php
+		<?php
 	endif;
 }
 
-function directory_theme_comment( $comment, $args, $depth ) { ?>
 
-<li <?php comment_class(); ?> id="comment-<?php comment_ID() ?>">
-	<div class="single-comment">
-		<div class="avatar-wrap"><?php echo get_avatar( $comment->comment_author_email, 60 ); ?></div>
-		<div class="comment-box">
-			<div class="dt-comment-header">
-				<strong><?php echo get_comment_author_link(); ?></strong>
-				<?php printf( __( '%1$s at %2$s', 'directory-starter' ), get_comment_date(),  get_comment_time() ); ?>
-				<div class="dt-comment-btn-wrap">
-				<?php edit_comment_link( __( 'Edit', 'directory-starter' ),'  ','' ); ?>
-				<?php comment_reply_link( array_merge( $args, array(
-					'reply_text' => __( 'Reply', 'directory-starter' ),
-					'add_below' => 'comment',
-					'depth' => $depth,
-					'max_depth' => $args['max_depth']
-				) ) ); ?>
-				</div>
-			</div>
-			<div class="comment-text">
-				<?php if ( $comment->comment_approved == '0' ) : ?>
-					<em><?php _e( 'Your comment is awaiting moderation.', 'directory-starter' ); ?></em>
-					<br />
-				<?php endif; ?>
-				<?php comment_text() ?>
-			</div>
-		</div>
-	</div>
-	<?php
+add_filter( 'comment_form_defaults', 'ds_comment_form_defaults' );
+function ds_comment_form_defaults($defaults){
+	
+
+	// comment field
+	$defaults['comment_field'] = aui()->textarea(array(
+		'name'       => 'comment',
+		'class'      => '',
+		'id'         => 'comment',
+		'placeholder'=> esc_html__( "Enter your review comments here (required)...", 'directory-starter'),
+		'required'   => true,
+		'label'      => esc_html__( "Review text", 'directory-starter'),
+		'rows'      => 8,
+	));
+
+	// author name
+	$defaults['fields']['author'] = aui()->input(
+		array(
+			'id'                => 'author',
+			'name'              => 'author',
+			'required'          => true,
+			'label'              => esc_html__( "Name", 'directory-starter'),
+			'type'              => 'text',
+			'placeholder'       => esc_html__( "Name (required)" , 'directory-starter'),
+			'extra_attributes'  => array(
+				'maxlength' => "245"
+			)
+		)
+	);
+
+	// author email
+	$defaults['fields']['email'] = aui()->input(
+		array(
+			'id'                => 'email',
+			'name'              => 'email',
+			'required'          => true,
+			'label'              => esc_html__( "Email", 'directory-starter'),
+			'type'              => 'email',
+			'placeholder'       => esc_html__( "Email (required)" , 'directory-starter'),
+			'extra_attributes'  => array(
+				'maxlength' => "100"
+			)
+		)
+	);
+
+	// website url
+	$defaults['fields']['url'] = aui()->input(
+		array(
+			'id'                => 'url',
+			'name'              => 'url',
+			'required'          => true,
+			'label'              => esc_html__( "Website", 'directory-starter'),
+			'type'              => 'url',
+			'placeholder'       => esc_html__( "Website" , 'directory-starter'),
+			'extra_attributes'  => array(
+				'maxlength' => "200"
+			)
+		)
+	);
+
+	// website url
+	$defaults['fields']['cookies'] = aui()->input(
+		array(
+			'id'                => 'wp-comment-cookies-consent',
+			'name'              => 'wp-comment-cookies-consent',
+			'required'          => true,
+			'value'             => 'yes',
+			'label'              => esc_html__( "Save my name, email, and website in this browser for the next time I comment.", 'directory-starter'),
+			'type'              => 'checkbox',
+		)
+	);
+
+	// logged in as
+	$defaults['logged_in_as'] = str_replace("logged-in-as","logged-in-as mb-3",$defaults['logged_in_as'] );
+
+	// logged out notes
+	$defaults['comment_notes_before'] = aui()->alert(array(
+			'type'=> 'info',
+			'content'=> __("Your email address will not be published.","directory-starter")
+		)
+	);
+
+	$defaults['class_submit'] .= " btn btn-primary form-control text-white";
+
+	$defaults['submit_field'] = '<div class="form-submit form-group">%1$s %2$s</div>';
+
+	$defaults['class_submit'] .= " btn btn-primary form-control text-white";
+
+	$defaults['submit_field'] = '<div class="form-submit form-group">%1$s %2$s</div>';
+
+	return $defaults;
 }

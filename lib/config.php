@@ -14,11 +14,7 @@ if (!defined('DT_DISABLE_FOOTER_CREDITS')) define('DT_DISABLE_FOOTER_CREDITS', '
 
 //styles
 //container
-if (!defined('DT_CONTAINER_WIDTH')) define('DT_CONTAINER_WIDTH', '1170px');
-if (!defined('DT_CONTAINER_PADDING_RIGHT')) define('DT_CONTAINER_PADDING_RIGHT', '15px');
-if (!defined('DT_CONTAINER_PADDING_LEFT')) define('DT_CONTAINER_PADDING_LEFT', '15px');
-if (!defined('DT_CONTAINER_MARGIN_RIGHT')) define('DT_CONTAINER_MARGIN_RIGHT', "auto");
-if (!defined('DT_CONTAINER_MARGIN_LEFT')) define('DT_CONTAINER_MARGIN_LEFT', "auto");
+if (!defined('DT_CONTAINER_FULL')) define('DT_CONTAINER_FULL', '');
 //logo
 if (!defined('DT_LOGO_MARGIN_RIGHT')) define('DT_LOGO_MARGIN_RIGHT', '0px');
 if (!defined('DT_LOGO_MARGIN_LEFT')) define('DT_LOGO_MARGIN_LEFT', '0px');
@@ -29,12 +25,14 @@ if (!defined('DT_FONT_SIZE')) define('DT_FONT_SIZE', '16px');
 if (!defined('DT_LINE_HEIGHT')) define('DT_LINE_HEIGHT', '20px');
 
 //colors
-if (!defined('DT_BACKGROUND_COLOR')) define('DT_BACKGROUND_COLOR', "#F2F2F2");
+if (!defined('DT_BACKGROUND_COLOR')) define('DT_BACKGROUND_COLOR', "#F8F9FA");
 if (!defined('DT_BODY_COLOR')) define('DT_BODY_COLOR', "#757575");
 //content box colors
 if (!defined('DT_CONTENT_BG')) define('DT_CONTENT_BG', "#FFFFFF");
+if (!defined('DT_CONTENT_BORDER_SHOW')) define('DT_CONTENT_BORDER_SHOW', "");
 if (!defined('DT_CONTENT_BORDER')) define('DT_CONTENT_BORDER', "#FFFFFF");
-if (!defined('DT_CONTENT_SHADOW')) define('DT_CONTENT_SHADOW', "rgba(0,0,0,0.2)");
+if (!defined('DT_CONTENT_SHADOW')) define('DT_CONTENT_SHADOW', "shadow-sm");
+if (!defined('DT_CONTENT_CORNERS')) define('DT_CONTENT_CORNERS', "rounded");
 if (!defined('DT_COLOR_WHITE')) define('DT_COLOR_WHITE', "#FFFFFF");
 //h1 to h6
 if (!defined('DT_H1TOH6_COLOR')) define('DT_H1TOH6_COLOR', "#757575");
@@ -56,7 +54,7 @@ if (!defined('DT_HEADER_TEXT_COLOR')) define('DT_HEADER_TEXT_COLOR', "#FFFFFF");
 if (!defined('DT_HEADER_LINK_COLOR')) define('DT_HEADER_LINK_COLOR', "#FFFFFF");
 if (!defined('DT_HEADER_LINK_HOVER')) define('DT_HEADER_LINK_HOVER', '#E8E8E8');
 if (!defined('DT_HEADER_BORDER_COLOR')) define('DT_HEADER_BORDER_COLOR', "#FFFFFF");
-if (!defined('DT_HEADER_SHADOW_COLOR')) define('DT_HEADER_SHADOW_COLOR', "rgba(0,0,0,0.2)");
+if (!defined('DT_HEADER_SHADOW')) define('DT_HEADER_SHADOW', "");
 if (!defined('DT_HEADER_LOGO_WIDTH')) define('DT_HEADER_LOGO_WIDTH', '20%');
 if (!defined('DT_HEADER_MENU_WIDTH')) define('DT_HEADER_MENU_WIDTH', '80%');
 //primary nav
@@ -68,8 +66,8 @@ if (!defined('DT_P_NAV_SUBMENU_BG_COLOR')) define('DT_P_NAV_SUBMENU_BG_COLOR', D
 if (!defined('DT_P_NAV_SUBMENU_BG_HOVER')) define('DT_P_NAV_SUBMENU_BG_HOVER', '#464646');
 //footer widget
 if (!defined('DT_FW_BG')) define('DT_FW_BG', "#2F2F2F");
-if (!defined('DT_FW_BORDER_TOP_COLOR')) define('DT_FW_BORDER_TOP_COLOR', "#FFFFFF");
-if (!defined('DT_FW_BORDER_BOTTOM_COLOR')) define('DT_FW_BORDER_BOTTOM_COLOR', "#444");
+if (!defined('DT_FW_BORDER_TOP_COLOR')) define('DT_FW_BORDER_TOP_COLOR', "");
+if (!defined('DT_FW_BORDER_BOTTOM_COLOR')) define('DT_FW_BORDER_BOTTOM_COLOR', "");
 if (!defined('DT_FW_BOX_SHADOW_COLOR')) define('DT_FW_BOX_SHADOW_COLOR', "rgba(0,0,0,0.2)");
 if (!defined('DT_FW_TEXT_COLOR')) define('DT_FW_TEXT_COLOR', "#BBB");
 if (!defined('DT_FW_H1TOH6_COLOR')) define('DT_FW_H1TOH6_COLOR', "#BBB");

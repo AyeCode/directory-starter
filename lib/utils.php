@@ -22,7 +22,7 @@ function directory_theme_paginate() {
 function dt_header_image() {
 	$style = '';
 	if ($url = esc_url( get_header_image() )) {
-		$style = 'background: url('.$url.') no-repeat scroll top;';
+		$style = 'background: url('.$url.') no-repeat scroll top;background-size: cover;';
 	}
 	return $style;
 }
@@ -33,3 +33,13 @@ function dt_excerpt_more() {
 	return '<a class="moretag" href="'. get_permalink($post->ID) . '"> Read more...</a>';
 }
 add_filter('excerpt_more', 'dt_excerpt_more');
+
+function dt_content_classes(){
+	$classes = array();
+
+	$classes[] = get_theme_mod('dt_content_border_show', DT_CONTENT_BORDER_SHOW);
+	$classes[] = get_theme_mod('dt_content_shadow', DT_CONTENT_SHADOW);
+	$classes[] = get_theme_mod('dt_content_corners', DT_CONTENT_CORNERS);
+
+	return implode(" ",$classes);
+}
