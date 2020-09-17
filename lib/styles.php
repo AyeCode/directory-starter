@@ -16,21 +16,6 @@ function directory_theme_customize_css()
 	 *      1.2.3 - Container Padding Left
 	 *      1.2.4 - Container Margin Right
 	 *      1.2.5 - Container Margin Left
-	 *   1.3 - Static Front Page
-	 *      1.3.1 - Front Page
-	 *   1.4 - Alert Colors
-	 *      1.4.1 - Alert Warning Background Color
-	 *      1.4.2 - Alert Error Background Color
-	 *      1.4.3 - Alert Success Background Color
-	 *      1.4.4 - Alert Info Background Color
-	 *      1.4.5 - Alert Warning Text Color
-	 *      1.4.6 - Alert Error Text Color
-	 *      1.4.7 - Alert Success Text Color
-	 *      1.4.8 - Alert Info Text Color
-	 *      1.4.9 - Alert Warning Border Color
-	 *      1.4.10 - Alert Error Border Color
-	 *      1.4.11 - Alert Success Border Color
-	 *      1.4.12 - Alert Info Border Color
 	 * 	 1.5 - Button Colors
 	 *      1.5.1 - Button Text Color
 	 *      1.5.2 - Button Background Color
@@ -148,186 +133,8 @@ function directory_theme_customize_css()
 	//  =============================
 	//  1.2 - Spacing
 	//  =============================
-	?>
-		<?php
-		//  =============================
-		//  1.2.1 - Desktop Container Width
-		//  =============================
-		?>
-			@media (min-width: 1200px) {
-				.container, .geodir-common, .geodir-breadcrumb, .geodir_full_page .widget {
-					width: <?php echo esc_attr(get_theme_mod('dt_container_width', DT_CONTAINER_WIDTH)); ?>;
-				}
-			}
-		<?php
-		//  =============================
-		//  1.2.2 - Container Padding Right
-		//  =============================
-		?>
-			.container, .geodir-common, .geodir-breadcrumb, .geodir_full_page .widget {
-				padding-right: <?php echo esc_attr(get_theme_mod('dt_container_padding_right', DT_CONTAINER_PADDING_RIGHT)); ?>;
-				padding-left: <?php echo esc_attr(get_theme_mod('dt_container_padding_left', DT_CONTAINER_PADDING_LEFT)); ?>;
-				margin-right: <?php echo esc_attr(get_theme_mod('dt_container_margin_right', DT_CONTAINER_MARGIN_RIGHT)); ?>;
-				margin-left: <?php echo esc_attr(get_theme_mod('dt_container_margin_left', DT_CONTAINER_MARGIN_LEFT)); ?>;
-			}
-		<?php
-		//  =============================
-		//  1.2.3 - Container Padding Left
-		//  =============================
-			// @see 1.2.2
-		?>
-		<?php
-		//  =============================
-		//  1.2.4 - Container Margin Right
-		//  =============================
-			// @see 1.2.2
-		?>
-		<?php
-		//  =============================
-		//  1.2.5 - Container Margin Left
-		//  =============================
-			// @see 1.2.2
-		?>
-	<?php
-	//  =============================
-	//  1.3 - Static Front Page
-	//  =============================
-	?>
-		<?php
-		//  =============================
-		//  1.3.1 - Front Page
-		//  =============================
-		?>
-	<?php
-	//  =============================
-	//  1.4 - Alert Colors
-	//  =============================
-	?>
-		<?php
-		//  =============================
-		//  1.4.1 - Alert Warning Background Color
-		//  =============================
-		?>
-			.alert-warning, #buddypress #message.info p {
-				color: <?php echo esc_attr(get_theme_mod('dt_alert_yellow_text', DT_ALERT_YELLOW_TEXT)); ?>;
-				background-color: <?php echo esc_attr(get_theme_mod('dt_alert_yellow', DT_ALERT_YELLOW)); ?>;
-				border-color: <?php echo esc_attr(get_theme_mod('dt_alert_yellow_border', DT_ALERT_YELLOW_BORDER)); ?>;
-			}
-		<?php
-		//  =============================
-		//  1.4.2 - Alert Error Background Color
-		//  =============================
-		?>
-			.alert-error, .error_msg_fix, #buddypress div#message.error p {
-				color: <?php echo esc_attr(get_theme_mod('dt_alert_red_text', DT_ALERT_RED_TEXT)); ?>;
-				background-color: <?php echo esc_attr(get_theme_mod('dt_alert_red', DT_ALERT_RED)); ?>;
-				border-color: <?php echo esc_attr(get_theme_mod('dt_alert_red_border', DT_ALERT_RED_BORDER)); ?>;
-			}
-		<?php
-		//  =============================
-		//  1.4.3 - Alert Success Background Color
-		//  =============================
-		?>
-			.alert-success, .sucess_msg, #buddypress div#message.updated p {
-				color: <?php echo esc_attr(get_theme_mod('dt_alert_green_text', DT_ALERT_GREEN_TEXT)); ?>;
-				background-color: <?php echo esc_attr(get_theme_mod('dt_alert_green', DT_ALERT_GREEN)); ?>;
-				border-color: <?php echo esc_attr(get_theme_mod('dt_alert_green_border', DT_ALERT_GREEN_BORDER)); ?>;
-			}
-		<?php
-		//  =============================
-		//  1.4.4 - Alert Info Background Color
-		//  =============================
-		?>
-			.alert-info {
-				color: <?php echo esc_attr(get_theme_mod('dt_alert_blue_text', DT_ALERT_BLUE_TEXT)); ?>;
-				background-color: <?php echo esc_attr(get_theme_mod('dt_alert_blue', DT_ALERT_BLUE)); ?>;
-				border-color: <?php echo esc_attr(get_theme_mod('dt_alert_blue_border', DT_ALERT_BLUE_BORDER)); ?>;
-			}
-		<?php
-		//  =============================
-		//  1.4.5 - Alert Warning Text Color
-		//  =============================
-			// @see 1.4.1
-		?>
-		<?php
-		//  =============================
-		//  1.4.6 - Alert Error Text Color
-		//  =============================
-			// @see 1.4.2
-		?>
-		<?php
-		//  =============================
-		//  1.4.7 - Alert Success Text Color
-		//  =============================
-			// @see 1.4.3
-		?>
-		<?php
-		//  =============================
-		//  1.4.8 - Alert Info Text Color
-		//  =============================
-			// @see 1.4.4
-		?>
-		<?php
-		//  =============================
-		//  1.4.9 - Alert Warning Border Color
-		//  =============================
-			// @see 1.4.1
-		?>
-		<?php
-		//  =============================
-		//  1.4.10 - Alert Error Border Color
-		//  =============================
-			// @see 1.4.2
-		?>
-		<?php
-		//  =============================
-		//  1.4.11 - Alert Success Border Color
-		//  =============================
-			// @see 1.4.3
-		?>
-		<?php
-		//  =============================
-		//  1.4.12 - Alert Info Border Color
-		//  =============================
-			// @see 1.4.4
-		?>
-	<?php
-	//  =============================
-	//  1.5 - Button Colors
-	//  =============================
-	?>
-		<?php
-		//  =============================
-		//  1.5.1 - Button Text Color
-		//  =============================
-		?>
-			.dt-btn, button, input[type=button], input[type=reset], input[type=submit], p.edit-link, #buddypress form#whats-new-form input[type=submit], #buddypress .standard-form div.submit input, #buddypress .comment-reply-link, #buddypress button, #buddypress div.generic-button a, #buddypress input[type=button], #buddypress input[type=reset], #buddypress input[type=submit], #buddypress ul.button-nav li a, #buddypress input[type=submit]#notification-bulk-manage, .reply .gd_comment_replaylink .comment-reply-link, #reviewsTab #comments .comment-reply-link, #simplemodal-container #gd-basic-modal-content4 .button,
-			.dt-btn:focus, button:focus, input[type=button]:focus, input[type=reset]:focus, input[type=submit]:focus, p.edit-link:focus, .reply .gd_comment_replaylink #gd_comment_replaylink:focus, #buddypress form#whats-new-form input[type=submit]:focus, #buddypress .standard-form div.submit input:focus, #buddypress .comment-reply-link:focus, #buddypress button:focus, #buddypress div.generic-button a:focus, #buddypress input[type=button]:focus, #buddypress input[type=reset]:focus, #buddypress input[type=submit]:focus, #buddypress ul.button-nav li a:focus, #buddypress input[type=submit]#notification-bulk-manage:focus, .reply .gd_comment_replaylink .comment-reply-link:focus, #reviewsTab #comments .comment-reply-link:focus, #simplemodal-container #gd-basic-modal-content4 .button:focus {
-				color: <?php echo esc_attr(get_theme_mod('dt_btn_text_color', DT_BTN_TEXT_COLOR)); ?>;
-				background-color: <?php echo esc_attr(get_theme_mod('dt_btn_bg_color', DT_BTN_BG_COLOR)); ?>;
-				border: 1px solid <?php echo esc_attr(get_theme_mod('dt_btn_border_color', DT_BTN_BORDER_COLOR)); ?>;
-			}
-		<?php
-		//  =============================
-		//  1.5.2 - Button Background Color
-		//  =============================
-			// @see 1.5.2
-		?>
-		<?php
-		//  =============================
-		//  1.5.3 - Button Hover Background Color
-		//  =============================
-		?>
-			.dt-btn:hover, button:hover, input[type=button]:hover, input[type=reset]:hover, input[type=submit]:hover, p.edit-link:hover, .reply .gd_comment_replaylink #gd_comment_replaylink:hover, #buddypress form#whats-new-form input[type=submit]:hover, #buddypress .standard-form div.submit input:hover, #buddypress .comment-reply-link:hover, #buddypress button:hover, #buddypress div.generic-button a:hover, #buddypress input[type=button]:hover, #buddypress input[type=reset]:hover, #buddypress input[type=submit]:hover, #buddypress ul.button-nav li a:hover, #buddypress input[type=submit]#notification-bulk-manage:hover, .reply .gd_comment_replaylink .comment-reply-link:hover, #reviewsTab #comments .comment-reply-link:hover, #simplemodal-container #gd-basic-modal-content4 .button:hover {
-				background-color: <?php echo esc_attr(get_theme_mod('dt_btn_hover_color', DT_BTN_HOVER_COLOR)); ?>;
-			}
-		<?php
-		//  =============================
-		//  1.5.4 - Button Border Color
-		//  =============================
-			// @see 1.5.4
-		?>
-	<?php
+
+	
 //  =============================
 //  2.0 - Header
 //  =============================
@@ -357,7 +164,7 @@ function directory_theme_customize_css()
 		?>
 			.ds-top-header a,
 			.ds-top-header a:visited {
-				color: <?php echo esc_attr(get_theme_mod('dt_header_top_link_color', DT_HEADER_TOP_LINK_COLOR)); ?>;
+				color: <?php echo esc_attr(get_theme_mod('dt_header_top_link_color', DT_HEADER_TOP_LINK_COLOR)); ?> !important;
 			}
 		<?php
 		//  =============================
@@ -365,7 +172,7 @@ function directory_theme_customize_css()
 		//  =============================
 		?>
 			.ds-top-header a:hover {
-				color: <?php echo esc_attr(get_theme_mod('dt_header_top_link_hover', DT_HEADER_TOP_LINK_HOVER)); ?>;
+				color: <?php echo esc_attr(get_theme_mod('dt_header_top_link_hover', DT_HEADER_TOP_LINK_HOVER)); ?> !important;
 			}
 		<?php
 		//  =============================
@@ -405,8 +212,8 @@ function directory_theme_customize_css()
 		//  2.4.1 - Header Text color
 		//  =============================
 		?>
-			.site-header {
-				color: <?php echo esc_attr(get_theme_mod('header_textcolor', DT_BODY_COLOR)); ?>;
+			.site-header hgroup a {
+				color: <?php echo esc_attr(get_theme_mod('header_textcolor', DT_BODY_COLOR)); ?>  !important;
 			}
 		<?php
 		//  =============================
@@ -414,7 +221,7 @@ function directory_theme_customize_css()
 		//  =============================
 		?>
 			.site-header a, .site-header a:visited {
-				color: <?php echo esc_attr(get_theme_mod('dt_header_link_color', DT_HEADER_LINK_COLOR)); ?>;
+				color: <?php echo esc_attr(get_theme_mod('dt_header_link_color', DT_HEADER_LINK_COLOR)); ?> !important;
 			}
 		<?php
 		//  =============================
@@ -422,7 +229,7 @@ function directory_theme_customize_css()
 		//  =============================
 		?>
 			.site-header a:hover, .site-header a:focus, .site-header a:active, .site-header a:visited:hover, .site-header a:visited:focus, .site-header a:visited:active {
-				color: <?php echo esc_attr(get_theme_mod('dt_header_link_hover', DT_HEADER_LINK_HOVER)); ?>;
+				color: <?php echo esc_attr(get_theme_mod('dt_header_link_hover', DT_HEADER_LINK_HOVER)); ?>  !important;
 			}
 	<?php
 	//  =============================
@@ -435,12 +242,7 @@ function directory_theme_customize_css()
 		//  =============================
 		?>
 			.site-header {
-				min-height: <?php echo esc_attr(get_theme_mod('dt_header_height', DT_HEADER_HEIGHT)); ?>;
 				background-color: <?php echo esc_attr(get_theme_mod('dt_header_bg_color', DT_HEADER_BG_COLOR)); ?>;
-				border-color: <?php echo esc_attr(get_theme_mod('dt_header_border_color', DT_HEADER_BORDER_COLOR)); ?>;
-				-webkit-box-shadow: 0 1px 1px <?php echo esc_attr(get_theme_mod('dt_header_shadow_color', DT_HEADER_SHADOW_COLOR)); ?>;
-				-moz-box-shadow: 0 1px 1px <?php echo esc_attr(get_theme_mod('dt_header_shadow_color', DT_HEADER_SHADOW_COLOR)); ?>;
-				box-shadow: 0 1px 1px <?php echo esc_attr(get_theme_mod('dt_header_shadow_color', DT_HEADER_SHADOW_COLOR)); ?>;
 			}
 		<?php
 		//  =============================
@@ -459,15 +261,18 @@ function directory_theme_customize_css()
 		//  2.5.4 - Primary Menu - Sub menu Background Color
 		//  =============================
 		?>
-			#primary-nav ul .sub-menu a {
+			#primary-nav ul .sub-menu a,#primary-nav ul .sub-menu, #primary-nav ul.greedy-links {
 				background-color: <?php echo esc_attr(get_theme_mod('dt_p_nav_submenu_bg_color', DT_P_NAV_SUBMENU_BG_COLOR)); ?>;
 			}
+	#primary-nav ul.greedy-links:before{
+	display:none;
+	}
 		<?php
 		//  =============================
 		//  2.5.5 - Primary Menu - Sub menu Background hover Color
 		//  =============================
 		?>
-			#primary-nav ul .sub-menu a:hover {
+			#primary-nav ul .sub-menu a:hover, #primary-nav ul.greedy-links a:hover {
 				background-color: <?php echo esc_attr(get_theme_mod('dt_p_nav_submenu_bg_hover', DT_P_NAV_SUBMENU_BG_HOVER)); ?>;
 			}
 			@media (max-width: 992px) {
@@ -479,81 +284,8 @@ function directory_theme_customize_css()
 	//  =============================
 	//  2.6 - Typography
 	//  =============================
-	?>
-	<?php
-	//  =============================
-	//  2.7 - Spacing
-	//  =============================
-	?>
-		<?php
-		//  =============================
-		//  2.7.1 - Header Height
-		//  =============================
-			// @see 2.5.1
-		?>
-		<?php
-		//  =============================
-		//  2.7.2 - Logo Margin Right
-		//  =============================
-		?>
-			.site-logo-wrap .site-logo,
-			.site-logo-wrap h1.site-title-no-desc{
-				margin-right: <?php echo esc_attr(get_theme_mod('dt_logo_margin_right', DT_LOGO_MARGIN_RIGHT)); ?>;
-				margin-left: <?php echo esc_attr(get_theme_mod('dt_logo_margin_left', DT_LOGO_MARGIN_LEFT)); ?>;
-				margin-top: <?php echo esc_attr(get_theme_mod('dt_logo_margin_top', DT_LOGO_MARGIN_TOP)); ?>;
-			}
-		<?php
-		//  =============================
-		//  2.7.3 - Logo Margin Left
-		//  =============================
-			// @see 2.7.2
-		?>
-		<?php
-		//  =============================
-		//  2.7.4 - Logo Margin Top
-		//  =============================
-			// @see 2.7.2
-		?>
-		<?php
-		//  =============================
-		//  2.7.5 - Primary Menu Height
-		//  =============================
-		?>
-			#primary-nav ul li a {
-				height: <?php echo esc_attr(get_theme_mod('dt_p_nav_height', DT_P_NAV_HEIGHT)); ?>;
-				line-height: <?php echo esc_attr(get_theme_mod('dt_p_nav_line_height', DT_P_NAV_LINE_HEIGHT)); ?>;
-			}
-		<?php
-		//  =============================
-		//  2.7.6 - Primary Menu Line Height
-		//  =============================
-			// @see 2.7.5
-		?>
-		<?php
-		//  =============================
-		//  2.7.7 - Primary Menu Padding Left Right
-		//  =============================
-		?>
-			#primary-nav ul li {
-				padding: 0 <?php echo esc_attr(get_theme_mod('dt_p_nav_padding_left_right', DT_P_NAV_PADDING_LEFT_RIGHT)); ?>;
-			}
-        <?php
-        //  =============================
-        //  2.7.8 - Header Logo Width
-        //  =============================
-        ?>
-            .site-logo-wrap{
-                width: <?php echo esc_attr(get_theme_mod('dt_header_logo_width', DT_HEADER_LOGO_WIDTH)); ?>;
-            }
-        <?php
-        //  =============================
-        //  2.7.9 - Header Menu Width
-        //  =============================
-        ?>
-            #primary-nav{
-                width: <?php echo esc_attr(get_theme_mod('dt_header_menu_width', DT_HEADER_MENU_WIDTH)); ?>;
-            }
-	<?php
+
+
 //  =============================
 //  3.0 - Body
 //  =============================
@@ -590,33 +322,7 @@ function directory_theme_customize_css()
 			#simplemodal-container h3 {
 				font-family: <?php echo sanitize_text_field(get_theme_mod('dt_font_family', DT_FONT_FAMILY)); ?>;
 			}
-		<?php
-		//  =============================
-		//  3.2.3 - Link Color
-		//  =============================
-		?>
-			a {
-				color: <?php echo esc_attr(get_theme_mod('dt_link_color', DT_LINK_COLOR)); ?>;
-			}
-		<?php
-		//  =============================
-		//  3.2.4 - Link Hover Color
-		//  =============================
-		?>
-			a:hover,
-			a:visited:hover,
-			a:focus,
-			a:active {
-				color: <?php echo esc_attr(get_theme_mod('dt_link_hover', DT_LINK_HOVER)); ?>;
-			}
-		<?php
-		//  =============================
-		//  3.2.5 - Link Visited Color
-		//  =============================
-		?>
-			a:visited {
-				color: <?php echo esc_attr(get_theme_mod('dt_link_visited', DT_LINK_VISITED)); ?>;
-			}
+	
 	<?php
 	//  =============================
 	//  3.3 - Background Colors
@@ -632,10 +338,9 @@ function directory_theme_customize_css()
 		//  3.3.2 - Content Box Background Color
 		//  =============================
 		?>
-			.content-box, .content .entry, #geodir_content, .sidebar .widget, .geodir-content-left .geodir-company_info, .geodir-content-right .geodir-company_info, .geodir_full_page .geodir-category-list-in, .geodir_full_page .geodir-loc-bar {
+			.bsui .content-box, .bsui .content .entry, .bsui #geodir_content, .bsui .sidebar .widget, .bsui .geodir-content-left .geodir-company_info, .bsui .geodir-content-right .geodir-company_info, .bsui .geodir_full_page .geodir-category-list-in, .bsui .geodir_full_page .geodir-loc-bar {
 				background-color: <?php echo esc_attr(get_theme_mod('dt_content_bg', DT_CONTENT_BG)); ?>;
-				border-color: <?php echo esc_attr(get_theme_mod('dt_content_border', DT_CONTENT_BORDER)); ?>;
-				box-shadow: 0 1px 1px <?php echo esc_attr(get_theme_mod('dt_content_shadow', DT_CONTENT_SHADOW)); ?>;
+				border-color: <?php echo esc_attr(get_theme_mod('dt_content_border', DT_CONTENT_BORDER)); ?> !important;
 			}
 		<?php
 		//  =============================
@@ -659,11 +364,12 @@ function directory_theme_customize_css()
 		//  3.4.1 - Font Family
 		//  =============================
 		?>
-			body {
+			.bsui body {
 				font-family: <?php echo sanitize_text_field(get_theme_mod('dt_font_family', DT_FONT_FAMILY)); // sanitize_text_field used as we need to keep quotes '' ?>;
 				font-size: <?php echo esc_attr(get_theme_mod('dt_font_size', DT_FONT_SIZE)); ?>;
 				line-height: <?php echo esc_attr(get_theme_mod('dt_line_height', DT_LINE_HEIGHT)); ?>;
 				color: <?php echo esc_attr(get_theme_mod('dt_body_color', DT_BODY_COLOR)); ?>;
+	background-color: <?php echo DT_BACKGROUND_COLOR;?>;
 			}
 		<?php
 		//  =============================
@@ -677,7 +383,7 @@ function directory_theme_customize_css()
 		//  =============================
 			// @see 3.4.1
 		?>
-			p {
+			bsui p {
 				line-height: <?php echo esc_attr(get_theme_mod('dt_line_height', '22px')); ?>;
 			}
 	<?php
@@ -759,13 +465,10 @@ function directory_theme_customize_css()
 		//  4.2.1 - Footer Section Background Color
 		//  =============================
 		?>
-			.footer-widgets {
+			#footer .footer-widgets {
 				background-color: <?php echo esc_attr(get_theme_mod('dt_fw_bg', DT_FW_BG)); ?>;
-				border-top-color: <?php echo esc_attr(get_theme_mod('dt_fw_border_top_color', DT_FW_BORDER_TOP_COLOR)); ?>;
-				border-bottom-color: <?php echo esc_attr(get_theme_mod('dt_fw_border_bottom_color', DT_FW_BORDER_BOTTOM_COLOR)); ?>;
-				-webkit-box-shadow: 0 -1px 1px <?php echo esc_attr(get_theme_mod('dt_fw_box_shadow_color', DT_FW_BOX_SHADOW_COLOR)); ?>;
-				-moz-box-shadow: 0 -1px 1px <?php echo esc_attr(get_theme_mod('dt_fw_box_shadow_color', DT_FW_BOX_SHADOW_COLOR)); ?>;
-				box-shadow: 0 -1px 1px <?php echo esc_attr(get_theme_mod('dt_fw_box_shadow_color', DT_FW_BOX_SHADOW_COLOR)); ?>;
+				border-top-color: <?php echo esc_attr(get_theme_mod('dt_fw_border_top_color', DT_FW_BORDER_TOP_COLOR)); ?> !important;
+				border-bottom-color: <?php echo esc_attr(get_theme_mod('dt_fw_border_bottom_color', DT_FW_BORDER_BOTTOM_COLOR)); ?> !important;
 			}
 		<?php
 		//  =============================
@@ -810,7 +513,7 @@ function directory_theme_customize_css()
 		//  5.1.1 - Body Color
 		//  =============================
 		?>
-			.copyright {
+	#footer .copyright {
 				color: <?php echo esc_attr(get_theme_mod('dt_copyright_text_color', DT_COPYRIGHT_TEXT_COLOR)); ?>;
 			}
 		<?php
@@ -818,7 +521,7 @@ function directory_theme_customize_css()
 		//  5.1.2 - Link Color
 		//  =============================
 		?>
-			.copyright a {
+	#footer .copyright a {
 				color: <?php echo esc_attr(get_theme_mod('dt_copyright_link_color', DT_COPYRIGHT_LINK_COLOR)); ?>;
 			}
 		<?php
@@ -826,10 +529,10 @@ function directory_theme_customize_css()
 		//  5.1.3 - Link Hover Color
 		//  =============================
 		?>
-			.copyright a:hover,
-			.copyright a:visited:hover,
-			.copyright a:focus,
-			.copyright a:active {
+	#footer .copyright a:hover,
+	#footer .copyright a:visited:hover,
+	#footer .copyright a:focus,
+	#footer .copyright a:active {
 				color: <?php echo esc_attr(get_theme_mod('dt_copyright_link_hover', DT_COPYRIGHT_LINK_HOVER)); ?>;
 			}
 		<?php
@@ -837,7 +540,7 @@ function directory_theme_customize_css()
 		//  5.1.4 - Link Visited Color
 		//  =============================
 		?>
-			.copyright a:visited {
+	#footer .copyright a:visited {
 				color: <?php echo esc_attr(get_theme_mod('dt_copyright_link_visited', DT_COPYRIGHT_LINK_VISITED)); ?>;
 			}
 	<?php
@@ -850,10 +553,10 @@ function directory_theme_customize_css()
 		//  5.2.1 - Copyright Section Background Color
 		//  =============================
 		?>
-			.copyright {
+	#footer .copyright {
 				background-color: <?php echo esc_attr(get_theme_mod('dt_copyright_bg', DT_COPYRIGHT_BG)); ?>;
 				border-top: 1px solid #151515;
-				border-top-color: <?php echo esc_attr(get_theme_mod('dt_copyright_border_color', DT_COPYRIGHT_BORDER_COLOR)); ?>;
+				border-top-color: <?php echo esc_attr(get_theme_mod('dt_copyright_border_color', DT_COPYRIGHT_BORDER_COLOR)); ?> !important;
 			}
 		<?php
 		//  =============================
@@ -875,12 +578,7 @@ function directory_theme_customize_css()
 		//  =============================
 		//  5.4.1 - Copyright Padding Top
 		//  =============================
-		?>
-			.copyright .container {
-				padding-top: <?php echo esc_attr(get_theme_mod('dt_copyright_padding_top', DT_COPYRIGHT_PADDING_TOP)); ?>;
-				padding-bottom: <?php echo esc_attr(get_theme_mod('dt_copyright_padding_bottom', DT_COPYRIGHT_PADDING_BOTTOM)); ?>;
-			}
-		<?php
+
 		//  =============================
 		//  5.4.2 - Copyright Padding Bottom
 		//  =============================
@@ -895,5 +593,137 @@ function directory_theme_customize_css()
 		//  =============================
 		//  5.5.1 - Copyright Text
 		//  =============================
+
+	//  =============================
+	//  GD
+	//  =============================
+	?>
+	.fullwidth-sidebar-container .geodir-wgt-map{
+	padding: 0;
+	}
+	<?php
+
+
+	//  =============================
+	//  DEFAULTS
+	//  =============================
+	?>
+	ul,li{
+		list-style: none;
+		padding-left: 0;
+	}
+<?php
+
+	?>
+	/* =WordPress Core
+	-------------------------------------------------------------- */
+	.alignnone {
+	margin: 5px 20px 20px 0;
+	}
+
+	.aligncenter,
+	div.aligncenter {
+	display: block;
+	margin: 5px auto 5px auto;
+	}
+
+	.alignright {
+	float:right;
+	margin: 5px 0 20px 20px;
+	}
+
+	.alignleft {
+	float: left;
+	margin: 5px 20px 20px 0;
+	}
+
+	a img.alignright {
+	float: right;
+	margin: 5px 0 20px 20px;
+	}
+
+	a img.alignnone {
+	margin: 5px 20px 20px 0;
+	}
+
+	a img.alignleft {
+	float: left;
+	margin: 5px 20px 20px 0;
+	}
+
+	a img.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
+
+	.wp-caption {
+	background: #fff;
+	border: 1px solid #f0f0f0;
+	max-width: 96%; /* Image does not overflow the content area */
+	padding: 5px 3px 10px;
+	text-align: center;
+	}
+
+	.wp-caption.alignnone {
+	margin: 5px 20px 20px 0;
+	}
+
+	.wp-caption.alignleft {
+	margin: 5px 20px 20px 0;
+	}
+
+	.wp-caption.alignright {
+	margin: 5px 0 20px 20px;
+	}
+
+	.wp-caption img {
+	border: 0 none;
+	height: auto;
+	margin: 0;
+	max-width: 98.5%;
+	padding: 0;
+	width: auto;
+	}
+
+	.wp-caption p.wp-caption-text {
+	font-size: 11px;
+	line-height: 17px;
+	margin: 0;
+	padding: 0 4px 5px;
+	}
+
+	/* Text meant only for screen readers. */
+	.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
+	}
+
+	.screen-reader-text:focus {
+	background-color: #eee;
+	clip: auto !important;
+	clip-path: none;
+	color: #444;
+	display: block;
+	font-size: 1em;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000;
+	/* Above WP toolbar. */
+	}
+<?php
 
 }

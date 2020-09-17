@@ -1,6 +1,6 @@
-<article <?php post_class(); ?>>
+<article <?php post_class('content-box p-3 mb-3 '.dt_content_classes()); ?>>
 	<header>
-		<h1 class="entry-title"><?php the_title(); ?></h1>
+		<h1 class="entry-title border-bottom pb-2 h3"><?php the_title(); ?></h1>
 	</header>
 	<div class="entry-content entry-summary">
 		<?php
@@ -20,8 +20,8 @@
 		) );
 		?>
 	</div>
-	<footer class="entry-footer">
+	<footer class="entry-footer mt-2 pt-2 text-muted">
 		<?php directory_theme_entry_meta(); ?>
-		<?php edit_post_link( __( 'Edit', 'directory-starter' ), '<span class="edit-link">', '</span>' ); ?>
+		<?php edit_post_link( __( 'Edit', 'directory-starter' ), '<span class="edit-link"><i class="fas fa-pencil-alt"></i> ', '</span>' ); ?>
 	</footer>
 </article>

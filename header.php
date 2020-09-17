@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="no-js">
+<html <?php language_attributes(); ?> class="no-js bsui">
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width">
@@ -9,9 +9,10 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="ds-container" >
-<?php do_action('dt_before_header'); ?>
 <?php
+if(function_exists('wp_body_open')){wp_body_open();}
+do_action('dt_before_header');
+
 $enable_header_top = esc_attr(get_theme_mod('dt_enable_header_top', DT_ENABLE_HEADER_TOP));
 if ($enable_header_top == '1') {
 	$extra_class = 'dt-header-top-enabled';
@@ -19,31 +20,30 @@ if ($enable_header_top == '1') {
 	$extra_class = '';
 }
 ?>
-<header id="site-header" class="site-header <?php echo $extra_class; ?>" role="banner" style="<?php echo dt_header_image(); ?>">
+<header id="site-header" class="site-header <?php echo $extra_class; ?> <?php echo esc_attr( get_theme_mod('dt_header_shadow', DT_HEADER_SHADOW) ); ?>" role="banner" style="<?php echo dt_header_image(); ?>">
 
-	<div class="container">
 
-        <?php
-        /**
-         * This action is called before the site logo wrapper.
-         *
-         * @since 1.0.2
-         */
-        do_action('dt_before_site_logo');?>
+	<nav class="navbar navbar-expand-lg navbar-dark  <?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?>">
+		<?php
+		/**
+		 * This action is called before the site logo wrapper.
+		 *
+		 * @since 1.0.2
+		 */
+		do_action('dt_before_site_logo');?>
 
-		<div class="site-logo-wrap">
-			<?php if ( get_theme_mod( 'logo', false ) ) : ?>
-				<div class='site-logo'>
-					<a href='<?php echo esc_url( home_url( '/' ) ); ?>' title='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>' rel='home'><img src='<?php echo esc_url( get_theme_mod( 'logo', false ) ); ?>' alt='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>'></a>
-				</div>
-			<?php else : ?>
-				<?php
-				if ( display_header_text() )
-					$style = ' style="color:#' . get_header_textcolor() . ';"';
-				else
-					$style = ' style="display:none;"';
+		<?php if ( get_theme_mod( 'logo', false ) ) : ?>
+			<div class='navbar-brand'>
+				<a href='<?php echo esc_url( home_url( '/' ) ); ?>' title='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>' rel='home'><img src='<?php echo esc_url( get_theme_mod( 'logo', false ) ); ?>' alt='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>'></a>
+			</div>
+		<?php else : ?>
+			<?php
+			if ( display_header_text() )
+				$style = ' style="color:#' . get_header_textcolor() . ' !important;"';
+			else
+				$style = ' style="display:none;"';
 
-				if ( display_header_text() ) : ?>
+			if ( display_header_text() ) : ?>
 				<?php
 				$desc = get_bloginfo( 'description', 'display' );
 				$class = '';
@@ -52,41 +52,33 @@ if ($enable_header_top == '1') {
 				}
 				?>
 				<hgroup>
-					<h1 class='site-title <?php echo $class; ?>'>
-						<a <?php echo $style; ?> href='<?php echo esc_url( home_url( '/' ) ); ?>' title='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>' rel='home'><?php bloginfo( 'name' ); ?></a>
+					<h1 class='site-title h2 mb-0  <?php echo $class; ?>'>
+						<a class="navbar-brand" <?php echo $style; ?> href='<?php echo esc_url( home_url( '/' ) ); ?>' title='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>' rel='home'><?php bloginfo( 'name' ); ?></a>
 					</h1>
 					<?php
 					if ($enable_header_top != '1') { ?>
-						<h2 class="site-description">
+						<div class="site-description h6">
 							<a <?php echo $style; ?> href='<?php echo esc_url( home_url( '/' ) ); ?>' title='<?php echo esc_attr( $desc ); ?>' rel='home'><?php echo $desc; ?></a>
-						</h2>
+						</div>
 					<?php } ?>
 				</hgroup>
-				<?php endif; ?>
 			<?php endif; ?>
-		</div>
-		<?php if ( has_nav_menu( 'primary-menu' ) ) { ?>
-		<nav id="primary-nav" class="primary-nav" role="navigation">
-			<?php
-				wp_nav_menu( array(
-					'container'      => false,
-					'theme_location' => 'primary-menu',
-				) );
+		<?php endif; ?>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primary-nav" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse " id="primary-nav">
+			<?php if ( has_nav_menu( 'primary-menu' ) ) {
+					wp_nav_menu( array(
+						'container'      => false,
+						'theme_location' => 'primary-menu',
+						'menu_class' => 'navbar-nav ml-auto text-nowrap flex-wrap'
+					) );
+				}
 			?>
-		</nav>
+		</div>
+	</nav>
 
-		<?php
-            /**
-             * Filter the mobile navigation button html.
-             *
-             * @since 1.0.2
-             */
-            echo apply_filters('dt_mobile_menu_button','<div class="dt-nav-toggle  dt-mobile-nav-button-wrap"><a href="#primary-nav"><i class="fas fa-bars"></i></a></div>');
-        } ?>
-
-
-
-
-	</div>
 </header>
 <?php do_action('dt_after_header'); ?>

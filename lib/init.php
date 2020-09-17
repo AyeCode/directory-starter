@@ -20,6 +20,9 @@ function directory_theme_setup(){
 	// Post thumbnails
 	add_theme_support( 'post-thumbnails' );
 
+	// Enable support for HTML5 markup.
+	add_theme_support( 'html5', array( 'comment-list', 'search-form', 'comment-form', ) );
+
 	// GeoDirectory
 	add_theme_support( 'geodirectory' );
 	add_theme_support( 'geodirectory-sidebar','sidebar-gd' );
@@ -146,3 +149,33 @@ function dt_footer_copyright_default() {
 		echo esc_attr( get_theme_mod( 'dt_copyright_text', DT_COPYRIGHT_TEXT ) );
 	}
 }
+
+/**
+ * Set a default favicon if none set.
+ *
+ * This can improve speed by preventing a 302 redirect to the WP default.
+ *
+ * @param $url
+ * @param $size
+ * @param $blog_id
+ *
+ * @return string
+ */
+function dt_default_site_icon_url($url, $size, $blog_id){
+
+	if(empty($url)){
+		if($size=='32'){
+			$url = get_stylesheet_directory()  . '/assets/images/icon-32.png';
+		}elseif($size=='180'){
+			$url = get_stylesheet_directory()  . '/assets/images/icon-180.png';
+		}elseif($size=='192'){
+			$url = get_stylesheet_directory()  . '/assets/images/icon-192.png';
+		}elseif($size=='270'){
+			$url = get_stylesheet_directory()  . '/assets/images/icon-270.png';
+		}else{
+			$url = get_stylesheet_directory()  . '/assets/images/icon.png';
+		}
+	}
+	return $url;
+}
+add_filter('get_site_icon_url','dt_default_site_icon_url',10,3);

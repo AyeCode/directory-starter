@@ -21,8 +21,8 @@ if ( post_password_required() ) {
 	do_action('dt_before_comment_list'); ?>
 
 	<?php if ( have_comments() ) : ?>
-	<div class="commentlist-wrap">
-		<h2 class="comments-title">
+	<div class="commentlist-wrap content-box p-3 mb-3 <?php echo dt_content_classes();?>">
+		<h2 class="comments-title border-bottom pb-2 h4">
 			<?php
 			echo esc_html(sprintf( _nx( '%1$s Comment', '%1$s Comments', get_comments_number(), 'comments title', 'directory-starter' ), number_format_i18n( get_comments_number() )));
 			?>
@@ -30,11 +30,16 @@ if ( post_password_required() ) {
 
 		<?php //directory_theme_comment_nav(); ?>
 
-		<ol class="commentlist">
+		<ol class="commentlist p-0">
 			<?php
 			wp_list_comments( array(
 				'style'       => 'ol',
-				'callback'    => 'directory_theme_comment'
+//				'callback'    => 'directory_theme_comment',
+//				'style'         => 'ol',
+				'max_depth'     => 4,
+				'short_ping'    => true,
+				'avatar_size'   => '50',
+				'walker'        => new Bootstrap_Comment_Walker(),
 			) );
 			?>
 		</ol><!-- .comment-list -->
@@ -77,10 +82,10 @@ if ( post_password_required() ) {
 	 * @since 1.0.0
 	 */
 	$args = apply_filters('dt_comment_form_args', array(
+		'class_container'   => 'content-box p-3 mb-3 '.dt_content_classes(),
+		'title_reply_before'    => '<h3 id="reply-title" class="comment-reply-title text-muted border-bottom pb-2 h4">',
 			'title_reply' => __('Leave a Comment', 'directory-starter'),
 			'label_submit' => __('Post Comment', 'directory-starter'),
-			'comment_field' => '<p class="comment-form-comment"><label for="comment">' . __('Comment text', 'directory-starter') . '</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>',
-			'must_log_in' => '<p class="must-log-in">' . sprintf(__('You must be <a href="%s">logged in</a> to post a comment.', 'directory-starter'), $login_url) . '</p>'
 	));
 	comment_form($args);
 	?>

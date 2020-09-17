@@ -14,7 +14,7 @@ $dt_blog_sidebar_position = esc_attr(get_theme_mod('dt_blog_sidebar_position', D
 	</div>
 </div>
 
-<div class="container">
+<section class="<?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?> py-4">
 
 	<div class="row">
 	<?php if ($dt_blog_sidebar_position == 'left') { ?>
@@ -25,7 +25,7 @@ $dt_blog_sidebar_position = esc_attr(get_theme_mod('dt_blog_sidebar_position', D
 		</div>
 	<?php } ?>
 	<div class="col-lg-8 col-md-9">
-		<div class="content-box content-single">
+		<div class="content-single">
 			<?php if (!have_posts()) : ?>
 				<div class="alert alert-warning">
 					<?php _e('Sorry, no results were found.', 'directory-starter'); ?>
@@ -56,7 +56,7 @@ $dt_blog_sidebar_position = esc_attr(get_theme_mod('dt_blog_sidebar_position', D
 		</div>
 	<?php } ?>
 	</div>
-</div>
+</section>
 
 <div class="fullwidth-sidebar-container">
 	<div class="sidebar bottom-sidebar">
