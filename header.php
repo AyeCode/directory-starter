@@ -20,9 +20,7 @@ if ($enable_header_top == '1') {
 	$extra_class = '';
 }
 ?>
-<header id="site-header" class="site-header <?php echo $extra_class; ?> <?php echo esc_attr( get_theme_mod('dt_header_shadow', DT_HEADER_SHADOW) ); ?>" role="banner" style="<?php echo dt_header_image(); ?>">
-
-
+<header id="site-header" class="site-header <?php echo apply_filters('dt_header_extra_class', $extra_class); ?> <?php echo esc_attr( get_theme_mod('dt_header_shadow', DT_HEADER_SHADOW) ); ?>" role="banner" style="<?php echo dt_header_image(); ?>">
 	<nav class="navbar navbar-expand-lg navbar-dark  <?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?>">
 		<?php
 		/**
@@ -79,6 +77,5 @@ if ($enable_header_top == '1') {
 			?>
 		</div>
 	</nav>
-
 </header>
 <?php do_action('dt_after_header'); ?>

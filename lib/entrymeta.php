@@ -1,5 +1,5 @@
 <?php
-function directory_theme_entry_meta() {
+function directory_theme_entry_meta($text_class = '') {
 	if ( is_sticky() && is_home() && ! is_paged() ) {
 		printf( '<span class="sticky-post mr-2">%s</span>', __( 'Featured', 'directory-starter' ) );
 	}
@@ -14,7 +14,7 @@ function directory_theme_entry_meta() {
 	}
 
 	if ( in_array( get_post_type(), array( 'post', 'attachment' ) ) ) {
-		$time_string = '<time class="entry-date published updated timeago" datetime="%1$s">%2$s</time>';
+		$time_string = '<time class="entry-date published updated timeago '.$text_class .'" datetime="%1$s">%2$s</time>';
 
 		$time_string = sprintf( $time_string,
 			esc_attr( get_the_date( 'c' ) ),
@@ -40,8 +40,9 @@ function directory_theme_entry_meta() {
 		}
 
 		$categories_list = get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'directory-starter' ) );
+		$categories_list = $text_class ? str_replace(" href=","class='$text_class' href=",$categories_list) : '';
 		if ( $categories_list ) {
-			printf( '<span class="cat-links mr-2"><i class="fas fa-folder-open"></i> <span class="screen-reader-text">%1$s </span>%2$s</span>',
+			printf( '<span class="cat-links mr-2 '.$text_class .'"><i class="fas fa-folder-open"></i> <span class="screen-reader-text">%1$s </span>%2$s</span>',
 				_x( 'Categories', 'Used before category names.', 'directory-starter' ),
 				$categories_list
 			);
@@ -57,8 +58,8 @@ function directory_theme_entry_meta() {
 	}
 
 	if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-		echo '<span class="comments-link mr-2"><i class="fas fa-comment"></i> ';
-		comments_popup_link( __( 'Leave a comment', 'directory-starter' ), __( '1 Comment', 'directory-starter' ), __( '% Comments', 'directory-starter' ) );
+		echo '<span class="comments-link mr-2 '.$text_class.'"><i class="fas fa-comment"></i> ';
+		comments_popup_link( __( 'Leave a comment', 'directory-starter' ), __( '1 Comment', 'directory-starter' ), __( '% Comments', 'directory-starter' ),$text_class );
 		echo '</span>';
 	}
 }

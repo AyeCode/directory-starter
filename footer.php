@@ -28,7 +28,7 @@
 	</div>
 	<div class="copyright text-center border-top <?php echo (has_nav_menu( 'footer-links' )) ? 'footer-links-active' : ''; ?>">
 		<div class="<?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?> <?php echo (has_nav_menu( 'footer-links' )) ? 'd-flex justify-content-between align-items-center' : ''; ?>">
-			<p class="copyright-text p-0 m-0">
+			<p class="copyright-text p-0 m-0 py-3">
 			<?php do_action('dt_footer_copyright'); ?>
 			</p>
 			<?php

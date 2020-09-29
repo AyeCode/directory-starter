@@ -30,7 +30,7 @@ class Bootstrap_Comment_Walker extends Walker_Comment {
 		<<?php echo $tag; ?> id="comment-<?php comment_ID(); ?>" <?php comment_class( $this->has_children ? 'has-children media' : ' media' ); ?>>
 
 
-	<div class="media-body card mt-3 shadow-sm mb-3 <?php echo $main_class;?>" id="div-comment-<?php comment_ID(); ?>">
+	<div class="media-body card mt-3 <?php echo DT_CONTENT_SHADOW; ?> mb-3 <?php echo $main_class;?>" id="div-comment-<?php comment_ID(); ?>">
 		<div class="card-header border-bottom bg-white d-flex justify-content-between align-items-center">
 			<div class="flex-grow-1 d-flex align-items-center">
 				<?php if ( $args['avatar_size'] != 0  ): ?>
