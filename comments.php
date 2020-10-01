@@ -83,7 +83,7 @@ if ( post_password_required() ) {
 	 */
 	$args = apply_filters('dt_comment_form_args', array(
 		'class_container'   => 'content-box p-3 mb-3 '.dt_content_classes(),
-		'title_reply_before'    => '<h3 id="reply-title" class="comment-reply-title text-muted border-bottom pb-2 h4">',
+		'title_reply_before'    => '<h3 id="reply-title" class="comment-reply-title border-bottom pb-2 h4">',
 			'title_reply' => __('Leave a Comment', 'directory-starter'),
 			'label_submit' => __('Post Comment', 'directory-starter'),
 	));

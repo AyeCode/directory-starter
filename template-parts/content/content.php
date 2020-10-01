@@ -1,6 +1,12 @@
-<article <?php post_class('content-box p-3 mb-3 '.dt_content_classes()); ?>>
+<article <?php post_class('content-box  '.dt_content_classes()); ?>>
 	<header>
-		<h1 class="entry-title border-bottom pb-2 h3"><?php the_title(); ?></h1>
+		<?php
+		if ( is_singular() ) :
+			the_title( '<h1 class="entry-title border-bottom pb-2 h2">', '</h1>' );
+		else :
+			the_title( sprintf( '<h2 class="entry-title border-bottom pb-2 h3"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
+		endif;
+		?>
 	</header>
 	<div class="entry-content entry-summary">
 		<?php

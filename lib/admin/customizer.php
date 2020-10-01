@@ -563,53 +563,53 @@ $wp_customize->add_panel( 'dt_body_panel', array(
 				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_H1TOH6_COLOR ),
 		) ) );
 
-//		//  =============================
-//		//  3.2.3 - Link Color
-//		//  =============================
-//
-//		$wp_customize->add_setting( 'dt_link_color', array(
-//				'default' => apply_filters('dt_link_color_default_value', DT_LINK_COLOR),
-//				'sanitize_callback' => 'sanitize_hex_color',
-//				'capability'        => 'edit_theme_options',
-//		) );
-//		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'dt_link_color', array(
-//				'label'       => __( 'Link Color', 'directory-starter' ),
-//				'section'     => 'dt_body_text_section',
-//				'settings'    => 'dt_link_color',
-//				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_LINK_COLOR ),
-//		) ) );
-//
-//		//  =============================
-//		//  3.2.4 - Link Hover Color
-//		//  =============================
-//
-//		$wp_customize->add_setting( 'dt_link_hover', array(
-//				'default' => apply_filters('dt_link_hover_default_value', DT_LINK_HOVER),
-//				'sanitize_callback' => 'sanitize_hex_color',
-//				'capability'        => 'edit_theme_options',
-//		) );
-//		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'dt_link_hover', array(
-//				'label'       => __( 'Link Hover Color', 'directory-starter' ),
-//				'section'     => 'dt_body_text_section',
-//				'settings'    => 'dt_link_hover',
-//				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_LINK_HOVER ),
-//		) ) );
-//
-//		//  =============================
-//		//  3.2.5 - Link Visited Color
-//		//  =============================
-//
-//		$wp_customize->add_setting( 'dt_link_visited', array(
-//				'default' => apply_filters('dt_link_visited_default_value', DT_LINK_VISITED),
-//				'sanitize_callback' => 'sanitize_hex_color',
-//				'capability'        => 'edit_theme_options',
-//		) );
-//		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'dt_link_visited', array(
-//				'label'       => __( 'Link Visited Color', 'directory-starter' ),
-//				'section'     => 'dt_body_text_section',
-//				'settings'    => 'dt_link_visited',
-//				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_LINK_VISITED ),
-//		) ) );
+		//  =============================
+		//  3.2.3 - Link Color
+		//  =============================
+
+		$wp_customize->add_setting( 'dt_link_color', array(
+				'default' => apply_filters('dt_link_color_default_value', DT_LINK_COLOR),
+				'sanitize_callback' => 'sanitize_hex_color',
+				'capability'        => 'edit_theme_options',
+		) );
+		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'dt_link_color', array(
+				'label'       => __( 'Link Color', 'directory-starter' ),
+				'section'     => 'dt_body_text_section',
+				'settings'    => 'dt_link_color',
+				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_LINK_COLOR ),
+		) ) );
+
+		//  =============================
+		//  3.2.4 - Link Hover Color
+		//  =============================
+
+		$wp_customize->add_setting( 'dt_link_hover', array(
+				'default' => apply_filters('dt_link_hover_default_value', DT_LINK_HOVER),
+				'sanitize_callback' => 'sanitize_hex_color',
+				'capability'        => 'edit_theme_options',
+		) );
+		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'dt_link_hover', array(
+				'label'       => __( 'Link Hover Color', 'directory-starter' ),
+				'section'     => 'dt_body_text_section',
+				'settings'    => 'dt_link_hover',
+				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_LINK_HOVER ),
+		) ) );
+
+		//  =============================
+		//  3.2.5 - Link Visited Color
+		//  =============================
+
+		$wp_customize->add_setting( 'dt_link_visited', array(
+				'default' => apply_filters('dt_link_visited_default_value', DT_LINK_VISITED),
+				'sanitize_callback' => 'sanitize_hex_color',
+				'capability'        => 'edit_theme_options',
+		) );
+		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'dt_link_visited', array(
+				'label'       => __( 'Link Visited Color', 'directory-starter' ),
+				'section'     => 'dt_body_text_section',
+				'settings'    => 'dt_link_visited',
+				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_LINK_VISITED ),
+		) ) );
 
 
 	//  =============================

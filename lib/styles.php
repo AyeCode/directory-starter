@@ -317,12 +317,41 @@ function directory_theme_customize_css()
 		//  =============================
 		?>
 			h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, #simplemodal-container h3 {
-				color: <?php echo esc_attr(get_theme_mod('dt_h1toh6_color', DT_H1TOH6_COLOR)); ?>;
+				color: <?php echo get_theme_mod('dt_h1toh6_color', DT_H1TOH6_COLOR) ? esc_attr(get_theme_mod('dt_h1toh6_color', DT_H1TOH6_COLOR)) : AUI()->get_option('color_secondary'); ?>;
 			}
 			#simplemodal-container h3 {
 				font-family: <?php echo sanitize_text_field(get_theme_mod('dt_font_family', DT_FONT_FAMILY)); ?>;
 			}
-	
+
+	<?php
+	//  =============================
+	//  3.2.3 - Link Color
+	//  =============================
+	?>
+	.bsui a {
+	color: <?php echo esc_attr(get_theme_mod('dt_link_color', DT_LINK_COLOR)); ?>;
+	}
+	<?php
+	//  =============================
+	//  3.2.4 - Link Hover Color
+	//  =============================
+	?>
+	.bsui a:hover,
+	.bsui a:visited:hover,
+	.bsui a:focus,
+	.bsui a:active {
+	color: <?php echo esc_attr(get_theme_mod('dt_link_hover', DT_LINK_HOVER)); ?>;
+	}
+	<?php
+	//  =============================
+	//  3.2.5 - Link Visited Color
+	//  =============================
+	?>
+	.bsui a:visited {
+	color: <?php echo esc_attr(get_theme_mod('dt_link_visited', DT_LINK_VISITED)); ?>;
+	}
+
+
 	<?php
 	//  =============================
 	//  3.3 - Background Colors
@@ -368,7 +397,7 @@ function directory_theme_customize_css()
 				font-family: <?php echo sanitize_text_field(get_theme_mod('dt_font_family', DT_FONT_FAMILY)); // sanitize_text_field used as we need to keep quotes '' ?>;
 				font-size: <?php echo esc_attr(get_theme_mod('dt_font_size', DT_FONT_SIZE)); ?>;
 				line-height: <?php echo esc_attr(get_theme_mod('dt_line_height', DT_LINE_HEIGHT)); ?>;
-				color: <?php echo esc_attr(get_theme_mod('dt_body_color', DT_BODY_COLOR)); ?>;
+				color: <?php echo get_theme_mod('dt_body_color', DT_BODY_COLOR) ? esc_attr(get_theme_mod('dt_body_color', DT_BODY_COLOR)) : AUI()->get_option('color_secondary'); ?>;
 	background-color: <?php echo DT_BACKGROUND_COLOR;?>;
 			}
 		<?php
@@ -598,7 +627,8 @@ function directory_theme_customize_css()
 	//  GD
 	//  =============================
 	?>
-	.fullwidth-sidebar-container .geodir-wgt-map{
+	.fullwidth-sidebar-container .geodir-wgt-map,
+	.fullwidth-sidebar-container .geodir-post-slider{
 	padding: 0;
 	}
 	<?php
@@ -725,5 +755,7 @@ function directory_theme_customize_css()
 	/* Above WP toolbar. */
 	}
 <?php
+	
+	do_action('dt_css');
 
 }

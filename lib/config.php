@@ -26,20 +26,22 @@ if (!defined('DT_LINE_HEIGHT')) define('DT_LINE_HEIGHT', '20px');
 
 //colors
 if (!defined('DT_BACKGROUND_COLOR')) define('DT_BACKGROUND_COLOR', "#F8F9FA");
-if (!defined('DT_BODY_COLOR')) define('DT_BODY_COLOR', "#757575");
+if (!defined('DT_BODY_COLOR')) define('DT_BODY_COLOR', "");
 //content box colors
 if (!defined('DT_CONTENT_BG')) define('DT_CONTENT_BG', "#FFFFFF");
 if (!defined('DT_CONTENT_BORDER_SHOW')) define('DT_CONTENT_BORDER_SHOW', "");
 if (!defined('DT_CONTENT_BORDER')) define('DT_CONTENT_BORDER', "#FFFFFF");
 if (!defined('DT_CONTENT_SHADOW')) define('DT_CONTENT_SHADOW', "shadow-sm");
+if (!defined('DT_CONTENT_PADDING')) define('DT_CONTENT_PADDING', "p-3");
+if (!defined('DT_CONTENT_MARGINS')) define('DT_CONTENT_MARGINS', "mb-3");
 if (!defined('DT_CONTENT_CORNERS')) define('DT_CONTENT_CORNERS', "rounded");
 if (!defined('DT_COLOR_WHITE')) define('DT_COLOR_WHITE', "#FFFFFF");
 //h1 to h6
-if (!defined('DT_H1TOH6_COLOR')) define('DT_H1TOH6_COLOR', "#757575");
+if (!defined('DT_H1TOH6_COLOR')) define('DT_H1TOH6_COLOR', "");
 //links
-if (!defined('DT_LINK_COLOR')) define('DT_LINK_COLOR', "#ED6D62");
-if (!defined('DT_LINK_HOVER')) define('DT_LINK_HOVER', '#E84739');
-if (!defined('DT_LINK_VISITED')) define('DT_LINK_VISITED', DT_LINK_COLOR);
+if (!defined('DT_LINK_COLOR')) define('DT_LINK_COLOR', '');
+if (!defined('DT_LINK_HOVER')) define('DT_LINK_HOVER', '');
+if (!defined('DT_LINK_VISITED')) define('DT_LINK_VISITED', '');
 //header top
 if (!defined('DT_HEADER_TOP_TEXT_COLOR')) define('DT_HEADER_TOP_TEXT_COLOR', DT_BODY_COLOR);
 if (!defined('DT_HEADER_TOP_LINK_COLOR')) define('DT_HEADER_TOP_LINK_COLOR', "#FFFFFF");

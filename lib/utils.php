@@ -37,9 +37,15 @@ add_filter('excerpt_more', 'dt_excerpt_more');
 function dt_content_classes(){
 	$classes = array();
 
+	// settings
 	$classes[] = get_theme_mod('dt_content_border_show', DT_CONTENT_BORDER_SHOW);
 	$classes[] = get_theme_mod('dt_content_shadow', DT_CONTENT_SHADOW);
 	$classes[] = get_theme_mod('dt_content_corners', DT_CONTENT_CORNERS);
+	
+	
+	// constants
+	$classes[] = DT_CONTENT_PADDING;
+	$classes[] = DT_CONTENT_MARGINS;
 
 	return implode(" ",$classes);
 }

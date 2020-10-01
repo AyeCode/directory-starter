@@ -5,8 +5,8 @@ function ds_add_top_header() {
         return;
     }
     ?>
-    <div class="ds-top-header <?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?>">
-        <nav class="navbar navbar-expand-lg navbar-dark p-0">
+    <div class="ds-top-header ">
+        <nav class="navbar navbar-expand-lg navbar-dark <?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?>">
             <?php
             if ( display_header_text() )  {
                 echo get_bloginfo( 'description', 'display' );
