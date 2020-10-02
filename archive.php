@@ -23,26 +23,29 @@ if ($dt_enable_blog_sidebar) {
         <?php } ?>
         <div class="<?php echo esc_attr($content_class); ?>">
             <div class="content-archive">
-                <?php if (!have_posts()) : ?>
-                    <div class="alert-error">
-                        <p><?php esc_html_e('Sorry, no results were found.', 'directory-starter'); ?></p>
-                    </div>
-                    <?php get_search_form(); ?>
-                <?php endif; ?>
-                <?php
-                while ( have_posts() ) : the_post();
+                <?php if ( have_posts() ) { ?>
+                    <header <?php post_class('content-box  p-3 mb-3 '.dt_content_classes()); ?>>
+                        <?php
+                        the_archive_title( '<h1 class="page-title entry-title pb-0 mb-0 h2">', '</h1>' );
+                        ?>
+                    </header><!-- .page-header -->
+                    <?php
+                    while ( have_posts() ) : the_post();
 
-                    // Include the page content template.
-                    get_template_part( 'template-parts/post/content' );
+                        // Include the page content template.
+                        get_template_part( 'template-parts/post/content' );
 
-                    // End the loop.
-                endwhile;
+                        // End the loop.
+                    endwhile;
 
-                // Previous/next page navigation.
-                the_posts_pagination( array(
-                    'prev_text'          => __( 'Previous', 'directory-starter' ),
-                    'next_text'          => __( 'Next', 'directory-starter' ),
-                ) );
+                    // Previous/next page navigation.
+                    the_posts_pagination( array(
+                        'prev_text'          => __( 'Previous', 'directory-starter' ),
+                        'next_text'          => __( 'Next', 'directory-starter' ),
+                    ) );
+                }else{
+                    get_template_part( 'template-parts/content/content', 'none' );
+                }
                 ?>
             </div>
         </div>

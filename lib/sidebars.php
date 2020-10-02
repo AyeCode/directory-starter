@@ -1,7 +1,7 @@
 <?php
 function directory_theme_widgets_init()
 {
-	$widget_class = apply_filters('ds_sidebar_widget_class', 'widget content-box mb-3 p-3x pb-3 px-3 '.dt_content_classes() );
+	$widget_class = apply_filters('ds_sidebar_widget_class', 'widget content-box mb-3 p-3 '.dt_content_classes() );
 	$widget_title_class = 'widgettitle h5 border-bottom pb-2';
 
 	$footer_widget_class = 'widget text-light my-2';

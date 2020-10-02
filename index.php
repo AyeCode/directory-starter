@@ -23,26 +23,34 @@ if ($dt_enable_blog_sidebar == '1') {
 	<?php } ?>
 	<div class="<?php echo $content_class; ?>">
 		<div class="content-single">
-			<?php if (!have_posts()) : ?>
-				<div class="alert-error">
-					<p><?php _e('Sorry, no results were found.', 'directory-starter'); ?></p>
-				</div>
-				<?php get_search_form(); ?>
-			<?php endif; ?>
-			<?php
-			while ( have_posts() ) : the_post();
+			<?php if ( have_posts() ) {
 
-				// Include the page content template.
-				get_template_part( 'template-parts/content/content' );
+				if ( is_home() ) {
+					?>
+					<header <?php post_class('content-box '.dt_content_classes()); ?>>
+						<?php
+						single_post_title( '<h1 class="page-title entry-title pb-0 mb-0 h2">', '</h1>' );
+						?>
+					</header><!-- .page-header -->
+					<?php
+				}
 
-				// End the loop.
-			endwhile;
+				while ( have_posts() ) : the_post();
 
-			// Previous/next page navigation.
-			the_posts_pagination( array(
-				'prev_text'          => __( 'Previous', 'directory-starter' ),
-				'next_text'          => __( 'Next', 'directory-starter' ),
-			) );
+					// Include the page content template.
+					get_template_part( 'template-parts/content/content' );
+
+					// End the loop.
+				endwhile;
+
+				// Previous/next page navigation.
+				the_posts_pagination( array(
+					'prev_text'          => __( 'Previous', 'directory-starter' ),
+					'next_text'          => __( 'Next', 'directory-starter' ),
+				) );
+			}else{
+				get_template_part( 'template-parts/content/content', 'none' );
+			}
 			?>
 		</div>
 	</div>
