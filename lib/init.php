@@ -165,15 +165,15 @@ function dt_default_site_icon_url($url, $size, $blog_id){
 
 	if(empty($url)){
 		if($size=='32'){
-			$url = get_stylesheet_directory()  . '/assets/images/icon-32.png';
+			$url = get_template_directory_uri()  . '/assets/images/icon-32.png';
 		}elseif($size=='180'){
-			$url = get_stylesheet_directory()  . '/assets/images/icon-180.png';
+			$url = get_template_directory_uri()  . '/assets/images/icon-180.png';
 		}elseif($size=='192'){
-			$url = get_stylesheet_directory()  . '/assets/images/icon-192.png';
+			$url = get_template_directory_uri()  . '/assets/images/icon-192.png';
 		}elseif($size=='270'){
-			$url = get_stylesheet_directory()  . '/assets/images/icon-270.png';
+			$url = get_template_directory_uri()  . '/assets/images/icon-270.png';
 		}else{
-			$url = get_stylesheet_directory()  . '/assets/images/icon.png';
+			$url = get_template_directory_uri()  . '/assets/images/icon.png';
 		}
 	}
 	return $url;
