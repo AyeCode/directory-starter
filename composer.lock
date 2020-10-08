@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "ayecode/wp-ayecode-ui",
-            "version": "0.1.28",
+            "version": "0.1.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AyeCode/wp-ayecode-ui.git",
-                "reference": "1f7b4df5bd3f9dbfac7ae4378017e1a1c73102c5"
+                "reference": "91915ba5d040d604cc4aca565f04e3fc80aa96e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AyeCode/wp-ayecode-ui/zipball/1f7b4df5bd3f9dbfac7ae4378017e1a1c73102c5",
-                "reference": "1f7b4df5bd3f9dbfac7ae4378017e1a1c73102c5",
+                "url": "https://api.github.com/repos/AyeCode/wp-ayecode-ui/zipball/91915ba5d040d604cc4aca565f04e3fc80aa96e0",
+                "reference": "91915ba5d040d604cc4aca565f04e3fc80aa96e0",
                 "shasum": ""
             },
             "require": {
@@ -49,20 +49,20 @@
                 "boot",
                 "bootstrap"
             ],
-            "time": "2020-10-08T12:55:35+00:00"
+            "time": "2020-10-08T13:59:53+00:00"
         },
         {
             "name": "ayecode/wp-font-awesome-settings",
-            "version": "1.0.11",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AyeCode/wp-font-awesome-settings.git",
-                "reference": "d3c1f8f2b0b43a1487b2624ba81b043306f5564d"
+                "reference": "754cca6fda775f3e0b56b90a810dfcaea62ea288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AyeCode/wp-font-awesome-settings/zipball/d3c1f8f2b0b43a1487b2624ba81b043306f5564d",
-                "reference": "d3c1f8f2b0b43a1487b2624ba81b043306f5564d",
+                "url": "https://api.github.com/repos/AyeCode/wp-font-awesome-settings/zipball/754cca6fda775f3e0b56b90a810dfcaea62ea288",
+                "reference": "754cca6fda775f3e0b56b90a810dfcaea62ea288",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "FontAwesome",
                 "font-awesome"
             ],
-            "time": "2019-06-03T17:08:39+00:00"
+            "time": "2020-10-08T14:04:47+00:00"
         },
         {
             "name": "composer/installers",
