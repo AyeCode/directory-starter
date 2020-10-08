@@ -44,7 +44,7 @@ function ds_menu_a_class( $atts, $item, $args ) {
 
 	// add menu dropdown item
 	if ( ! empty( $item->menu_item_parent ) ) {
-		$atts['class'] = ' dropdown-item'; // deliberately remove other classes for styling
+		$atts['class'] .= ' dropdown-item'; // deliberately remove other classes for styling
 	}
 
 
