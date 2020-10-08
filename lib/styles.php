@@ -328,7 +328,7 @@ function directory_theme_customize_css()
 	//  3.2.3 - Link Color
 	//  =============================
 	?>
-	.bsui a {
+	.bsui a:not(.btn) {
 	color: <?php echo esc_attr(get_theme_mod('dt_link_color', DT_LINK_COLOR)); ?>;
 	}
 	<?php
@@ -336,10 +336,10 @@ function directory_theme_customize_css()
 	//  3.2.4 - Link Hover Color
 	//  =============================
 	?>
-	.bsui a:hover,
-	.bsui a:visited:hover,
-	.bsui a:focus,
-	.bsui a:active {
+	.bsui a:not(.btn):hover,
+	.bsui a:not(.btn):visited:hover,
+	.bsui a:not(.btn):focus,
+	.bsui a:not(.btn):active {
 	color: <?php echo esc_attr(get_theme_mod('dt_link_hover', DT_LINK_HOVER)); ?>;
 	}
 	<?php
@@ -347,7 +347,7 @@ function directory_theme_customize_css()
 	//  3.2.5 - Link Visited Color
 	//  =============================
 	?>
-	.bsui a:visited {
+	.bsui a:not(.btn):visited {
 	color: <?php echo esc_attr(get_theme_mod('dt_link_visited', DT_LINK_VISITED)); ?>;
 	}
 
