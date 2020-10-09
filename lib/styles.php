@@ -659,12 +659,10 @@ function directory_theme_customize_css()
 
 	.alignright {
 	float:right;
-	margin: 5px 0 20px 20px;
 	}
 
 	.alignleft {
 	float: left;
-	margin: 5px 20px 20px 0;
 	}
 
 	a img.alignright {

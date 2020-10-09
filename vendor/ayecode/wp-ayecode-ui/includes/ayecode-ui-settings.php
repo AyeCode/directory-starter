@@ -529,13 +529,23 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 							$element_require = $element_require.replace("&#039;", "'"); // replace single quotes
 							$element_require = $element_require.replace("&quot;", '"'); // replace double quotes
 
-							if (eval($element_require)) {
+							if (aui_check_form_condition($element_require,form)) {
 								jQuery(this).removeClass('d-none');
 							} else {
 								jQuery(this).addClass('d-none');
 							}
 						}
 					});
+				}
+
+				/**
+				 * Check form condition
+				 */
+				function aui_check_form_condition(condition,form) {
+					if(form){
+						condition = condition.replace("(form)", "('"+form+"')");
+					}
+					return new Function("return " + condition+";")();
 				}
 
 				/**
@@ -678,29 +688,40 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				 * Allow navs to use multiple sub menus.
 				 */
 				function init_nav_sub_menus(){
-					jQuery( '.navbar-multi-sub-menus .dropdown-menu a.dropdown-toggle' ).on( 'click', function ( e ) {
-						var $el = jQuery( this );
-						$el.toggleClass('active-dropdown');
-						var $parent = jQuery( this ).offsetParent( ".dropdown-menu" );
-						if ( !jQuery( this ).next().hasClass( 'show' ) ) {
-							jQuery( this ).parents( '.dropdown-menu' ).first().find( '.show' ).removeClass( "show" );
-						}
-						var $subMenu = jQuery( this ).next( ".dropdown-menu" );
-						$subMenu.toggleClass( 'show' );
 
-						jQuery( this ).parent( "li" ).toggleClass( 'show' );
+					jQuery('.navbar-multi-sub-menus').each(function(i, obj) {
+						// Check if already initialized, if so continue.
+						if(jQuery(this).hasClass("has-sub-sub-menus")){return true;}
 
-						jQuery( this ).parents( 'li.nav-item.dropdown.show' ).on( 'hidden.bs.dropdown', function ( e ) {
-							jQuery( '.dropdown-menu .show' ).removeClass( "show" );
-							$el.removeClass('active-dropdown');
+						// Make sure its always expanded
+						jQuery(this).addClass('has-sub-sub-menus');
+
+						jQuery(this).find( '.dropdown-menu a.dropdown-toggle' ).on( 'click', function ( e ) {
+							var $el = jQuery( this );
+							$el.toggleClass('active-dropdown');
+							var $parent = jQuery( this ).offsetParent( ".dropdown-menu" );
+							if ( !jQuery( this ).next().hasClass( 'show' ) ) {
+								jQuery( this ).parents( '.dropdown-menu' ).first().find( '.show' ).removeClass( "show" );
+							}
+							var $subMenu = jQuery( this ).next( ".dropdown-menu" );
+							$subMenu.toggleClass( 'show' );
+
+							jQuery( this ).parent( "li" ).toggleClass( 'show' );
+
+							jQuery( this ).parents( 'li.nav-item.dropdown.show' ).on( 'hidden.bs.dropdown', function ( e ) {
+								jQuery( '.dropdown-menu .show' ).removeClass( "show" );
+								$el.removeClass('active-dropdown');
+							} );
+
+							if ( !$parent.parent().hasClass( 'navbar-nav' ) ) {
+								$el.next().addClass('position-relative border-top border-bottom');
+							}
+
+							return false;
 						} );
 
-						if ( !$parent.parent().hasClass( 'navbar-nav' ) ) {
-							$el.next().addClass('position-relative border-top border-bottom');
-						}
+					});
 
-						return false;
-					} );
 				}
 				
 
@@ -930,88 +951,88 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 */
 		public function settings_page() {
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_die( __( 'You do not have sufficient permissions to access this page.', 'aui' ) );
+				wp_die( __( 'You do not have sufficient permissions to access this page.', 'directory-starter' ) );
 			}
 			?>
 			<div class="wrap">
 				<h1><?php echo $this->name; ?></h1>
-				<p><?php _e("Here you can adjust settings if you are having compatibility issues.","aui");?></p>
+				<p><?php _e("Here you can adjust settings if you are having compatibility issues.","directory-starter");?></p>
 				<form method="post" action="options.php">
 					<?php
 					settings_fields( 'ayecode-ui-settings' );
 					do_settings_sections( 'ayecode-ui-settings' );
 					?>
 
-					<h2><?php _e( 'Frontend', 'aui' ); ?></h2>
+					<h2><?php _e( 'Frontend', 'directory-starter' ); ?></h2>
 					<table class="form-table wpbs-table-settings">
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-css"><?php _e( 'Load CSS', 'aui' ); ?></label></th>
+									for="wpbs-css"><?php _e( 'Load CSS', 'directory-starter' ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[css]" id="wpbs-css">
-									<option	value="compatibility" <?php selected( $this->settings['css'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode', 'aui' ); ?></option>
-									<option value="core" <?php selected( $this->settings['css'], 'core' ); ?>><?php _e( 'Full Mode', 'aui' ); ?></option>
-									<option	value="" <?php selected( $this->settings['css'], '' ); ?>><?php _e( 'Disabled', 'aui' ); ?></option>
+									<option	value="compatibility" <?php selected( $this->settings['css'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode', 'directory-starter' ); ?></option>
+									<option value="core" <?php selected( $this->settings['css'], 'core' ); ?>><?php _e( 'Full Mode', 'directory-starter' ); ?></option>
+									<option	value="" <?php selected( $this->settings['css'], '' ); ?>><?php _e( 'Disabled', 'directory-starter' ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-js"><?php _e( 'Load JS', 'aui' ); ?></label></th>
+									for="wpbs-js"><?php _e( 'Load JS', 'directory-starter' ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[js]" id="wpbs-js">
-									<option	value="core-popper" <?php selected( $this->settings['js'], 'core-popper' ); ?>><?php _e( 'Core + Popper (default)', 'aui' ); ?></option>
-									<option value="popper" <?php selected( $this->settings['js'], 'popper' ); ?>><?php _e( 'Popper', 'aui' ); ?></option>
-									<option value="required" <?php selected( $this->settings['js'], 'required' ); ?>><?php _e( 'Required functions only', 'aui' ); ?></option>
-									<option	value="" <?php selected( $this->settings['js'], '' ); ?>><?php _e( 'Disabled (not recommended)', 'aui' ); ?></option>
+									<option	value="core-popper" <?php selected( $this->settings['js'], 'core-popper' ); ?>><?php _e( 'Core + Popper (default)', 'directory-starter' ); ?></option>
+									<option value="popper" <?php selected( $this->settings['js'], 'popper' ); ?>><?php _e( 'Popper', 'directory-starter' ); ?></option>
+									<option value="required" <?php selected( $this->settings['js'], 'required' ); ?>><?php _e( 'Required functions only', 'directory-starter' ); ?></option>
+									<option	value="" <?php selected( $this->settings['js'], '' ); ?>><?php _e( 'Disabled (not recommended)', 'directory-starter' ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-font_size"><?php _e( 'HTML Font Size (px)', 'aui' ); ?></label></th>
+									for="wpbs-font_size"><?php _e( 'HTML Font Size (px)', 'directory-starter' ); ?></label></th>
 							<td>
 								<input type="number" name="ayecode-ui-settings[html_font_size]" id="wpbs-font_size" value="<?php echo absint( $this->settings['html_font_size']); ?>" placeholder="16" />
-								<p class="description" ><?php _e("Our font sizing is rem (responsive based) here you can set the html font size in-case your theme is setting it too low.","aui");?></p>
+								<p class="description" ><?php _e("Our font sizing is rem (responsive based) here you can set the html font size in-case your theme is setting it too low.","directory-starter");?></p>
 							</td>
 						</tr>
 
 					</table>
 
-					<h2><?php _e( 'Backend', 'aui' ); ?> (wp-admin)</h2>
+					<h2><?php _e( 'Backend', 'directory-starter' ); ?> (wp-admin)</h2>
 					<table class="form-table wpbs-table-settings">
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-css-admin"><?php _e( 'Load CSS', 'aui' ); ?></label></th>
+									for="wpbs-css-admin"><?php _e( 'Load CSS', 'directory-starter' ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[css_backend]" id="wpbs-css-admin">
-									<option	value="compatibility" <?php selected( $this->settings['css_backend'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode', 'aui' ); ?></option>
-									<option value="core" <?php selected( $this->settings['css_backend'], 'core' ); ?>><?php _e( 'Full Mode', 'aui' ); ?></option>
-									<option	value="" <?php selected( $this->settings['css_backend'], '' ); ?>><?php _e( 'Disabled', 'aui' ); ?></option>
+									<option	value="compatibility" <?php selected( $this->settings['css_backend'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode', 'directory-starter' ); ?></option>
+									<option value="core" <?php selected( $this->settings['css_backend'], 'core' ); ?>><?php _e( 'Full Mode', 'directory-starter' ); ?></option>
+									<option	value="" <?php selected( $this->settings['css_backend'], '' ); ?>><?php _e( 'Disabled', 'directory-starter' ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-js-admin"><?php _e( 'Load JS', 'aui' ); ?></label></th>
+									for="wpbs-js-admin"><?php _e( 'Load JS', 'directory-starter' ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[js_backend]" id="wpbs-js-admin">
-									<option	value="core-popper" <?php selected( $this->settings['js_backend'], 'core-popper' ); ?>><?php _e( 'Core + Popper (default)', 'aui' ); ?></option>
-									<option value="popper" <?php selected( $this->settings['js_backend'], 'popper' ); ?>><?php _e( 'Popper', 'aui' ); ?></option>
-									<option value="required" <?php selected( $this->settings['js_backend'], 'required' ); ?>><?php _e( 'Required functions only', 'aui' ); ?></option>
-									<option	value="" <?php selected( $this->settings['js_backend'], '' ); ?>><?php _e( 'Disabled (not recommended)', 'aui' ); ?></option>
+									<option	value="core-popper" <?php selected( $this->settings['js_backend'], 'core-popper' ); ?>><?php _e( 'Core + Popper (default)', 'directory-starter' ); ?></option>
+									<option value="popper" <?php selected( $this->settings['js_backend'], 'popper' ); ?>><?php _e( 'Popper', 'directory-starter' ); ?></option>
+									<option value="required" <?php selected( $this->settings['js_backend'], 'required' ); ?>><?php _e( 'Required functions only', 'directory-starter' ); ?></option>
+									<option	value="" <?php selected( $this->settings['js_backend'], '' ); ?>><?php _e( 'Disabled (not recommended)', 'directory-starter' ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-disable-admin"><?php _e( 'Disable load on URL', 'aui' ); ?></label></th>
+									for="wpbs-disable-admin"><?php _e( 'Disable load on URL', 'directory-starter' ); ?></label></th>
 							<td>
-								<p><?php _e( 'If you have backend conflict you can enter a partial URL argument that will disable the loading of AUI on those pages. Add each argument on a new line.', 'aui' ); ?></p>
+								<p><?php _e( 'If you have backend conflict you can enter a partial URL argument that will disable the loading of AUI on those pages. Add each argument on a new line.', 'directory-starter' ); ?></p>
 								<textarea name="ayecode-ui-settings[disable_admin]" rows="10" cols="50" id="wpbs-disable-admin" class="large-text code" spellcheck="false" placeholder="myplugin.php &#10;action=go"><?php echo $this->settings['disable_admin'];?></textarea>
 
 							</td>
@@ -1032,7 +1053,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 		public function customizer_settings($wp_customize){
 			$wp_customize->add_section('aui_settings', array(
-				'title'    => __('AyeCode UI'),
+				'title'    => __('AyeCode UI','directory-starter'),
 				'priority' => 120,
 			));
 
@@ -1047,7 +1068,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				'transport'         => 'refresh',
 			));
 			$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, 'color_primary', array(
-				'label'    => __('Primary Color'),
+				'label'    => __('Primary Color','directory-starter'),
 				'section'  => 'aui_settings',
 				'settings' => 'aui_options[color_primary]',
 			)));
@@ -1060,7 +1081,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				'transport'         => 'refresh',
 			));
 			$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, 'color_secondary', array(
-				'label'    => __('Secondary Color'),
+				'label'    => __('Secondary Color','directory-starter'),
 				'section'  => 'aui_settings',
 				'settings' => 'aui_options[color_secondary]',
 			)));

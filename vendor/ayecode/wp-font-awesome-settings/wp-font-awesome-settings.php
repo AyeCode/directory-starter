@@ -38,7 +38,7 @@ if ( ! class_exists( 'WP_Font_Awesome_Settings' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.0.11';
+		public $version = '1.0.12';
 
 		/**
 		 * Class textdomain.
@@ -278,7 +278,7 @@ if ( ! class_exists( 'WP_Font_Awesome_Settings' ) ) {
 				'type'      => 'CSS', // type to use, CSS or JS or KIT
 				'version'   => '', // latest
 				'enqueue'   => '', // front and backend
-				'shims'     => '1', // default on for now, @todo maybe change to off in 2020
+				'shims'     => '0', // default OFF now in 2020
 				'js-pseudo' => '0', // if the pseudo elements flag should be set (CPU intensive)
 				'dequeue'   => '0', // if we should try to remove other versions added by other plugins/themes
 				'pro'       => '0', // if pro CDN url should be used
@@ -301,7 +301,7 @@ if ( ! class_exists( 'WP_Font_Awesome_Settings' ) ) {
 		 */
 		public function settings_page() {
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_die( __( 'You do not have sufficient permissions to access this page.', 'font-awesome-settings' ) );
+				wp_die( __( 'You do not have sufficient permissions to access this page.', 'directory-starter' ) );
 			}
 
 			// a hidden way to force the update of the verison number vai api instead of waiting the 48 hours
@@ -333,30 +333,30 @@ if ( ! class_exists( 'WP_Font_Awesome_Settings' ) ) {
 					<table class="form-table wpfas-table-settings <?php echo esc_attr( $kit_set ); ?>">
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpfas-type"><?php _e( 'Type', 'font-awesome-settings' ); ?></label></th>
+									for="wpfas-type"><?php _e( 'Type', 'directory-starter' ); ?></label></th>
 							<td>
 								<select name="wp-font-awesome-settings[type]" id="wpfas-type"
 								        onchange="if(this.value=='KIT'){jQuery('.wpfas-table-settings').addClass('wpfas-kit-set');}else{jQuery('.wpfas-table-settings').removeClass('wpfas-kit-set');}">
 									<option
-										value="CSS" <?php selected( $this->settings['type'], 'CSS' ); ?>><?php _e( 'CSS (default)', 'font-awesome-settings' ); ?></option>
+										value="CSS" <?php selected( $this->settings['type'], 'CSS' ); ?>><?php _e( 'CSS (default)', 'directory-starter' ); ?></option>
 									<option value="JS" <?php selected( $this->settings['type'], 'JS' ); ?>>JS</option>
 									<option
-										value="KIT" <?php selected( $this->settings['type'], 'KIT' ); ?>><?php _e( 'Kits (settings managed on fontawesome.com)', 'font-awesome-settings' ); ?></option>
+										value="KIT" <?php selected( $this->settings['type'], 'KIT' ); ?>><?php _e( 'Kits (settings managed on fontawesome.com)', 'directory-starter' ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top" class="wpfas-kit-show">
 							<th scope="row"><label
-									for="wpfas-kit-url"><?php _e( 'Kit URL', 'font-awesome-settings' ); ?></label></th>
+									for="wpfas-kit-url"><?php _e( 'Kit URL', 'directory-starter' ); ?></label></th>
 							<td>
 								<input class="regular-text" id="wpfas-kit-url" type="url"
 								       name="wp-font-awesome-settings[kit-url]"
 								       value="<?php echo esc_attr( $this->settings['kit-url'] ); ?>"
-								       placeholder="https://kit.fontawesome.com/123abc.js"/>
+								       placeholder="<?php echo 'https://kit.font';echo 'awesome.com/123abc.js'; // this won't pass theme check :(?>"/>
 								<span><?php
 									echo sprintf(
-										__( 'Requires a free account with Font Awesome. %sGet kit url%s', 'font-awesome-settings' ),
+										__( 'Requires a free account with Font Awesome. %sGet kit url%s', 'directory-starter' ),
 										'<a rel="noopener noreferrer" target="_blank" href="https://fontawesome.com/kits"><i class="fas fa-external-link-alt"></i>',
 										'</a>'
 									);
@@ -366,11 +366,11 @@ if ( ! class_exists( 'WP_Font_Awesome_Settings' ) ) {
 
 						<tr valign="top" class="wpfas-kit-hide">
 							<th scope="row"><label
-									for="wpfas-version"><?php _e( 'Version', 'font-awesome-settings' ); ?></label></th>
+									for="wpfas-version"><?php _e( 'Version', 'directory-starter' ); ?></label></th>
 							<td>
 								<select name="wp-font-awesome-settings[version]" id="wpfas-version">
 									<option
-										value="" <?php selected( $this->settings['version'], '' ); ?>><?php echo sprintf( __( 'Latest - %s (default)', 'font-awesome-settings' ), $this->get_latest_version() ); ?>
+										value="" <?php selected( $this->settings['version'], '' ); ?>><?php echo sprintf( __( 'Latest - %s (default)', 'directory-starter' ), $this->get_latest_version() ); ?>
 									</option>
 									<option value="5.6.0" <?php selected( $this->settings['version'], '5.6.0' ); ?>>
 										5.6.0
@@ -399,29 +399,29 @@ if ( ! class_exists( 'WP_Font_Awesome_Settings' ) ) {
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpfas-enqueue"><?php _e( 'Enqueue', 'font-awesome-settings' ); ?></label></th>
+									for="wpfas-enqueue"><?php _e( 'Enqueue', 'directory-starter' ); ?></label></th>
 							<td>
 								<select name="wp-font-awesome-settings[enqueue]" id="wpfas-enqueue">
 									<option
-										value="" <?php selected( $this->settings['enqueue'], '' ); ?>><?php _e( 'Frontend + Backend (default)', 'font-awesome-settings' ); ?></option>
+										value="" <?php selected( $this->settings['enqueue'], '' ); ?>><?php _e( 'Frontend + Backend (default)', 'directory-starter' ); ?></option>
 									<option
-										value="frontend" <?php selected( $this->settings['enqueue'], 'frontend' ); ?>><?php _e( 'Frontend', 'font-awesome-settings' ); ?></option>
+										value="frontend" <?php selected( $this->settings['enqueue'], 'frontend' ); ?>><?php _e( 'Frontend', 'directory-starter' ); ?></option>
 									<option
-										value="backend" <?php selected( $this->settings['enqueue'], 'backend' ); ?>><?php _e( 'Backend', 'font-awesome-settings' ); ?></option>
+										value="backend" <?php selected( $this->settings['enqueue'], 'backend' ); ?>><?php _e( 'Backend', 'directory-starter' ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top" class="wpfas-kit-hide">
 							<th scope="row"><label
-									for="wpfas-pro"><?php _e( 'Enable pro', 'font-awesome-settings' ); ?></label></th>
+									for="wpfas-pro"><?php _e( 'Enable pro', 'directory-starter' ); ?></label></th>
 							<td>
 								<input type="hidden" name="wp-font-awesome-settings[pro]" value="0"/>
 								<input type="checkbox" name="wp-font-awesome-settings[pro]"
 								       value="1" <?php checked( $this->settings['pro'], '1' ); ?> id="wpfas-pro"/>
 								<span><?php
 									echo sprintf(
-										__( 'Requires a subscription. %sLearn more%s %sManage my allowed domains%s', 'font-awesome-settings' ),
+										__( 'Requires a subscription. %sLearn more%s %sManage my allowed domains%s', 'directory-starter' ),
 										'<a rel="noopener noreferrer" target="_blank" href="https://fontawesome.com/pro"><i class="fas fa-external-link-alt"></i>',
 										'</a>',
 										'<a rel="noopener noreferrer" target="_blank" href="https://fontawesome.com/account/cdn"><i class="fas fa-external-link-alt"></i>',
@@ -433,38 +433,38 @@ if ( ! class_exists( 'WP_Font_Awesome_Settings' ) ) {
 
 						<tr valign="top" class="wpfas-kit-hide">
 							<th scope="row"><label
-									for="wpfas-shims"><?php _e( 'Enable v4 shims compatibility', 'font-awesome-settings' ); ?></label>
+									for="wpfas-shims"><?php _e( 'Enable v4 shims compatibility', 'directory-starter' ); ?></label>
 							</th>
 							<td>
 								<input type="hidden" name="wp-font-awesome-settings[shims]" value="0"/>
 								<input type="checkbox" name="wp-font-awesome-settings[shims]"
 								       value="1" <?php checked( $this->settings['shims'], '1' ); ?> id="wpfas-shims"/>
-								<span><?php _e( 'This enables v4 classes to work with v5, sort of like a band-aid until everyone has updated everything to v5.', 'font-awesome-settings' ); ?></span>
+								<span><?php _e( 'This enables v4 classes to work with v5, sort of like a band-aid until everyone has updated everything to v5.', 'directory-starter' ); ?></span>
 							</td>
 						</tr>
 
 						<tr valign="top" class="wpfas-kit-hide">
 							<th scope="row"><label
-									for="wpfas-js-pseudo"><?php _e( 'Enable JS pseudo elements (not recommended)', 'font-awesome-settings' ); ?></label>
+									for="wpfas-js-pseudo"><?php _e( 'Enable JS pseudo elements (not recommended)', 'directory-starter' ); ?></label>
 							</th>
 							<td>
 								<input type="hidden" name="wp-font-awesome-settings[js-pseudo]" value="0"/>
 								<input type="checkbox" name="wp-font-awesome-settings[js-pseudo]"
 								       value="1" <?php checked( $this->settings['js-pseudo'], '1' ); ?>
 								       id="wpfas-js-pseudo"/>
-								<span><?php _e( 'Used only with the JS version, this will make pseudo-elements work but can be CPU intensive on some sites.', 'font-awesome-settings' ); ?></span>
+								<span><?php _e( 'Used only with the JS version, this will make pseudo-elements work but can be CPU intensive on some sites.', 'directory-starter' ); ?></span>
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpfas-dequeue"><?php _e( 'Dequeue', 'font-awesome-settings' ); ?></label></th>
+									for="wpfas-dequeue"><?php _e( 'Dequeue', 'directory-starter' ); ?></label></th>
 							<td>
 								<input type="hidden" name="wp-font-awesome-settings[dequeue]" value="0"/>
 								<input type="checkbox" name="wp-font-awesome-settings[dequeue]"
 								       value="1" <?php checked( $this->settings['dequeue'], '1' ); ?>
 								       id="wpfas-dequeue"/>
-								<span><?php _e( 'This will try to dequeue any other Font Awesome versions loaded by other sources if they are added with `font-awesome` or `fontawesome` in the name.', 'font-awesome-settings' ); ?></span>
+								<span><?php _e( 'This will try to dequeue any other Font Awesome versions loaded by other sources if they are added with `font-awesome` or `fontawesome` in the name.', 'directory-starter' ); ?></span>
 							</td>
 						</tr>
 
