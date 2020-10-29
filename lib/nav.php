@@ -96,3 +96,20 @@ function ds_menu_li_class( $classes, $item, $args ) {
 
 	return $classes;
 }
+
+/**
+ * Show warning on menu add/edit page about parent menu items not being linkable.
+ */
+function ds_admin_menu_notice() {
+	global $pagenow;
+
+	// only show on menu page
+	if ( $pagenow == 'nav-menus.php' ) {
+		$class = 'notice notice-warning';
+		$message = __( 'WARNING: Parent menu items (with sub items) are not link-able.  If your parent menu item requires a link then you should also add it as the first child element.', 'directory-starter' );
+
+		printf( '<div class="%1$s"><p><b>%2$s</b></p></div>', esc_attr( $class ), esc_html( $message ) );
+	}
+
+}
+add_action( 'admin_notices', 'ds_admin_menu_notice');

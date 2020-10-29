@@ -21,6 +21,9 @@ No, this is optional but recommended.
 
 == Changelog ==
 
+= 2.1.0.3 =
+* Notice added to add/edit menu screen warning that parent item not linkable - ADDED
+
 = 2.1.0.2 =
 * Changes for AyeCode UI compatibility - CHANGED
 * Theme changed to use bootstrap styles, this is a very big change and may need some manual changes - WARNING
