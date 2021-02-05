@@ -752,6 +752,96 @@ function directory_theme_customize_css()
 	z-index: 100000;
 	/* Above WP toolbar. */
 	}
+<?php if ( class_exists( 'WooCommerce' ) ) { ?>
+/*** WooCommerce ***/
+.woocommerce form .form-row > label,
+.woocommerce form .form-row > span,
+.woocommerce form .form-row > div {
+    display: block;
+    width: 100%;
+}
+.woocommerce form #customer_details.col2-set .col-1,
+.woocommerce form #customer_details.col2-set .col-2 {
+    float: none;
+    width: auto;
+    flex: inherit;
+    max-width: none;
+    padding: 0;
+    margin-bottom: 1em;
+}
+
+.woocommerce form .form-row .input-text {
+    display: block;
+    width: 100%;
+    height: calc(1.6em + .9rem + 2px);
+    padding: .45rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+}
+.woocommerce form .form-row textarea.input-text {
+    height: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+    .woocommerce form .form-row .input-text {
+        transition: none
+    }
+}
+
+.woocommerce form .form-row .input-text::-ms-expand {
+    background-color: transparent;
+    border: 0
+}
+
+.woocommerce form .form-row .input-text:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #73b1e9;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(30, 115, 190, 0.25)
+}
+
+.woocommerce form .form-row .input-text::placeholder {
+    color: #6c757d;
+    opacity: 1
+}
+
+.woocommerce form .form-row .input-text:disabled,
+.woocommerce form .form-row .input-text[readonly] {
+    background-color: #e9ecef;
+    opacity: 1
+}
+
+.woocommerce form .form-row select:focus::-ms-value {
+    color: #495057;
+    background-color: #fff
+}
+.woocommerce form .select2-selection--single .select2-selection__rendered {
+    line-height: calc(1.5em + .75rem);
+}
+.woocommerce-checkout form .wc_payment_method > label {
+    width: 90%;
+}
+@media all and (max-width: 767px) {
+    .woocommerce form .form-row {
+        float: none !important;
+        width: auto !important;
+    }
+}
+.woocommerce .addresses.col2-set .col-1,
+.woocommerce .addresses.col2-set .col-2 {
+    flex: none;
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+<?php } ?>
 <?php
 	
 	do_action('dt_css');
