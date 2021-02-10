@@ -834,6 +834,8 @@ function directory_theme_customize_css()
         width: auto !important;
     }
 }
+.woocommerce .u-columns.col2-set .col-1,
+.woocommerce .u-columns.col2-set .col-2,
 .woocommerce .addresses.col2-set .col-1,
 .woocommerce .addresses.col2-set .col-2 {
     flex: none;
