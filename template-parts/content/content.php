@@ -1,7 +1,7 @@
 <article <?php post_class('content-box  '.dt_content_classes()); ?>>
 	<header>
 		<?php
-		if ( is_singular() ) :
+		if ( is_singular() || ( function_exists( 'geodir_is_page' ) && geodir_is_page( 'search' ) ) ) :
 			the_title( '<h1 class="entry-title border-bottom pb-2 h2">', '</h1>' );
 		else :
 			the_title( sprintf( '<h2 class="entry-title border-bottom pb-2 h3"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
