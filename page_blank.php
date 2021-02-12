@@ -3,7 +3,7 @@
  * Template Name: Blank (for page builders)
  *
  * @package Directory_Starter
- * @since 2.1.0.3
+ * @since 2.1.0.4
  */
 
 get_header(); 

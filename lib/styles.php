@@ -317,7 +317,7 @@ function directory_theme_customize_css()
 		//  =============================
 		?>
 			h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, #simplemodal-container h3 {
-				color: <?php echo get_theme_mod('dt_h1toh6_color', DT_H1TOH6_COLOR) ? esc_attr(get_theme_mod('dt_h1toh6_color', DT_H1TOH6_COLOR)) : AUI()->get_option('color_secondary'); ?>;
+				color: <?php echo esc_attr(get_theme_mod('dt_h1toh6_color', DT_H1TOH6_COLOR)) ? esc_attr(get_theme_mod('dt_h1toh6_color', DT_H1TOH6_COLOR)) : AUI()->get_option('color_secondary'); ?>;
 			}
 			#simplemodal-container h3 {
 				font-family: <?php echo sanitize_text_field(get_theme_mod('dt_font_family', DT_FONT_FAMILY)); ?>;
@@ -397,7 +397,7 @@ function directory_theme_customize_css()
 				font-family: <?php echo sanitize_text_field(get_theme_mod('dt_font_family', DT_FONT_FAMILY)); // sanitize_text_field used as we need to keep quotes '' ?>;
 				font-size: <?php echo esc_attr(get_theme_mod('dt_font_size', DT_FONT_SIZE)); ?>;
 				line-height: <?php echo esc_attr(get_theme_mod('dt_line_height', DT_LINE_HEIGHT)); ?>;
-				color: <?php echo get_theme_mod('dt_body_color', DT_BODY_COLOR) ? esc_attr(get_theme_mod('dt_body_color', DT_BODY_COLOR)) : AUI()->get_option('color_secondary'); ?>;
+				color: <?php echo esc_attr(get_theme_mod('dt_body_color', DT_BODY_COLOR)) ? esc_attr(get_theme_mod('dt_body_color', DT_BODY_COLOR)) : AUI()->get_option('color_secondary'); ?>;
 	background-color: <?php echo DT_BACKGROUND_COLOR;?>;
 			}
 		<?php

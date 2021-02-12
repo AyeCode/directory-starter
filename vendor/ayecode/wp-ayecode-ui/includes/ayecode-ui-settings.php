@@ -987,7 +987,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			?>
 			<div class="wrap">
 				<h1><?php echo $this->name; ?></h1>
-				<p><?php _e("Here you can adjust settings if you are having compatibility issues.","aui");?></p>
+				<p><?php _e("Here you can adjust settings if you are having compatibility issues.","directory-starter");?></p>
 				<form method="post" action="options.php">
 					<?php
 					settings_fields( 'ayecode-ui-settings' );
@@ -1026,7 +1026,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 									for="wpbs-font_size"><?php _e( 'HTML Font Size (px)', 'directory-starter' ); ?></label></th>
 							<td>
 								<input type="number" name="ayecode-ui-settings[html_font_size]" id="wpbs-font_size" value="<?php echo absint( $this->settings['html_font_size']); ?>" placeholder="16" />
-								<p class="description" ><?php _e("Our font sizing is rem (responsive based) here you can set the html font size in-case your theme is setting it too low.","aui");?></p>
+								<p class="description" ><?php _e("Our font sizing is rem (responsive based) here you can set the html font size in-case your theme is setting it too low.","directory-starter");?></p>
 							</td>
 						</tr>
 
@@ -1182,6 +1182,9 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					if(!is_admin() && $secondary_color != AUI_SECONDARY_COLOR_ORIGINAL){
 						echo self::css_secondary($settings['color_secondary'],$compatibility);
 					}
+
+					// Set admin bar z-index lower when modal is open.
+					echo ' body.modal-open #wpadminbar{z-index:999}';
                 ?>
 			</style>
 			<?php
