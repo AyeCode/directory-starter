@@ -40,7 +40,7 @@ function directory_theme_entry_meta($text_class = '') {
 		}
 
 		$categories_list = get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'directory-starter' ) );
-		$categories_list = $text_class ? str_replace(" href=","class='$text_class' href=",$categories_list) : '';
+		$categories_list = $text_class ? str_replace( " href=", "class='$text_class' href=", $categories_list ) : $categories_list;
 		if ( $categories_list ) {
 			printf( '<span class="cat-links mr-2 '.$text_class .'"><i class="fas fa-folder-open"></i> <span class="screen-reader-text">%1$s </span>%2$s</span>',
 				_x( 'Categories', 'Used before category names.', 'directory-starter' ),
