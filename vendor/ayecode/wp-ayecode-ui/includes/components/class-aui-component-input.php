@@ -23,6 +23,7 @@ class AUI_Component_Input {
 			'type'       => 'text',
 			'name'       => '',
 			'class'      => '',
+			'wrap_class' => '',
 			'id'         => '',
 			'placeholder'=> '',
 			'title'      => '',
@@ -108,7 +109,7 @@ class AUI_Component_Input {
 			}
 
 			// placeholder
-			if(!empty($args['placeholder'])){
+			if(isset($args['placeholder']) && '' != $args['placeholder'] ){
 				$output .= ' placeholder="'.esc_attr($args['placeholder']).'" ';
 			}
 
@@ -149,7 +150,7 @@ class AUI_Component_Input {
 			}
 
 			// class
-			$class = !empty($args['class']) ? $args['class'] : '';
+			$class = !empty($args['class']) ? AUI_Component_Helper::esc_classes( $args['class'] ) : '';
 			$output .= ' class="form-control '.$class.'" ';
 
 			// data-attributes
@@ -254,6 +255,7 @@ else{$eli.attr(\'type\',\'password\');}"
 
 				$form_group_class = $args['label_type']=='floating' && $type != 'checkbox' ? 'form-label-group' : 'form-group';
 				$wrap_class = $args['label_type']=='horizontal' ? $form_group_class . ' row' : $form_group_class;
+				$wrap_class = !empty($args['wrap_class']) ? $wrap_class." ".$args['wrap_class'] : $wrap_class;
 				$output = self::wrap(array(
 					'content' => $output,
 					'class'   => $wrap_class,
@@ -280,6 +282,7 @@ else{$eli.attr(\'type\',\'password\');}"
 		$defaults = array(
 			'name'       => '',
 			'class'      => '',
+			'wrap_class' => '',
 			'id'         => '',
 			'placeholder'=> '',
 			'title'      => '',
@@ -295,7 +298,9 @@ else{$eli.attr(\'type\',\'password\');}"
 			'no_wrap'    => false,
 			'rows'      => '',
 			'wysiwyg'   => false,
+			'allow_tags' => false, // Allow HTML tags
 			'element_require'   => '', // [%element_id%] == "1"
+			'extra_attributes'  => array(), // an array of extra attributes
 		);
 
 		/**
@@ -373,7 +378,7 @@ else{$eli.attr(\'type\',\'password\');}"
 			}
 
 			// placeholder
-			if(!empty($args['placeholder'])){
+			if(isset($args['placeholder']) && '' != $args['placeholder']){
 				$output .= ' placeholder="'.esc_attr($args['placeholder']).'" ';
 			}
 
@@ -408,13 +413,21 @@ else{$eli.attr(\'type\',\'password\');}"
 			$class = !empty($args['class']) ? $args['class'] : '';
 			$output .= ' class="form-control '.$class.'" ';
 
+			// extra attributes
+			if(!empty($args['extra_attributes'])){
+				$output .= AUI_Component_Helper::extra_attributes($args['extra_attributes']);
+			}
 
 			// close tag
 			$output .= ' >';
 
 			// value
-			if(!empty($args['value'])){
-				$output .= sanitize_textarea_field($args['value']);
+			if ( ! empty( $args['value'] ) ) {
+				if ( ! empty( $args['allow_tags'] ) ) {
+					$output .= AUI_Component_Helper::sanitize_html_field( $args['value'], $args ); // Sanitize HTML.
+				} else {
+					$output .= sanitize_textarea_field( $args['value'] );
+				}
 			}
 
 			// closing tag
@@ -447,6 +460,7 @@ else{$eli.attr(\'type\',\'password\');}"
 		if(!$args['no_wrap']){
 			$form_group_class = $args['label_type']=='floating' ? 'form-label-group' : 'form-group';
 			$wrap_class = $args['label_type']=='horizontal' ? $form_group_class . ' row' : $form_group_class;
+			$wrap_class = !empty($args['wrap_class']) ? $wrap_class." ".$args['wrap_class'] : $wrap_class;
 			$output = self::wrap(array(
 				'content' => $output,
 				'class'   => $wrap_class,
@@ -497,6 +511,7 @@ else{$eli.attr(\'type\',\'password\');}"
 			}
 
 			// class
+			$class = $class ? AUI_Component_Helper::esc_classes( $class ) : '';
 			$output .= ' class="'.$class.'" ';
 
 			// close
@@ -518,6 +533,13 @@ else{$eli.attr(\'type\',\'password\');}"
 		return $output;
 	}
 
+	/**
+	 * Wrap some content in a HTML wrapper.
+	 *
+	 * @param array $args
+	 *
+	 * @return string
+	 */
 	public static function wrap($args = array()){
 		$defaults = array(
 			'type'       => 'div',
@@ -553,7 +575,7 @@ else{$eli.attr(\'type\',\'password\');}"
 			}
 
 			// class
-			$class = !empty($args['class']) ? $args['class'] : '';
+			$class = !empty($args['class']) ? AUI_Component_Helper::esc_classes( $args['class'] ) : '';
 			$output .= ' class="'.$class.'" ';
 
 			// close wrap
@@ -599,6 +621,7 @@ else{$eli.attr(\'type\',\'password\');}"
 	public static function select($args = array()){
 		$defaults = array(
 			'class'      => '',
+			'wrap_class' => '',
 			'id'         => '',
 			'title'      => '',
 			'value'      => '', // can be an array or a string
@@ -656,9 +679,9 @@ else{$eli.attr(\'type\',\'password\');}"
 		}
 
 		// select2 placeholder
-		if($is_select2 && !empty($args['placeholder']) && empty($args['data-placeholder'])){
+		if($is_select2 && isset($args['placeholder']) && '' != $args['placeholder'] && empty($args['data-placeholder'])){
 			$args['data-placeholder'] = esc_attr($args['placeholder']);
-			$args['data-allow-clear'] = empty($args['data-allow-clear']) ? true : esc_attr($args['data-allow-clear']);
+			$args['data-allow-clear'] = isset($args['data-allow-clear']) ? (bool) $args['data-allow-clear'] : true;
 		}
 
 		// label
@@ -736,7 +759,7 @@ else{$eli.attr(\'type\',\'password\');}"
 		$output .= ' >';
 
 		// placeholder
-		if(!empty($args['placeholder']) && !$is_select2){
+		if(isset($args['placeholder']) && '' != $args['placeholder'] && !$is_select2){
 			$output .= '<option value="" disabled selected hidden>'.esc_attr($args['placeholder']).'</option>';
 		}elseif($is_select2 && !empty($args['placeholder'])){
 			$output .= "<option></option>"; // select2 needs an empty select to fill the placeholder
@@ -758,7 +781,7 @@ else{$eli.attr(\'type\',\'password\');}"
 						} else {
 							$option_label = isset($name['label']) ? $name['label'] : '';
 							$option_value = isset($name['value']) ? $name['value'] : '';
-							if(!empty($args['multiple']) && !empty($args['value'])){
+							if(!empty($args['multiple']) && !empty($args['value']) && is_array($args['value']) ){
 								$selected = in_array($option_value, stripslashes_deep($args['value'])) ? "selected" : "";
 							} elseif(!empty($args['value'])) {
 								$selected = selected($option_value,stripslashes_deep($args['value']), false);
@@ -808,6 +831,7 @@ else{$eli.attr(\'type\',\'password\');}"
 		// wrap
 		if(!$args['no_wrap']){
 			$wrap_class = $args['label_type']=='horizontal' ? 'form-group row' : 'form-group';
+			$wrap_class = !empty($args['wrap_class']) ? $wrap_class." ".$args['wrap_class'] : $wrap_class;
 			$output = self::wrap(array(
 				'content' => $output,
 				'class'   => $wrap_class,
@@ -830,6 +854,7 @@ else{$eli.attr(\'type\',\'password\');}"
 	public static function radio($args = array()){
 		$defaults = array(
 			'class'      => '',
+			'wrap_class' => '',
 			'id'         => '',
 			'title'      => '',
 			'horizontal' => false, // sets the lable horizontal
@@ -894,6 +919,7 @@ else{$eli.attr(\'type\',\'password\');}"
 
 		// wrap
 		$wrap_class = $args['label_type']=='horizontal' ? 'form-group row' : 'form-group';
+		$wrap_class = !empty($args['wrap_class']) ? $wrap_class." ".$args['wrap_class'] : $wrap_class;
 		$output = self::wrap(array(
 			'content' => $output,
 			'class'   => $wrap_class,

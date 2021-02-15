@@ -42,14 +42,14 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 *
 		 * @var string
 		 */
-		public $textdomain = 'aui';
+		public $textdomain = 'directory-starter';
 
 		/**
 		 * Latest version of Bootstrap at time of publish published.
 		 *
 		 * @var string
 		 */
-		public $latest = "4.3.1";
+		public $latest = "4.5.3";
 
 		/**
 		 * Current version of select2 being used.
@@ -152,7 +152,8 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 			// maybe load JS
 			if ( $this->settings['js'] ) {
-				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 1 );
+				$priority = $this->is_bs3_compat() ? 100 : 1;
+				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), $priority );
 			}
 			if ( $this->settings['js_backend'] && $this->load_admin_scripts() ) {
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 1 );
@@ -195,15 +196,17 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		}
 
 		/**
-		 * Adds the Font Awesome styles.
+		 * Adds the styles.
 		 */
 		public function enqueue_style() {
 
 			$css_setting = current_action() == 'wp_enqueue_scripts' ? 'css' : 'css_backend';
 
+			$rtl = is_rtl() ? '-rtl' : '';
+
 			if($this->settings[$css_setting]){
 				$compatibility = $this->settings[$css_setting]=='core' ? false : true;
-				$url = $this->settings[$css_setting]=='core' ? $this->url.'assets/css/ayecode-ui.css' : $this->url.'assets/css/ayecode-ui-compatibility.css';
+				$url = $this->settings[$css_setting]=='core' ? $this->url.'assets/css/ayecode-ui'.$rtl.'.css' : $this->url.'assets/css/ayecode-ui-compatibility'.$rtl.'.css';
 				wp_register_style( 'ayecode-ui', $url, array(), $this->latest );
 				wp_enqueue_style( 'ayecode-ui' );
 
@@ -430,14 +433,19 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					};
 
 					var elements = document.getElementsByClassName(selector);
-					for (var i in elements) {
-						var $this = elements[i];
-						if (typeof $this === 'object') {
-							$this.innerHTML = '<i class="far fa-clock"></i> ' + timer($this.getAttribute('title') || $this.getAttribute('datetime'));
+					if (selector && elements && elements.length) {
+						for (var i in elements) {
+							var $el = elements[i];
+							if (typeof $el === 'object') {
+								$el.innerHTML = '<i class="far fa-clock"></i> ' + timer($el.getAttribute('title') || $el.getAttribute('datetime'));
+							}
 						}
 					}
+
 					// update time every minute
-					setTimeout(aui_time_ago, 60000);
+					setTimeout(function() {
+						aui_time_ago(selector);
+					}, 60000);
 
 				}
 
@@ -542,8 +550,8 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				 * Check form condition
 				 */
 				function aui_check_form_condition(condition,form) {
-					if(form){
-						condition = condition.replace("(form)", "('"+form+"')");
+					if (form) {
+						condition = condition.replace(/\(form\)/g, "('"+form+"')");
 					}
 					return new Function("return " + condition+";")();
 				}
@@ -755,7 +763,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				jQuery(window).on("load",function() {
 					aui_init();
 				});
-
+				
 			</script>
 			<?php
 			$output = ob_get_clean();
@@ -767,6 +775,29 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				'<script>',
 				'</script>'
 			), '', $output );
+		}
+
+
+		/**
+		 * JS to help with conflict issues with other plugins and themes using bootstrap v3.
+		 * 
+		 * @TODO we may need this when other conflicts arrise.
+		 * @return mixed
+		 */
+		public static function bs3_compat_js() {
+			ob_start();
+			?>
+			<script>
+				<?php if( defined( 'FUSION_BUILDER_VERSION' ) ){ ?>
+				/* With Avada builder */
+
+				<?php } ?>
+			</script>
+			<?php
+			return str_replace( array(
+				'<script>',
+				'</script>'
+			), '', ob_get_clean());
 		}
 
 		/**
@@ -817,14 +848,14 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			if($this->settings[$js_setting]=='core-popper'){
 				// Bootstrap bundle
 				$url = $this->url.'assets/js/bootstrap.bundle.min.js';
-				wp_register_script( 'bootstrap-js-bundle', $url, array('select2','jquery'), $this->latest );
+				wp_register_script( 'bootstrap-js-bundle', $url, array('select2','jquery'), $this->latest, $this->is_bs3_compat() );
 				// if in admin then add to footer for compatibility.
 				is_admin() ? wp_enqueue_script( 'bootstrap-js-bundle', '', null, null, true ) : wp_enqueue_script( 'bootstrap-js-bundle');
 				$script = $this->inline_script();
 				wp_add_inline_script( 'bootstrap-js-bundle', $script );
 			}elseif($this->settings[$js_setting]=='popper'){
 				$url = $this->url.'assets/js/popper.min.js';
-				wp_register_script( 'bootstrap-js-popper', $url, array('jquery'), $this->latest );
+				wp_register_script( 'bootstrap-js-popper', $url, array('select2','jquery'), $this->latest );
 				wp_enqueue_script( 'bootstrap-js-popper' );
 				$load_inline = true;
 			}else{
@@ -833,7 +864,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 			// Load needed inline scripts by faking the loading of a script if the main script is not being loaded
 			if($load_inline){
-				wp_register_script( 'bootstrap-dummy', '',array('jquery') );
+				wp_register_script( 'bootstrap-dummy', '',array('select2','jquery') );
 				wp_enqueue_script( 'bootstrap-dummy' );
 				$script = $this->inline_script();
 				wp_add_inline_script( 'bootstrap-dummy', $script  );
@@ -970,7 +1001,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 									for="wpbs-css"><?php _e( 'Load CSS', 'directory-starter' ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[css]" id="wpbs-css">
-									<option	value="compatibility" <?php selected( $this->settings['css'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode', 'directory-starter' ); ?></option>
+									<option	value="compatibility" <?php selected( $this->settings['css'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode (default)', 'directory-starter' ); ?></option>
 									<option value="core" <?php selected( $this->settings['css'], 'core' ); ?>><?php _e( 'Full Mode', 'directory-starter' ); ?></option>
 									<option	value="" <?php selected( $this->settings['css'], '' ); ?>><?php _e( 'Disabled', 'directory-starter' ); ?></option>
 								</select>
@@ -1008,8 +1039,8 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 									for="wpbs-css-admin"><?php _e( 'Load CSS', 'directory-starter' ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[css_backend]" id="wpbs-css-admin">
-									<option	value="compatibility" <?php selected( $this->settings['css_backend'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode', 'directory-starter' ); ?></option>
-									<option value="core" <?php selected( $this->settings['css_backend'], 'core' ); ?>><?php _e( 'Full Mode', 'directory-starter' ); ?></option>
+									<option	value="compatibility" <?php selected( $this->settings['css_backend'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode (default)', 'directory-starter' ); ?></option>
+									<option value="core" <?php selected( $this->settings['css_backend'], 'core' ); ?>><?php _e( 'Full Mode (will cause style issues)', 'directory-starter' ); ?></option>
 									<option	value="" <?php selected( $this->settings['css_backend'], '' ); ?>><?php _e( 'Disabled', 'directory-starter' ); ?></option>
 								</select>
 							</td>
@@ -1087,6 +1118,45 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			)));
 		}
 
+		/**
+		 * CSS to help with conflict issues with other plugins and themes using bootstrap v3.
+		 *
+		 * @return mixed
+		 */
+		public static function bs3_compat_css() {
+			ob_start();
+			?>
+			<style>
+			/* Bootstrap 3 compatibility */
+			body.modal-open .modal-backdrop.show:not(.in) {opacity:0.5;}
+			body.modal-open .modal.show:not(.in)  {opacity:1;z-index: 99999}
+			body.modal-open .modal.show:not(.in) .modal-content  {box-shadow: none;}
+			body.modal-open .modal.show:not(.in)  .modal-dialog {transform: initial;}
+
+			body.modal-open .modal.bsui .modal-dialog{left: auto;}
+
+			.collapse.show:not(.in){display: inherit;}
+			.fade.show{opacity: 1;}
+
+			<?php if( defined( 'SVQ_THEME_VERSION' ) ){ ?>
+			/* KLEO theme specific */
+			.kleo-main-header .navbar-collapse.collapse.show:not(.in){display: inherit !important;}
+			<?php } ?>
+
+			<?php if( defined( 'FUSION_BUILDER_VERSION' ) ){ ?>
+			/* With Avada builder */
+			body.modal-open .modal.in  {opacity:1;z-index: 99999}
+			body.modal-open .modal.bsui.in .modal-content  {box-shadow: none;}
+			.bsui .collapse.in{display: inherit;}
+			<?php } ?>
+			</style>
+			<?php
+			return str_replace( array(
+				'<style>',
+				'</style>'
+			), '', ob_get_clean());
+		}
+
 
 		public static function custom_css($compatibility = true) {
 			$settings = get_option('aui_options');
@@ -1099,6 +1169,12 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			?>
 			<style>
 				<?php
+
+					// BS v3 compat
+					if( self::is_bs3_compat() ){
+					    echo self::bs3_compat_css();
+					}
+
 					if(!is_admin() && $primary_color != AUI_PRIMARY_COLOR_ORIGINAL){
 						echo self::css_primary($primary_color,$compatibility);
 					}
@@ -1106,6 +1182,9 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					if(!is_admin() && $secondary_color != AUI_SECONDARY_COLOR_ORIGINAL){
 						echo self::css_secondary($settings['color_secondary'],$compatibility);
 					}
+
+					// Set admin bar z-index lower when modal is open.
+					echo ' body.modal-open #wpadminbar{z-index:999}';
                 ?>
 			</style>
 			<?php
@@ -1118,6 +1197,15 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				'<style>',
 				'</style>'
 			), '', ob_get_clean());
+		}
+
+		/**
+		 * Check if we should add booststrap 3 compatibility changes.
+		 *
+		 * @return bool
+		 */
+		public static function is_bs3_compat(){
+			return defined('AYECODE_UI_BS3_COMPAT') || defined('SVQ_THEME_VERSION') || defined('FUSION_BUILDER_VERSION');
 		}
 
 		public static function css_primary($color_code,$compatibility){;

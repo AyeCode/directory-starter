@@ -2,8 +2,8 @@
 Contributors: paoltaia, stiofansisland, ayecode
 Tags: food-and-drink, blog, one-column, two-columns, three-columns, left-sidebar, right-sidebar, custom-header, custom-menu, editor-style, featured-images, microformats, post-formats, rtl-language-support, translation-ready
 Requires at least: 4.0
-Tested up to: 5.4
-Stable tag: 2.1.0.2
+Tested up to: 5.6
+Stable tag: 2.1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,10 +21,12 @@ No, this is optional but recommended.
 
 == Changelog ==
 
-= 2.1.0.3 =
+= 2.1.0.4 =
 * Notice added to add/edit menu screen warning that parent item not linkable - ADDED
 * Categories are missing on single blog post page - FIXED
 * Changes for WooCommerce checkout page compatibility - FIXED
+* Added blank page template for page builders and Gutenberg - ADDED
+* GeoDirectory Search page title is a link - FIXED
 
 = 2.1.0.2 =
 * Changes for AyeCode UI compatibility - CHANGED
