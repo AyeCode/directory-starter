@@ -5,6 +5,11 @@ if (!defined('DT_ENABLE_HEADER_TOP')) define('DT_ENABLE_HEADER_TOP', '');
 if (!defined('DT_ENABLE_BLOG_SIDEBAR')) define('DT_ENABLE_BLOG_SIDEBAR', '1');
 if (!defined('DT_ENABLE_WOO_SIDEBAR')) define('DT_ENABLE_WOO_SIDEBAR', '0');
 if (!defined('DT_BLOG_SIDEBAR_POSITION')) define('DT_BLOG_SIDEBAR_POSITION', 'right');
+if (!defined('DT_BLOG_SIDEBAR_POSITION_MOBILE')) define('DT_BLOG_SIDEBAR_POSITION_MOBILE', 'bottom');
+// Enable GeoDirectory sidebar?
+if (!defined('DT_ENABLE_GD_SIDEBAR')) define('DT_ENABLE_GD_SIDEBAR', DT_ENABLE_BLOG_SIDEBAR);
+if (!defined('DT_GD_SIDEBAR_POSITION')) define('DT_GD_SIDEBAR_POSITION', DT_BLOG_SIDEBAR_POSITION);
+if (!defined('DT_GD_SIDEBAR_POSITION_MOBILE')) define('DT_GD_SIDEBAR_POSITION_MOBILE', DT_BLOG_SIDEBAR_POSITION_MOBILE);
 // Number of footer sidebars you need
 if (!defined('FOOTER_SIDEBAR_COUNT')) define('FOOTER_SIDEBAR_COUNT', 4);
 // Copyright text

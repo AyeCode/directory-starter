@@ -21,6 +21,10 @@ No, this is optional but recommended.
 
 == Changelog ==
 
+= 2.1.0.5 =
+* Option added to be able to change content/sidebar order on mobile view - ADDED
+* Some page templates changed for new features - CHANGED
+
 = 2.1.0.4 =
 * Notice added to add/edit menu screen warning that parent item not linkable - ADDED
 * Categories are missing on single blog post page - FIXED

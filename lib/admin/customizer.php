@@ -862,9 +862,87 @@ $wp_customize->add_panel( 'dt_body_panel', array(
 						'left' => 'Left',
 						'right' => 'Right',
 				),
-				'std'         => 'right',
+				'std'         => DT_BLOG_SIDEBAR_POSITION,
 				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_BLOG_SIDEBAR_POSITION ),
 		) );
+
+		// blog sidebar position on mobile
+		$wp_customize->add_setting( 'dt_blog_sidebar_position_mobile', array(
+			'default' => apply_filters('dt_blog_sidebar_position_default_value', DT_BLOG_SIDEBAR_POSITION_MOBILE),
+			'sanitize_callback' => 'sanitize_text_field',
+			'capability'  => 'edit_theme_options',
+		) );
+		$wp_customize->add_control( 'dt_blog_sidebar_position_mobile', array(
+			'label'   => __('Blog Sidebar Position Mobile', 'directory-starter' ),
+			'section' => 'dt_body_sidebar_section',
+			'type'    => 'select',
+			'choices' => array(
+				'top' => 'top',
+				'bottom' => 'bottom',
+			),
+			'std'         => DT_BLOG_SIDEBAR_POSITION_MOBILE,
+			'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_BLOG_SIDEBAR_POSITION_MOBILE ),
+		) );
+
+		//  =============================
+		//  3.6.4 - GD Sidebar Position
+		//  =============================
+
+		if( defined('GEODIRECTORY_VERSION')){
+
+			$wp_customize->add_setting( 'dt_enable_gd_sidebar', array(
+				'default' => apply_filters('dt_enable_gd_sidebar_default_value', DT_ENABLE_GD_SIDEBAR),
+				'sanitize_callback' => 'sanitize_text_field',
+				'capability'  => 'edit_theme_options',
+			) );
+			$wp_customize->add_control( 'dt_enable_gd_sidebar', array(
+				'label'   => __('Enable GeoDirectory Sidebar', 'directory-starter' ),
+				'section' => 'dt_body_sidebar_section',
+				'type'    => 'checkbox',
+				'value'         => DT_ENABLE_GD_SIDEBAR,
+				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_ENABLE_GD_SIDEBAR ),
+			) );
+
+			$wp_customize->add_setting( 'dt_gd_sidebar_position', array(
+				'default' => apply_filters('dt_gd_sidebar_position_default_value', DT_GD_SIDEBAR_POSITION),
+				'sanitize_callback' => 'sanitize_text_field',
+				'capability'  => 'edit_theme_options',
+			) );
+			$wp_customize->add_control( 'dt_gd_sidebar_position', array(
+				'label'   => __('GeoDirectory Sidebar Position', 'directory-starter' ),
+				'section' => 'dt_body_sidebar_section',
+				'type'    => 'select',
+				'choices' => array(
+					'left' => 'Left',
+					'right' => 'Right',
+				),
+				'std'         => DT_GD_SIDEBAR_POSITION,
+				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_GD_SIDEBAR_POSITION ),
+			) );
+
+			// GD sidebar position on mobile
+			$wp_customize->add_setting( 'dt_gd_sidebar_position_mobile', array(
+				'default' => apply_filters('dt_gd_sidebar_position_default_value', DT_GD_SIDEBAR_POSITION_MOBILE),
+				'sanitize_callback' => 'sanitize_text_field',
+				'capability'  => 'edit_theme_options',
+			) );
+			$wp_customize->add_control( 'dt_gd_sidebar_position_mobile', array(
+				'label'   => __('GeoDirectory Sidebar Position Mobile', 'directory-starter' ),
+				'section' => 'dt_body_sidebar_section',
+				'type'    => 'select',
+				'choices' => array(
+					'top' => 'top',
+					'bottom' => 'bottom',
+				),
+				'std'         => DT_GD_SIDEBAR_POSITION_MOBILE,
+				'description' => sprintf( __( 'Default: %s', 'directory-starter' ), DT_GD_SIDEBAR_POSITION_MOBILE ),
+			) );
+
+		}
+
+
+	
+	
 
 //  =============================
 //  4.0 - Footer

@@ -5,23 +5,19 @@
 <?php
 $dt_enable_blog_sidebar = esc_attr(get_theme_mod('dt_enable_blog_sidebar', DT_ENABLE_BLOG_SIDEBAR)) == '1' && is_active_sidebar( 'sidebar-primary' ) ? true : false;
 $dt_blog_sidebar_position = esc_attr(get_theme_mod('dt_blog_sidebar_position', DT_BLOG_SIDEBAR_POSITION));
+$dt_blog_sidebar_position_mobile = esc_attr(get_theme_mod('dt_blog_sidebar_position_mobile', DT_BLOG_SIDEBAR_POSITION_MOBILE));
 
-if ($dt_enable_blog_sidebar) {
-  $content_class = 'col-lg-8 col-md-9';
+if ( $dt_enable_blog_sidebar ) {
+    $content_class = 'col-lg-8 col-md-9';
+    $content_class .= $dt_blog_sidebar_position == 'right' ? ' order-md-first' : ' order-md-last';
+    $content_class .= $dt_blog_sidebar_position_mobile == 'bottom' ? ' order-first' : ' order-last';
 } else {
-  $content_class = 'col-lg-12';
+    $content_class = 'col-lg-12';
 }
 ?>
-<section class="<?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?> py-4">
+<div class="<?php if(get_theme_mod('dt_container_full', DT_CONTAINER_FULL)){echo 'container-fluid';}else{ echo "container";}?> py-4">
     <div class="row">
-        <?php if ($dt_enable_blog_sidebar && $dt_blog_sidebar_position == 'left') { ?>
-          <div class="col-lg-4 col-md-3">
-            <div class="sidebar blog-sidebar page-sidebar">
-              <?php get_sidebar(); ?>
-            </div>
-          </div>
-        <?php } ?>
-        <div class="<?php echo esc_attr($content_class); ?>">
+        <section class="<?php echo esc_attr($content_class); ?>">
             <div class="content-archive">
                 <?php if ( have_posts() ) { ?>
                     <header <?php post_class('content-box  p-3 mb-3 '.dt_content_classes()); ?>>
@@ -48,8 +44,8 @@ if ($dt_enable_blog_sidebar) {
                 }
                 ?>
             </div>
-        </div>
-        <?php if ($dt_enable_blog_sidebar && $dt_blog_sidebar_position == 'right') { ?>
+        </section>
+        <?php if ($dt_enable_blog_sidebar ) { ?>
           <div class="col-lg-4 col-md-3">
             <div class="sidebar blog-sidebar page-sidebar">
               <?php get_sidebar(); ?>
@@ -57,7 +53,7 @@ if ($dt_enable_blog_sidebar) {
           </div>
         <?php } ?>
     </div>
-</section>
+</div>
 
 <?php do_action('dt_blog_after_main_content'); ?>
 
