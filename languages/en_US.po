@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Directory Starter 2.0.0.10\n"
+"Project-Id-Version: Directory Starter 2.1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-01 14:54+0100\n"
-"PO-Revision-Date: 2020-04-01 14:54+0100\n"
+"POT-Creation-Date: 2021-03-23 16:37+0000\n"
+"PO-Revision-Date: 2021-03-23 16:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: AyeCode Ltd <contact@ayecode.io>\n"
 "Language: en_US\n"
@@ -15,14 +15,14 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: archive.php:43 index.php:43 single.php:48
+#: archive.php:39 index.php:48 single.php:44
 msgid "Previous"
 msgstr ""
 
-#: archive.php:44 index.php:44 single.php:45
+#: archive.php:40 index.php:49 single.php:41
 msgid "Next"
 msgstr ""
 
@@ -33,29 +33,20 @@ msgid_plural "%1$s Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: comments.php:62
+#: comments.php:67
 msgid "Comments are closed."
 msgstr ""
 
-#: comments.php:80
+#: comments.php:87
 msgid "Leave a Comment"
 msgstr ""
 
-#: comments.php:81
+#: comments.php:88
 msgid "Post Comment"
 msgstr ""
 
-#: comments.php:82
-msgid "Comment text"
-msgstr ""
-
-#: comments.php:83
-#, php-format
-msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-msgstr ""
-
-#: geodirectory.php:31 index.php:28 page.php:22 page_full-width.php:18
-#: single.php:28 woocommerce.php:28
+#: geodirectory.php:34 page.php:19 page_blank.php:15 page_full-width.php:18
+#: single.php:24 template-parts/content/content-none.php:4 woocommerce.php:28
 msgid "Sorry, no results were found."
 msgstr ""
 
@@ -63,379 +54,333 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: lib/admin/customizer.php:162 lib/admin/customizer.php:164
-#: lib/admin/customizer.php:866 lib/admin/customizer.php:868
-#: lib/admin/customizer.php:1277 lib/admin/customizer.php:1279
-#: lib/admin/customizer.php:1546 lib/admin/customizer.php:1548
-#: lib/admin/customizer.php:1701 lib/admin/customizer.php:1703
+#: lib/admin/customizer.php:163 lib/admin/customizer.php:165
+#: lib/admin/customizer.php:795 lib/admin/customizer.php:797
+#: lib/admin/customizer.php:1126 lib/admin/customizer.php:1128
 msgid "Spacing"
 msgstr ""
 
-#: lib/admin/customizer.php:180
-msgid "Desktop Container Width"
+#: lib/admin/customizer.php:182 lib/admin/customizer.php:187
+#: lib/admin/customizer.php:660 lib/admin/customizer.php:664
+msgid "No"
 msgstr ""
 
-#: lib/admin/customizer.php:182 lib/admin/customizer.php:199
-#: lib/admin/customizer.php:216 lib/admin/customizer.php:233
-#: lib/admin/customizer.php:250 lib/admin/customizer.php:289
-#: lib/admin/customizer.php:306 lib/admin/customizer.php:323
-#: lib/admin/customizer.php:340 lib/admin/customizer.php:357
-#: lib/admin/customizer.php:374 lib/admin/customizer.php:391
-#: lib/admin/customizer.php:408 lib/admin/customizer.php:425
-#: lib/admin/customizer.php:442 lib/admin/customizer.php:459
-#: lib/admin/customizer.php:476 lib/admin/customizer.php:504
-#: lib/admin/customizer.php:521 lib/admin/customizer.php:538
-#: lib/admin/customizer.php:555 lib/admin/customizer.php:596
-#: lib/admin/customizer.php:613 lib/admin/customizer.php:630
-#: lib/admin/customizer.php:647 lib/admin/customizer.php:664
-#: lib/admin/customizer.php:734 lib/admin/customizer.php:751
-#: lib/admin/customizer.php:779 lib/admin/customizer.php:796
-#: lib/admin/customizer.php:813 lib/admin/customizer.php:830
-#: lib/admin/customizer.php:847 lib/admin/customizer.php:887
-#: lib/admin/customizer.php:904 lib/admin/customizer.php:921
-#: lib/admin/customizer.php:938 lib/admin/customizer.php:954
-#: lib/admin/customizer.php:970 lib/admin/customizer.php:986
-#: lib/admin/customizer.php:1004 lib/admin/customizer.php:1022
-#: lib/admin/customizer.php:1073 lib/admin/customizer.php:1090
-#: lib/admin/customizer.php:1106 lib/admin/customizer.php:1122
-#: lib/admin/customizer.php:1138 lib/admin/customizer.php:1173
-#: lib/admin/customizer.php:1190 lib/admin/customizer.php:1207
-#: lib/admin/customizer.php:1235 lib/admin/customizer.php:1252
-#: lib/admin/customizer.php:1269 lib/admin/customizer.php:1308
-#: lib/admin/customizer.php:1326 lib/admin/customizer.php:1348
-#: lib/admin/customizer.php:1387 lib/admin/customizer.php:1403
-#: lib/admin/customizer.php:1419 lib/admin/customizer.php:1435
-#: lib/admin/customizer.php:1451 lib/admin/customizer.php:1478
-#: lib/admin/customizer.php:1494 lib/admin/customizer.php:1510
-#: lib/admin/customizer.php:1526 lib/admin/customizer.php:1589
-#: lib/admin/customizer.php:1606 lib/admin/customizer.php:1622
-#: lib/admin/customizer.php:1638 lib/admin/customizer.php:1665
-#: lib/admin/customizer.php:1681 lib/admin/customizer.php:1720
-#: lib/admin/customizer.php:1736
+#: lib/admin/customizer.php:183 lib/admin/customizer.php:661
+msgid "Yes"
+msgstr ""
+
+#: lib/admin/customizer.php:185
+msgid "Desktop Container Full Width"
+msgstr ""
+
+#: lib/admin/customizer.php:187 lib/admin/customizer.php:240
+#: lib/admin/customizer.php:257 lib/admin/customizer.php:274
+#: lib/admin/customizer.php:291 lib/admin/customizer.php:308
+#: lib/admin/customizer.php:378 lib/admin/customizer.php:395
+#: lib/admin/customizer.php:423 lib/admin/customizer.php:449
+#: lib/admin/customizer.php:466 lib/admin/customizer.php:483
+#: lib/admin/customizer.php:546 lib/admin/customizer.php:563
+#: lib/admin/customizer.php:579 lib/admin/customizer.php:595
+#: lib/admin/customizer.php:611 lib/admin/customizer.php:646
+#: lib/admin/customizer.php:664 lib/admin/customizer.php:680
+#: lib/admin/customizer.php:705 lib/admin/customizer.php:725
+#: lib/admin/customizer.php:753 lib/admin/customizer.php:770
+#: lib/admin/customizer.php:787 lib/admin/customizer.php:826
+#: lib/admin/customizer.php:844 lib/admin/customizer.php:866
+#: lib/admin/customizer.php:884 lib/admin/customizer.php:903
+#: lib/admin/customizer.php:920 lib/admin/customizer.php:938
+#: lib/admin/customizer.php:983 lib/admin/customizer.php:999
+#: lib/admin/customizer.php:1015 lib/admin/customizer.php:1031
+#: lib/admin/customizer.php:1047 lib/admin/customizer.php:1074
+#: lib/admin/customizer.php:1090 lib/admin/customizer.php:1106
+#: lib/admin/customizer.php:1169 lib/admin/customizer.php:1186
+#: lib/admin/customizer.php:1202 lib/admin/customizer.php:1218
+#: lib/admin/customizer.php:1245 lib/admin/customizer.php:1261
 #, php-format
 msgid "Default: %s"
 msgstr ""
 
-#: lib/admin/customizer.php:196
-msgid "Container Padding Right"
-msgstr ""
-
-#: lib/admin/customizer.php:213
-msgid "Container Padding Left"
-msgstr ""
-
-#: lib/admin/customizer.php:230
-msgid "Container Margin Right"
-msgstr ""
-
-#: lib/admin/customizer.php:247
-msgid "Container Margin Left"
-msgstr ""
-
-#: lib/admin/customizer.php:269 lib/admin/customizer.php:271
-msgid "Alert Colors"
-msgstr ""
-
-#: lib/admin/customizer.php:286
-msgid "Alert Warning Background Color"
-msgstr ""
-
-#: lib/admin/customizer.php:303
-msgid "Alert Error Background Color"
-msgstr ""
-
-#: lib/admin/customizer.php:320
-msgid "Alert Success Background Color"
-msgstr ""
-
-#: lib/admin/customizer.php:337
-msgid "Alert Info Background Color"
-msgstr ""
-
-#: lib/admin/customizer.php:354
-msgid "Alert Warning Text Color"
-msgstr ""
-
-#: lib/admin/customizer.php:371
-msgid "Alert Error Text Color"
-msgstr ""
-
-#: lib/admin/customizer.php:388
-msgid "Alert Success Text Color"
-msgstr ""
-
-#: lib/admin/customizer.php:405
-msgid "Alert Info Text Color"
-msgstr ""
-
-#: lib/admin/customizer.php:422
-msgid "Alert Warning Border Color"
-msgstr ""
-
-#: lib/admin/customizer.php:439
-msgid "Alert Error Border Color"
-msgstr ""
-
-#: lib/admin/customizer.php:456
-msgid "Alert Success Border Color"
-msgstr ""
-
-#: lib/admin/customizer.php:473
-msgid "Alert Info Border Color"
-msgstr ""
-
-#: lib/admin/customizer.php:484 lib/admin/customizer.php:486
-msgid "Button Colors"
-msgstr ""
-
-#: lib/admin/customizer.php:501
-msgid "Button Text Color"
-msgstr ""
-
-#: lib/admin/customizer.php:518
-msgid "Button Background Color"
-msgstr ""
-
-#: lib/admin/customizer.php:535
-msgid "Button Hover Background Color"
-msgstr ""
-
-#: lib/admin/customizer.php:552
-msgid "Button Border Color"
-msgstr ""
-
-#: lib/admin/customizer.php:567
+#: lib/admin/customizer.php:211
 msgid "Header"
 msgstr ""
 
-#: lib/admin/customizer.php:576 lib/admin/customizer.php:578 lib/nav.php:8
+#: lib/admin/customizer.php:220 lib/admin/customizer.php:222 lib/nav.php:8
 msgid "Header Top"
 msgstr ""
 
-#: lib/admin/customizer.php:592
+#: lib/admin/customizer.php:236
 msgid "Enable Header Top Section"
 msgstr ""
 
-#: lib/admin/customizer.php:610
+#: lib/admin/customizer.php:254
 msgid "Header Top Text Color"
 msgstr ""
 
-#: lib/admin/customizer.php:627
+#: lib/admin/customizer.php:271
 msgid "Header Top Link Color"
 msgstr ""
 
-#: lib/admin/customizer.php:644
+#: lib/admin/customizer.php:288
 msgid "Header Top Link Hover Color"
 msgstr ""
 
-#: lib/admin/customizer.php:661
+#: lib/admin/customizer.php:305
 msgid "Header Top Background Color"
 msgstr ""
 
-#: lib/admin/customizer.php:672 lib/admin/customizer.php:674
-#: lib/admin/customizer.php:687
+#: lib/admin/customizer.php:316 lib/admin/customizer.php:318
+#: lib/admin/customizer.php:331
 msgid "Logo"
 msgstr ""
 
-#: lib/admin/customizer.php:684
+#: lib/admin/customizer.php:328
 msgid ""
 "Upload a logo to replace the default site name and description in the header"
 msgstr ""
 
-#: lib/admin/customizer.php:708 lib/admin/customizer.php:710
-#: lib/admin/customizer.php:1053 lib/admin/customizer.php:1055
-#: lib/admin/customizer.php:1368 lib/admin/customizer.php:1370
-#: lib/admin/customizer.php:1570 lib/admin/customizer.php:1572
+#: lib/admin/customizer.php:352 lib/admin/customizer.php:354
+#: lib/admin/customizer.php:526 lib/admin/customizer.php:528
+#: lib/admin/customizer.php:964 lib/admin/customizer.php:966
+#: lib/admin/customizer.php:1150 lib/admin/customizer.php:1152
 msgid "Text Colors"
 msgstr ""
 
-#: lib/admin/customizer.php:731
+#: lib/admin/customizer.php:375
 msgid "Header Link Color"
 msgstr ""
 
-#: lib/admin/customizer.php:748
+#: lib/admin/customizer.php:392
 msgid "Header Link Hover Color"
 msgstr ""
 
-#: lib/admin/customizer.php:759 lib/admin/customizer.php:761
-#: lib/admin/customizer.php:1147 lib/admin/customizer.php:1149
-#: lib/admin/customizer.php:1459 lib/admin/customizer.php:1461
-#: lib/admin/customizer.php:1646 lib/admin/customizer.php:1648
+#: lib/admin/customizer.php:403 lib/admin/customizer.php:405
+#: lib/admin/customizer.php:620 lib/admin/customizer.php:622
+#: lib/admin/customizer.php:1055 lib/admin/customizer.php:1057
+#: lib/admin/customizer.php:1226 lib/admin/customizer.php:1228
 msgid "Background Colors"
 msgstr ""
 
-#: lib/admin/customizer.php:776
+#: lib/admin/customizer.php:420
 msgid "Header Background Color"
 msgstr ""
 
-#: lib/admin/customizer.php:793
-msgid "Header Border Color"
+#: lib/admin/customizer.php:438
+msgid "Header Shadow"
 msgstr ""
 
-#: lib/admin/customizer.php:809
-msgid "Header Shadow Color"
+#: lib/admin/customizer.php:443 lib/admin/customizer.php:449
+#: lib/admin/customizer.php:699 lib/admin/customizer.php:719
+msgid "None"
 msgstr ""
 
-#: lib/admin/customizer.php:827
+#: lib/admin/customizer.php:444 lib/admin/customizer.php:700
+#: lib/admin/customizer.php:705
+msgid "Small"
+msgstr ""
+
+#: lib/admin/customizer.php:445 lib/admin/customizer.php:701
+msgid "Medium"
+msgstr ""
+
+#: lib/admin/customizer.php:446 lib/admin/customizer.php:702
+msgid "Large"
+msgstr ""
+
+#: lib/admin/customizer.php:463
 msgid "Primary Menu - Sub menu Background Color"
 msgstr ""
 
-#: lib/admin/customizer.php:844
+#: lib/admin/customizer.php:480
 msgid "Primary Menu - Sub menu Background hover Color"
 msgstr ""
 
-#: lib/admin/customizer.php:855 lib/admin/customizer.php:857
-#: lib/admin/customizer.php:1215 lib/admin/customizer.php:1217
-#: lib/admin/customizer.php:1535 lib/admin/customizer.php:1537
-#: lib/admin/customizer.php:1689 lib/admin/customizer.php:1691
+#: lib/admin/customizer.php:491 lib/admin/customizer.php:493
+#: lib/admin/customizer.php:733 lib/admin/customizer.php:735
+#: lib/admin/customizer.php:1115 lib/admin/customizer.php:1117
+#: lib/admin/customizer.php:1269 lib/admin/customizer.php:1271
 msgid "Typography"
 msgstr ""
 
-#: lib/admin/customizer.php:883
-msgid "Header Min Height"
-msgstr ""
-
-#: lib/admin/customizer.php:901
-msgid "Logo Margin Right"
-msgstr ""
-
-#: lib/admin/customizer.php:918
-msgid "Logo Margin Left"
-msgstr ""
-
-#: lib/admin/customizer.php:935
-msgid "Logo Margin Top"
-msgstr ""
-
-#: lib/admin/customizer.php:951
-msgid "Primary Menu Min Height"
-msgstr ""
-
-#: lib/admin/customizer.php:967
-msgid "Primary Menu Line Height"
-msgstr ""
-
-#: lib/admin/customizer.php:983
-msgid "Primary Menu Padding Left Right"
-msgstr ""
-
-#: lib/admin/customizer.php:1000
-msgid "Header Logo Width"
-msgstr ""
-
-#: lib/admin/customizer.php:1018
-msgid "Header Menu Width"
-msgstr ""
-
-#: lib/admin/customizer.php:1033
+#: lib/admin/customizer.php:506
 msgid "Body"
 msgstr ""
 
-#: lib/admin/customizer.php:1070
+#: lib/admin/customizer.php:543
 msgid "Body Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1087 lib/admin/customizer.php:1400
+#: lib/admin/customizer.php:560 lib/admin/customizer.php:996
 msgid "h1 to h6 Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1103 lib/admin/customizer.php:1416
-#: lib/admin/customizer.php:1603
+#: lib/admin/customizer.php:576 lib/admin/customizer.php:1012
+#: lib/admin/customizer.php:1183
 msgid "Link Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1119 lib/admin/customizer.php:1432
-#: lib/admin/customizer.php:1619
+#: lib/admin/customizer.php:592 lib/admin/customizer.php:1028
+#: lib/admin/customizer.php:1199
 msgid "Link Hover Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1135 lib/admin/customizer.php:1448
-#: lib/admin/customizer.php:1635
+#: lib/admin/customizer.php:608 lib/admin/customizer.php:1044
+#: lib/admin/customizer.php:1215
 msgid "Link Visited Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1170
+#: lib/admin/customizer.php:643
 msgid "Content Box Background Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1187
+#: lib/admin/customizer.php:655
+msgid "Show Border"
+msgstr ""
+
+#: lib/admin/customizer.php:677
 msgid "Content Box Border Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1203
-msgid "Content Box Shadow Color"
+#: lib/admin/customizer.php:694
+msgid "Content Shadow"
 msgstr ""
 
-#: lib/admin/customizer.php:1232
+#: lib/admin/customizer.php:714
+msgid "Content Corner Radius"
+msgstr ""
+
+#: lib/admin/customizer.php:720
+msgid "Rounded Small"
+msgstr ""
+
+#: lib/admin/customizer.php:721 lib/admin/customizer.php:725
+msgid "Rounded Medium"
+msgstr ""
+
+#: lib/admin/customizer.php:722
+msgid "Rounded Large"
+msgstr ""
+
+#: lib/admin/customizer.php:750
 msgid "Font Family"
 msgstr ""
 
-#: lib/admin/customizer.php:1249
+#: lib/admin/customizer.php:767
 msgid "Font Size"
 msgstr ""
 
-#: lib/admin/customizer.php:1266
+#: lib/admin/customizer.php:784
 msgid "Line Height"
 msgstr ""
 
-#: lib/admin/customizer.php:1288 lib/admin/customizer.php:1290
+#: lib/admin/customizer.php:806 lib/admin/customizer.php:808
 msgid "Sidebar"
 msgstr ""
 
-#: lib/admin/customizer.php:1304
+#: lib/admin/customizer.php:822
 msgid "Enable Blog Sidebar"
 msgstr ""
 
-#: lib/admin/customizer.php:1322
+#: lib/admin/customizer.php:840
 msgid "Enable WooCommerce Sidebar"
 msgstr ""
 
-#: lib/admin/customizer.php:1340
+#: lib/admin/customizer.php:858
 msgid "Blog Sidebar Position"
 msgstr ""
 
-#: lib/admin/customizer.php:1359
+#: lib/admin/customizer.php:876
+msgid "Blog Sidebar Position Mobile"
+msgstr ""
+
+#: lib/admin/customizer.php:899
+msgid "Enable GeoDirectory Sidebar"
+msgstr ""
+
+#: lib/admin/customizer.php:912
+msgid "GeoDirectory Sidebar Position"
+msgstr ""
+
+#: lib/admin/customizer.php:930
+msgid "GeoDirectory Sidebar Position Mobile"
+msgstr ""
+
+#: lib/admin/customizer.php:955
 msgid "Footer"
 msgstr ""
 
-#: lib/admin/customizer.php:1384 lib/admin/customizer.php:1586
+#: lib/admin/customizer.php:980 lib/admin/customizer.php:1166
 msgid "Text Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1475
+#: lib/admin/customizer.php:1071
 msgid "Footer Section Background Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1491
+#: lib/admin/customizer.php:1087
 msgid "Footer Section Border Top Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1507
+#: lib/admin/customizer.php:1103
 msgid "Footer Section Border Bottom Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1523
-msgid "Footer Section Box Shadow Color"
-msgstr ""
-
-#: lib/admin/customizer.php:1561
+#: lib/admin/customizer.php:1141
 msgid "Copyright"
 msgstr ""
 
-#: lib/admin/customizer.php:1662
+#: lib/admin/customizer.php:1242
 msgid "Copyright Section Background Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1678
+#: lib/admin/customizer.php:1258
 msgid "Copyright Section Border Color"
 msgstr ""
 
-#: lib/admin/customizer.php:1717
-msgid "Copyright Padding Top"
+#: lib/class-downgrade.php:123 lib/class-downgrade.php:157
+#: lib/class-downgrade.php:191
+msgid "Immediate attention required"
 msgstr ""
 
-#: lib/admin/customizer.php:1733
-msgid "Copyright Padding Bottom"
+#: lib/class-downgrade.php:124
+msgid ""
+"Whoop theme 2.1+ has some huge design improvements, if you are not ready for "
+"these or do not want them please downgrade to keep things as they were."
+msgstr ""
+
+#: lib/class-downgrade.php:127
+msgid "This will downgrade Whoop theme to the latest version 2.0"
+msgstr ""
+
+#: lib/class-downgrade.php:127 lib/class-downgrade.php:161
+#: lib/class-downgrade.php:195
+msgid "Downgrade to latest v2.0"
+msgstr ""
+
+#: lib/class-downgrade.php:128 lib/class-downgrade.php:162
+#: lib/class-downgrade.php:196
+msgid "I'm OK with this, Remove Notice"
+msgstr ""
+
+#: lib/class-downgrade.php:158
+msgid ""
+"Supreme Directory 2.1+ has some huge design improvements, if you are not "
+"ready for these or do not want them please downgrade to keep things as they "
+"were."
+msgstr ""
+
+#: lib/class-downgrade.php:161
+msgid "This will downgrade Supreme Directory theme to the latest version 2.0"
+msgstr ""
+
+#: lib/class-downgrade.php:192
+msgid ""
+"Directory Starter 2.1+ has some huge design improvements, if you are not "
+"ready for these or do not want them please downgrade to keep things as they "
+"were."
+msgstr ""
+
+#: lib/class-downgrade.php:195
+msgid "This will downgrade Directory Starter theme to the latest version 2.0"
 msgstr ""
 
 #: lib/comments.php:7
@@ -450,29 +395,15 @@ msgstr ""
 msgid "Newer Comments"
 msgstr ""
 
-#: lib/comments.php:32
-#, php-format
-msgid "%1$s at %2$s"
+#: lib/comments.php:103
+msgid "Your email address will not be published."
 msgstr ""
 
-#: lib/comments.php:34 template-parts/content/content.php:25
-#: template-parts/post/content.php:25
-msgid "Edit"
-msgstr ""
-
-#: lib/comments.php:36
-msgid "Reply"
-msgstr ""
-
-#: lib/comments.php:45
-msgid "Your comment is awaiting moderation."
-msgstr ""
-
-#: lib/config.php:11
+#: lib/config.php:16
 msgid "Copyright &copy; "
 msgstr ""
 
-#: lib/config.php:11
+#: lib/config.php:16
 msgid ". All rights reserved."
 msgstr ""
 
@@ -485,34 +416,34 @@ msgid "Format"
 msgstr ""
 
 #: lib/entrymeta.php:27
-msgid "Posted on"
+msgid "Posted"
 msgstr ""
 
 #: lib/entrymeta.php:36
 msgid "Author"
 msgstr ""
 
-#: lib/entrymeta.php:42 lib/entrymeta.php:50
+#: lib/entrymeta.php:42 lib/entrymeta.php:51
 msgid ", "
 msgstr ""
 
-#: lib/entrymeta.php:45
+#: lib/entrymeta.php:46
 msgid "Categories"
 msgstr ""
 
-#: lib/entrymeta.php:53
+#: lib/entrymeta.php:54
 msgid "Tags"
 msgstr ""
 
-#: lib/entrymeta.php:61
+#: lib/entrymeta.php:62
 msgid "Leave a comment"
 msgstr ""
 
-#: lib/entrymeta.php:61
+#: lib/entrymeta.php:62
 msgid "1 Comment"
 msgstr ""
 
-#: lib/entrymeta.php:61
+#: lib/entrymeta.php:62
 msgid "% Comments"
 msgstr ""
 
@@ -538,18 +469,31 @@ msgstr ""
 msgid "Lost your password?"
 msgstr ""
 
-#: lib/init.php:139
+#: lib/init.php:142
 msgid "WordPress"
 msgstr ""
 
-#: lib/init.php:140
+#: lib/init.php:143
 #, php-format
 msgid "Copyright &copy; %1$s %2$s %3$s Theme %4$s"
 msgstr ""
 
-#: lib/init.php:141
+#: lib/init.php:144
 #, php-format
 msgid " - Powered by %s."
+msgstr ""
+
+#: lib/libraries/wp-bootstrap-comments.php:51
+#: template-parts/content/content.php:31 template-parts/post/content.php:25
+msgid "Edit"
+msgstr ""
+
+#: lib/libraries/wp-bootstrap-comments.php:55
+msgid "Reply"
+msgstr ""
+
+#: lib/libraries/wp-bootstrap-comments.php:66
+msgid "Your comment is awaiting moderation."
 msgstr ""
 
 #: lib/nav.php:3
@@ -560,160 +504,572 @@ msgstr ""
 msgid "Footer Links"
 msgstr ""
 
-#: lib/sidebars.php:5
+#: lib/nav.php:109
+msgid ""
+"WARNING: Parent menu items (with sub items) are not link-able.  If your "
+"parent menu item requires a link then you should also add it as the first "
+"child element."
+msgstr ""
+
+#: lib/sidebars.php:10
 msgid "Sidebar Blog"
 msgstr ""
 
-#: lib/sidebars.php:7
+#: lib/sidebars.php:12
 msgid "Sidebar for blog pages, can be enabled from customizer Body>Sidebar"
 msgstr ""
 
-#: lib/sidebars.php:15
+#: lib/sidebars.php:20
 msgid "Sidebar Page"
 msgstr ""
 
-#: lib/sidebars.php:17
+#: lib/sidebars.php:22
 msgid "Sidebar for pages."
 msgstr ""
 
-#: lib/sidebars.php:26
+#: lib/sidebars.php:31
 msgid "Sidebar WooCommerce"
 msgstr ""
 
-#: lib/sidebars.php:28
+#: lib/sidebars.php:33
 msgid "Sidebar for WooCommerce."
 msgstr ""
 
-#: lib/sidebars.php:39
+#: lib/sidebars.php:44
 msgid "GD Top"
 msgstr ""
 
-#: lib/sidebars.php:41
+#: lib/sidebars.php:46
 msgid "Full width top widget area."
 msgstr ""
 
-#: lib/sidebars.php:50
+#: lib/sidebars.php:55
 msgid "GD Sidebar"
 msgstr ""
 
-#: lib/sidebars.php:52
+#: lib/sidebars.php:57
 msgid "Sidebar for GeoDirectory pages."
 msgstr ""
 
-#: lib/sidebars.php:60
+#: lib/sidebars.php:65
 msgid "GD Bottom"
 msgstr ""
 
-#: lib/sidebars.php:62
+#: lib/sidebars.php:67
 msgid "Full width bottom widget area."
 msgstr ""
 
-#: lib/sidebars.php:73
+#: lib/sidebars.php:78
 msgid "Sidebar Footer 1"
 msgstr ""
 
-#: lib/sidebars.php:75
+#: lib/sidebars.php:80
 msgid "Sidebar Footer 1."
 msgstr ""
 
-#: lib/sidebars.php:85
+#: lib/sidebars.php:90
 msgid "Sidebar Footer 2"
 msgstr ""
 
-#: lib/sidebars.php:87
+#: lib/sidebars.php:92
 msgid "Sidebar Footer 2."
 msgstr ""
 
-#: lib/sidebars.php:97
+#: lib/sidebars.php:102
 msgid "Sidebar Footer 3"
 msgstr ""
 
-#: lib/sidebars.php:99
+#: lib/sidebars.php:104
 msgid "Sidebar Footer 3."
 msgstr ""
 
-#: lib/sidebars.php:109
+#: lib/sidebars.php:114
 msgid "Sidebar Footer 4"
 msgstr ""
 
-#: lib/sidebars.php:111
+#: lib/sidebars.php:116
 msgid "Sidebar Footer 4."
 msgstr ""
 
-#: single.php:46
+#: searchform.php:9
+msgid "Search for:"
+msgstr ""
+
+#: single.php:42
 msgid "Next post:"
 msgstr ""
 
-#: single.php:49
+#: single.php:45
 msgid "Previous post:"
 msgstr ""
 
-#: template-parts/content/content.php:16 template-parts/post/content.php:16
+#: template-parts/content/content.php:22 template-parts/post/content.php:16
 msgid "Pages:"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:288
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1080
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:304
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:305
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1085
+msgid "Here you can adjust settings if you are having compatibility issues."
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1092
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:408
+msgid "Frontend"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1096
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1134
+msgid "Load CSS"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1099
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1137
+msgid "Compatibility Mode (default)"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1100
+msgid "Full Mode"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1101
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1139
+msgid "Disabled"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1108
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1146
+msgid "Load JS"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1111
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1149
+msgid "Core + Popper (default)"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1112
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1150
+msgid "Popper"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1113
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1151
+msgid "Required functions only"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1114
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1152
+msgid "Disabled (not recommended)"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1121
+msgid "HTML Font Size (px)"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1124
+msgid ""
+"Our font sizing is rem (responsive based) here you can set the html font "
+"size in-case your theme is setting it too low."
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1130
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:410
+msgid "Backend"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1138
+msgid "Full Mode (will cause style issues)"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1159
+msgid "Disable load on URL"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1161
+msgid ""
+"If you have backend conflict you can enter a partial URL argument that will "
+"disable the loading of AUI on those pages. Add each argument on a new line."
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1182
+msgid "AyeCode UI"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1197
+msgid "Primary Color"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1210
+msgid "Secondary Color"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1715
+msgid "January"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1716
+msgid "February"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1717
+msgid "March"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1718
+msgid "April"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1719
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1731
+msgid "May"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1720
+msgid "June"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1721
+msgid "July"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1722
+msgid "August"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1723
+msgid "September"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1724
+msgid "October"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1725
+msgid "November"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1726
+msgid "December"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1727
+msgid "Jan"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1728
+msgid "Feb"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1729
+msgid "Mar"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1730
+msgid "Apr"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1732
+msgid "Jun"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1733
+msgid "Jul"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1734
+msgid "Aug"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1735
+msgid "Sep"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1736
+msgid "Oct"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1737
+msgid "Nov"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1738
+msgid "Dec"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1739
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1745
+msgid "S"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1740
+msgid "M"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1741
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1743
+msgid "T"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1742
+msgid "W"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1744
+msgid "F"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1746
+msgid "Su"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1747
+msgid "Mo"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1748
+msgid "Tu"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1749
+msgid "We"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1750
+msgid "Th"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1751
+msgid "Fr"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1752
+msgid "Sa"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1753
+msgid "Sun"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1754
+msgid "Mon"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1755
+msgid "Tue"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1756
+msgid "Wed"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1757
+msgid "Thu"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1758
+msgid "Fri"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1759
+msgid "Sat"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1760
+msgid "Sunday"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1761
+msgid "Monday"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1762
+msgid "Tuesday"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1763
+msgid "Wednesday"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1764
+msgid "Thursday"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1765
+msgid "Friday"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1766
+msgid "Saturday"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1767
+msgid "am"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1768
+msgid "pm"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1769
+msgid "AM"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1770
+msgid "PM"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1773
+msgid "Year"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1774
+msgid "Hour"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1775
+msgid "Minute"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1776
+msgid "Wk"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1777
+msgid " to "
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1778
+msgid "Scroll to increment"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1779
+msgid "Click to toggle"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1877
+#, fuzzy
+msgid "Select an option&hellip;"
+msgstr "'Lokácia"
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1878
+msgid "No matches found"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1879
+msgid "Loading failed"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1880
+msgid "Please enter 1 or more characters"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1881
+msgid "Please enter %item% or more characters"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1882
+msgid "Please delete 1 character"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1883
+msgid "Please delete %item% characters"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1884
+msgid "You can only select 1 item"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1885
+msgid "You can only select %item% items"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1886
+msgid "Loading more results&hellip;"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/ayecode-ui-settings.php:1887
+msgid "Searching&hellip;"
+msgstr ""
+
+#: vendor/ayecode/wp-ayecode-ui/includes/components/class-aui-component-pagination.php:29
+msgid "Posts navigation"
+msgstr ""
+
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:336
 msgid "Type"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:309
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:341
 msgid "CSS (default)"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:316
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:344
+msgid "Kits (settings managed on fontawesome.com)"
+msgstr ""
+
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:351
+msgid "Kit URL"
+msgstr ""
+
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:359
+#, php-format
+msgid "Requires a free account with Font Awesome. %sGet kit url%s"
+msgstr ""
+
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:369
 msgid "Version"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:320
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:373
 #, php-format
 msgid "Latest - %s (default)"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:348
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:402
 msgid "Enqueue"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:352
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:406
 msgid "Frontend + Backend (default)"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:354
-msgid "Frontend"
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:417
+msgid "Enable pro"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:356
-msgid "Backend"
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:424
+#, php-format
+msgid "Requires a subscription. %sLearn more%s %sManage my allowed domains%s"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:363
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:436
 msgid "Enable v4 shims compatibility"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:368
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:442
 msgid ""
 "This enables v4 classes to work with v5, sort of like a band-aid until "
 "everyone has updated everything to v5."
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:374
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:448
 msgid "Enable JS pseudo elements (not recommended)"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:381
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:455
 msgid ""
 "Used only with the JS version, this will make pseudo-elements work but can "
 "be CPU intensive on some sites."
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:386
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:461
 msgid "Dequeue"
 msgstr ""
 
-#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:392
+#: vendor/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php:467
 msgid ""
 "This will try to dequeue any other Font Awesome versions loaded by other "
 "sources if they are added with `font-awesome` or `fontawesome` in the name."
@@ -729,10 +1085,6 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "GT > Location Select"
-#~ msgstr "'Lokácia"
-
-#, fuzzy
-#~ msgid "Select Location"
 #~ msgstr "'Lokácia"
 
 #, fuzzy
