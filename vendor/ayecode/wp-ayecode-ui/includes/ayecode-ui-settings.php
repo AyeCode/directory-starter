@@ -35,7 +35,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.0.1';
+		public $version = '0.1.45';
 
 		/**
 		 * Class textdomain.
@@ -175,6 +175,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		public function load_admin_scripts(){
 			$result = true;
 
+			// check if specifically disabled
 			if(!empty($this->settings['disable_admin'])){
 				$url_parts = explode("\n",$this->settings['disable_admin']);
 				foreach($url_parts as $part){
@@ -196,27 +197,60 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		}
 
 		/**
+		 * Check if the current admin screen should load scripts.
+		 * 
+		 * @return bool
+		 */
+		public function is_aui_screen(){
+			$load = false;
+			// check if we should load or not
+			if ( is_admin() ) {
+				// Only enable on set pages
+				$aui_screens = array(
+					'page',
+					'post',
+					'settings_page_ayecode-ui-settings',
+					'appearance_page_gutenberg-widgets'
+				);
+				$screen_ids = apply_filters( 'aui_screen_ids', $aui_screens );
+
+				$screen = get_current_screen();
+
+//				echo '###'.$screen->id;
+				
+				if ( $screen && in_array( $screen->id, $screen_ids ) ) {
+					$load = true;
+				}
+			}
+
+			return $load;
+		}
+
+		/**
 		 * Adds the styles.
 		 */
 		public function enqueue_style() {
 
-			$css_setting = current_action() == 'wp_enqueue_scripts' ? 'css' : 'css_backend';
+			if( is_admin() && !$this->is_aui_screen()){
+				// don't add wp-admin scripts if not requested to
+			}else{
+				$css_setting = current_action() == 'wp_enqueue_scripts' ? 'css' : 'css_backend';
 
-			$rtl = is_rtl() ? '-rtl' : '';
+				$rtl = is_rtl() ? '-rtl' : '';
 
-			if($this->settings[$css_setting]){
-				$compatibility = $this->settings[$css_setting]=='core' ? false : true;
-				$url = $this->settings[$css_setting]=='core' ? $this->url.'assets/css/ayecode-ui'.$rtl.'.css' : $this->url.'assets/css/ayecode-ui-compatibility'.$rtl.'.css';
-				wp_register_style( 'ayecode-ui', $url, array(), $this->latest );
-				wp_enqueue_style( 'ayecode-ui' );
+				if($this->settings[$css_setting]){
+					$compatibility = $this->settings[$css_setting]=='core' ? false : true;
+					$url = $this->settings[$css_setting]=='core' ? $this->url.'assets/css/ayecode-ui'.$rtl.'.css' : $this->url.'assets/css/ayecode-ui-compatibility'.$rtl.'.css';
+					wp_register_style( 'ayecode-ui', $url, array(), $this->latest );
+					wp_enqueue_style( 'ayecode-ui' );
 
-				// flatpickr
-				wp_register_style( 'flatpickr', $this->url.'assets/css/flatpickr.min.css', array(), $this->latest );
+					// flatpickr
+					wp_register_style( 'flatpickr', $this->url.'assets/css/flatpickr.min.css', array(), $this->latest );
 
 
-				// fix some wp-admin issues
-				if(is_admin()){
-					$custom_css = "
+					// fix some wp-admin issues
+					if(is_admin()){
+						$custom_css = "
                 body{
                     background-color: #f1f1f1;
                     font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif;
@@ -250,21 +284,27 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				    font-size: 1.3em;
 				    margin: 1em 0
 				}
+				.blocks-widgets-container .bsui *{
+					box-sizing: border-box;
+				}
                 ";
 
-					// @todo, remove once fixed :: fix for this bug https://github.com/WordPress/gutenberg/issues/14377
-					$custom_css .= "
+						// @todo, remove once fixed :: fix for this bug https://github.com/WordPress/gutenberg/issues/14377
+						$custom_css .= "
 						.edit-post-sidebar input[type=color].components-text-control__input{
 						    padding: 0;
 						}
 					";
-					wp_add_inline_style( 'ayecode-ui', $custom_css );
+						wp_add_inline_style( 'ayecode-ui', $custom_css );
+					}
+
+					// custom changes
+					wp_add_inline_style( 'ayecode-ui', self::custom_css($compatibility) );
+
 				}
-
-				// custom changes
-				wp_add_inline_style( 'ayecode-ui', self::custom_css($compatibility) );
-
 			}
+
+
 		}
 
 		/**
@@ -272,11 +312,13 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 *
 		 * If this remains small then its best to use this than to add another JS file.
 		 */
-		public function inline_script(){
+		public function inline_script() {
+			// Flatpickr calendar locale
+			$flatpickr_locale = self::flatpickr_locale();
+
 			ob_start();
 			?>
 			<script>
-				
 				/**
 				 * An AUI bootstrap adaptation of GreedyNav.js ( by Luke Jackson ).
 				 *
@@ -359,7 +401,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 						}
 
 						// Window listeners
-						jQuery(window).resize(function() {
+						jQuery(window).on("resize",function() {
 							check();
 						});
 
@@ -368,11 +410,55 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					});
 				}
 
+				function aui_select2_locale() {
+					var aui_select2_params = <?php echo self::select2_locale(); ?>;
+
+					return {
+						'language': {
+							errorLoading: function() {
+								// Workaround for https://github.com/select2/select2/issues/4355 instead of i18n_ajax_error.
+								return aui_select2_params.i18n_searching;
+							},
+							inputTooLong: function(args) {
+								var overChars = args.input.length - args.maximum;
+								if (1 === overChars) {
+									return aui_select2_params.i18n_input_too_long_1;
+								}
+								return aui_select2_params.i18n_input_too_long_n.replace('%item%', overChars);
+							},
+							inputTooShort: function(args) {
+								var remainingChars = args.minimum - args.input.length;
+								if (1 === remainingChars) {
+									return aui_select2_params.i18n_input_too_short_1;
+								}
+								return aui_select2_params.i18n_input_too_short_n.replace('%item%', remainingChars);
+							},
+							loadingMore: function() {
+								return aui_select2_params.i18n_load_more;
+							},
+							maximumSelected: function(args) {
+								if (args.maximum === 1) {
+									return aui_select2_params.i18n_selection_too_long_1;
+								}
+								return aui_select2_params.i18n_selection_too_long_n.replace('%item%', args.maximum);
+							},
+							noResults: function() {
+								return aui_select2_params.i18n_no_matches;
+							},
+							searching: function() {
+								return aui_select2_params.i18n_searching;
+							}
+						}
+					};
+				}
+
 				/**
 				 * Initiate Select2 items.
 				 */
 				function aui_init_select2(){
-					jQuery("select.aui-select2").select2();
+					var select2_args = jQuery.extend({}, aui_select2_locale());
+
+					jQuery("select.aui-select2").select2(select2_args);
 				}
 
 				/**
@@ -470,8 +556,9 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				 */
 				$aui_doing_init_flatpickr = false;
 				function aui_init_flatpickr(){
-					if ( jQuery.isFunction(jQuery.fn.flatpickr) && !$aui_doing_init_flatpickr) {
+					if ( typeof jQuery.fn.flatpickr === "function" && !$aui_doing_init_flatpickr) {
 						$aui_doing_init_flatpickr = true;
+						<?php if ( ! empty( $flatpickr_locale ) ) { ?>try{flatpickr.localize(<?php echo $flatpickr_locale; ?>);}catch(err){console.log(err.message);}<?php } ?>
 						jQuery('input[data-aui-init="flatpickr"]:not(.flatpickr-input)').flatpickr();
 					}
 					$aui_doing_init_flatpickr = false;
@@ -680,7 +767,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				 * Init Multiple item carousels.
 				 */ 
 				function aui_init_carousel_multiple_items(){
-					jQuery(window).resize(function(){
+					jQuery(window).on("resize",function(){
 						jQuery('.carousel-multiple-items').each(function () {
 							aui_carousel_maybe_show_multiple_items(this);
 						});
@@ -763,7 +850,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				jQuery(window).on("load",function() {
 					aui_init();
 				});
-				
+
 			</script>
 			<?php
 			$output = ob_get_clean();
@@ -780,7 +867,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 		/**
 		 * JS to help with conflict issues with other plugins and themes using bootstrap v3.
-		 * 
+		 *
 		 * @TODO we may need this when other conflicts arrise.
 		 * @return mixed
 		 */
@@ -831,43 +918,51 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 */
 		public function enqueue_scripts() {
 
-			$js_setting = current_action() == 'wp_enqueue_scripts' ? 'js' : 'js_backend';
+			if( is_admin() && !$this->is_aui_screen()){
+				// don't add wp-admin scripts if not requested to
+			}else {
 
-			// select2
-			wp_register_script( 'select2', $this->url.'assets/js/select2.min.js', array('jquery'), $this->select2_version );
+				$js_setting = current_action() == 'wp_enqueue_scripts' ? 'js' : 'js_backend';
 
-			// flatpickr
-			wp_register_script( 'flatpickr', $this->url.'assets/js/flatpickr.min.js', array(), $this->latest );
+				// select2
+				wp_register_script( 'select2', $this->url . 'assets/js/select2.min.js', array( 'jquery' ), $this->select2_version );
 
-			// Bootstrap file browser
-			wp_register_script( 'aui-custom-file-input', $url = $this->url.'assets/js/bs-custom-file-input.min.js', array('jquery'), $this->select2_version );
-			wp_add_inline_script( 'aui-custom-file-input', $this->inline_script_file_browser() );
+				// flatpickr
+				wp_register_script( 'flatpickr', $this->url . 'assets/js/flatpickr.min.js', array(), $this->latest );
 
-			$load_inline = false;
+				// Bootstrap file browser
+				wp_register_script( 'aui-custom-file-input', $url = $this->url . 'assets/js/bs-custom-file-input.min.js', array( 'jquery' ), $this->select2_version );
+				wp_add_inline_script( 'aui-custom-file-input', $this->inline_script_file_browser() );
 
-			if($this->settings[$js_setting]=='core-popper'){
-				// Bootstrap bundle
-				$url = $this->url.'assets/js/bootstrap.bundle.min.js';
-				wp_register_script( 'bootstrap-js-bundle', $url, array('select2','jquery'), $this->latest, $this->is_bs3_compat() );
-				// if in admin then add to footer for compatibility.
-				is_admin() ? wp_enqueue_script( 'bootstrap-js-bundle', '', null, null, true ) : wp_enqueue_script( 'bootstrap-js-bundle');
-				$script = $this->inline_script();
-				wp_add_inline_script( 'bootstrap-js-bundle', $script );
-			}elseif($this->settings[$js_setting]=='popper'){
-				$url = $this->url.'assets/js/popper.min.js';
-				wp_register_script( 'bootstrap-js-popper', $url, array('select2','jquery'), $this->latest );
-				wp_enqueue_script( 'bootstrap-js-popper' );
-				$load_inline = true;
-			}else{
-				$load_inline = true;
-			}
+				$load_inline = false;
 
-			// Load needed inline scripts by faking the loading of a script if the main script is not being loaded
-			if($load_inline){
-				wp_register_script( 'bootstrap-dummy', '',array('select2','jquery') );
-				wp_enqueue_script( 'bootstrap-dummy' );
-				$script = $this->inline_script();
-				wp_add_inline_script( 'bootstrap-dummy', $script  );
+				if ( $this->settings[ $js_setting ] == 'core-popper' ) {
+					// Bootstrap bundle
+					$url = $this->url . 'assets/js/bootstrap.bundle.min.js';
+					wp_register_script( 'bootstrap-js-bundle', $url, array(
+						'select2',
+						'jquery'
+					), $this->latest, $this->is_bs3_compat() );
+					// if in admin then add to footer for compatibility.
+					is_admin() ? wp_enqueue_script( 'bootstrap-js-bundle', '', null, null, true ) : wp_enqueue_script( 'bootstrap-js-bundle' );
+					$script = $this->inline_script();
+					wp_add_inline_script( 'bootstrap-js-bundle', $script );
+				} elseif ( $this->settings[ $js_setting ] == 'popper' ) {
+					$url = $this->url . 'assets/js/popper.min.js';
+					wp_register_script( 'bootstrap-js-popper', $url, array( 'select2', 'jquery' ), $this->latest );
+					wp_enqueue_script( 'bootstrap-js-popper' );
+					$load_inline = true;
+				} else {
+					$load_inline = true;
+				}
+
+				// Load needed inline scripts by faking the loading of a script if the main script is not being loaded
+				if ( $load_inline ) {
+					wp_register_script( 'bootstrap-dummy', '', array( 'select2', 'jquery' ) );
+					wp_enqueue_script( 'bootstrap-dummy' );
+					$script = $this->inline_script();
+					wp_add_inline_script( 'bootstrap-dummy', $script );
+				}
 			}
 
 		}
@@ -932,7 +1027,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				'ayetheme' => 'popper',
 				'listimia' => 'required',
 				'listimia_backend' => 'core-popper',
-				'avada'    => 'required',
+				//'avada'    => 'required', // removed as we now add compatibility
 			);
 		}
 
@@ -987,7 +1082,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			?>
 			<div class="wrap">
 				<h1><?php echo $this->name; ?></h1>
-				<p><?php _e("Here you can adjust settings if you are having compatibility issues.","directory-starter");?></p>
+				<p><?php _e("Here you can adjust settings if you are having compatibility issues.",'directory-starter');?></p>
 				<form method="post" action="options.php">
 					<?php
 					settings_fields( 'ayecode-ui-settings' );
@@ -1026,7 +1121,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 									for="wpbs-font_size"><?php _e( 'HTML Font Size (px)', 'directory-starter' ); ?></label></th>
 							<td>
 								<input type="number" name="ayecode-ui-settings[html_font_size]" id="wpbs-font_size" value="<?php echo absint( $this->settings['html_font_size']); ?>" placeholder="16" />
-								<p class="description" ><?php _e("Our font sizing is rem (responsive based) here you can set the html font size in-case your theme is setting it too low.","directory-starter");?></p>
+								<p class="description" ><?php _e("Our font sizing is rem (responsive based) here you can set the html font size in-case your theme is setting it too low.",'directory-starter');?></p>
 							</td>
 						</tr>
 
@@ -1608,6 +1703,215 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			return $output;
 		}
 
+		/**
+		 * Calendar params.
+		 *
+		 * @since 0.1.44
+		 *
+		 * @return array Calendar params.
+		 */
+		public static function calendar_params() {
+			$params = array(
+				'month_long_1' => __( 'January', 'directory-starter' ),
+				'month_long_2' => __( 'February', 'directory-starter' ),
+				'month_long_3' => __( 'March', 'directory-starter' ),
+				'month_long_4' => __( 'April', 'directory-starter' ),
+				'month_long_5' => __( 'May', 'directory-starter' ),
+				'month_long_6' => __( 'June', 'directory-starter' ),
+				'month_long_7' => __( 'July', 'directory-starter' ),
+				'month_long_8' => __( 'August', 'directory-starter' ),
+				'month_long_9' => __( 'September', 'directory-starter' ),
+				'month_long_10' => __( 'October', 'directory-starter' ),
+				'month_long_11' => __( 'November', 'directory-starter' ),
+				'month_long_12' => __( 'December', 'directory-starter' ),
+				'month_s_1' => _x( 'Jan', 'January abbreviation', 'directory-starter' ),
+				'month_s_2' => _x( 'Feb', 'February abbreviation', 'directory-starter' ),
+				'month_s_3' => _x( 'Mar', 'March abbreviation', 'directory-starter' ),
+				'month_s_4' => _x( 'Apr', 'April abbreviation', 'directory-starter' ),
+				'month_s_5' => _x( 'May', 'May abbreviation', 'directory-starter' ),
+				'month_s_6' => _x( 'Jun', 'June abbreviation', 'directory-starter' ),
+				'month_s_7' => _x( 'Jul', 'July abbreviation', 'directory-starter' ),
+				'month_s_8' => _x( 'Aug', 'August abbreviation', 'directory-starter' ),
+				'month_s_9' => _x( 'Sep', 'September abbreviation', 'directory-starter' ),
+				'month_s_10' => _x( 'Oct', 'October abbreviation', 'directory-starter' ),
+				'month_s_11' => _x( 'Nov', 'November abbreviation', 'directory-starter' ),
+				'month_s_12' => _x( 'Dec', 'December abbreviation', 'directory-starter' ),
+				'day_s1_1' => _x( 'S', 'Sunday initial', 'directory-starter' ),
+				'day_s1_2' => _x( 'M', 'Monday initial', 'directory-starter' ),
+				'day_s1_3' => _x( 'T', 'Tuesday initial', 'directory-starter' ),
+				'day_s1_4' => _x( 'W', 'Wednesday initial', 'directory-starter' ),
+				'day_s1_5' => _x( 'T', 'Friday initial', 'directory-starter' ),
+				'day_s1_6' => _x( 'F', 'Thursday initial', 'directory-starter' ),
+				'day_s1_7' => _x( 'S', 'Saturday initial', 'directory-starter' ),
+				'day_s2_1' => __( 'Su', 'directory-starter' ),
+				'day_s2_2' => __( 'Mo', 'directory-starter' ),
+				'day_s2_3' => __( 'Tu', 'directory-starter' ),
+				'day_s2_4' => __( 'We', 'directory-starter' ),
+				'day_s2_5' => __( 'Th', 'directory-starter' ),
+				'day_s2_6' => __( 'Fr', 'directory-starter' ),
+				'day_s2_7' => __( 'Sa', 'directory-starter' ),
+				'day_s3_1' => __( 'Sun', 'directory-starter' ),
+				'day_s3_2' => __( 'Mon', 'directory-starter' ),
+				'day_s3_3' => __( 'Tue', 'directory-starter' ),
+				'day_s3_4' => __( 'Wed', 'directory-starter' ),
+				'day_s3_5' => __( 'Thu', 'directory-starter' ),
+				'day_s3_6' => __( 'Fri', 'directory-starter' ),
+				'day_s3_7' => __( 'Sat', 'directory-starter' ),
+				'day_s5_1' => __( 'Sunday', 'directory-starter' ),
+				'day_s5_2' => __( 'Monday', 'directory-starter' ),
+				'day_s5_3' => __( 'Tuesday', 'directory-starter' ),
+				'day_s5_4' => __( 'Wednesday', 'directory-starter' ),
+				'day_s5_5' => __( 'Thursday', 'directory-starter' ),
+				'day_s5_6' => __( 'Friday', 'directory-starter' ),
+				'day_s5_7' => __( 'Saturday', 'directory-starter' ),
+				'am_lower' => __( 'am', 'directory-starter' ),
+				'pm_lower' => __( 'pm', 'directory-starter' ),
+				'am_upper' => __( 'AM', 'directory-starter' ),
+				'pm_upper' => __( 'PM', 'directory-starter' ),
+				'firstDayOfWeek' => (int) get_option( 'start_of_week' ),
+				'time_24hr' => false,
+				'year' => __( 'Year', 'directory-starter' ),
+				'hour' => __( 'Hour', 'directory-starter' ),
+				'minute' => __( 'Minute', 'directory-starter' ),
+				'weekAbbreviation' => __( 'Wk', 'directory-starter' ),
+				'rangeSeparator' => __( ' to ', 'directory-starter' ),
+				'scrollTitle' => __( 'Scroll to increment', 'directory-starter' ),
+				'toggleTitle' => __( 'Click to toggle', 'directory-starter' )
+			);
+
+			return apply_filters( 'ayecode_ui_calendar_params', $params );
+		}
+
+		/**
+		 * Flatpickr calendar localize.
+		 *
+		 * @since 0.1.44
+		 *
+		 * @return string Calendar locale.
+		 */
+		public static function flatpickr_locale() {
+			$params = self::calendar_params();
+
+			if ( is_string( $params ) ) {
+				$params = html_entity_decode( $params, ENT_QUOTES, 'UTF-8' );
+			} else {
+				foreach ( (array) $params as $key => $value ) {
+					if ( ! is_scalar( $value ) ) {
+						continue;
+					}
+
+					$params[ $key ] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
+				}
+			}
+
+			$day_s3 = array();
+			$day_s5 = array();
+
+			for ( $i = 1; $i <= 7; $i ++ ) {
+				$day_s3[] = addslashes( $params[ 'day_s3_' . $i ] );
+				$day_s5[] = addslashes( $params[ 'day_s3_' . $i ] );
+			}
+
+			$month_s = array();
+			$month_long = array();
+
+			for ( $i = 1; $i <= 12; $i ++ ) {
+				$month_s[] = addslashes( $params[ 'month_s_' . $i ] );
+				$month_long[] = addslashes( $params[ 'month_long_' . $i ] );
+			}
+
+ob_start();
+if ( 0 ) { ?><script><?php } ?>
+{
+	weekdays: {
+		shorthand: ['<?php echo implode( "','", $day_s3 ); ?>'],
+		longhand: ['<?php echo implode( "','", $day_s5 ); ?>'],
+	},
+	months: {
+		shorthand: ['<?php echo implode( "','", $month_s ); ?>'],
+		longhand: ['<?php echo implode( "','", $month_long ); ?>'],
+	},
+	daysInMonth: [31,28,31,30,31,30,31,31,30,31,30,31],
+	firstDayOfWeek: <?php echo (int) $params[ 'firstDayOfWeek' ]; ?>,
+	ordinal: function (nth) {
+		var s = nth % 100;
+		if (s > 3 && s < 21)
+			return "th";
+		switch (s % 10) {
+			case 1:
+				return "st";
+			case 2:
+				return "nd";
+			case 3:
+				return "rd";
+			default:
+				return "th";
+		}
+	},
+	rangeSeparator: '<?php echo addslashes( $params[ 'rangeSeparator' ] ); ?>',
+	weekAbbreviation: '<?php echo addslashes( $params[ 'weekAbbreviation' ] ); ?>',
+	scrollTitle: '<?php echo addslashes( $params[ 'scrollTitle' ] ); ?>',
+	toggleTitle: '<?php echo addslashes( $params[ 'toggleTitle' ] ); ?>',
+	amPM: ['<?php echo addslashes( $params[ 'am_upper' ] ); ?>','<?php echo addslashes( $params[ 'pm_upper' ] ); ?>'],
+	yearAriaLabel: '<?php echo addslashes( $params[ 'year' ] ); ?>',
+	hourAriaLabel: '<?php echo addslashes( $params[ 'hour' ] ); ?>',
+	minuteAriaLabel: '<?php echo addslashes( $params[ 'minute' ] ); ?>',
+	time_24hr: <?php echo ( $params[ 'time_24hr' ] ? 'true' : 'false' ) ; ?>
+}
+<?php if ( 0 ) { ?></script><?php } ?>
+<?php
+			$locale = ob_get_clean();
+
+			return apply_filters( 'ayecode_ui_flatpickr_locale', trim( $locale ) );
+		}
+
+		/**
+		 * Select2 JS params.
+		 *
+		 * @since 0.1.44
+		 *
+		 * @return array Select2 JS params.
+		 */
+		public static function select2_params() {
+			$params = array(
+				'i18n_select_state_text'    => esc_attr__( 'Select an option&hellip;', 'directory-starter' ),
+				'i18n_no_matches'           => _x( 'No matches found', 'enhanced select', 'directory-starter' ),
+				'i18n_ajax_error'           => _x( 'Loading failed', 'enhanced select', 'directory-starter' ),
+				'i18n_input_too_short_1'    => _x( 'Please enter 1 or more characters', 'enhanced select', 'directory-starter' ),
+				'i18n_input_too_short_n'    => _x( 'Please enter %item% or more characters', 'enhanced select', 'directory-starter' ),
+				'i18n_input_too_long_1'     => _x( 'Please delete 1 character', 'enhanced select', 'directory-starter' ),
+				'i18n_input_too_long_n'     => _x( 'Please delete %item% characters', 'enhanced select', 'directory-starter' ),
+				'i18n_selection_too_long_1' => _x( 'You can only select 1 item', 'enhanced select', 'directory-starter' ),
+				'i18n_selection_too_long_n' => _x( 'You can only select %item% items', 'enhanced select', 'directory-starter' ),
+				'i18n_load_more'            => _x( 'Loading more results&hellip;', 'enhanced select', 'directory-starter' ),
+				'i18n_searching'            => _x( 'Searching&hellip;', 'enhanced select', 'directory-starter' )
+			);
+
+			return apply_filters( 'ayecode_ui_select2_params', $params );
+		}
+
+		/**
+		 * Select2 JS localize.
+		 *
+		 * @since 0.1.44
+		 *
+		 * @return string Select2 JS locale.
+		 */
+		public static function select2_locale() {
+			$params = self::select2_params();
+
+			foreach ( (array) $params as $key => $value ) {
+				if ( ! is_scalar( $value ) ) {
+					continue;
+				}
+
+				$params[ $key ] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
+			}
+
+			$locale = json_encode( $params );
+
+			return apply_filters( 'ayecode_ui_select2_locale', trim( $locale ) );
+		}
 	}
 
 	/**
