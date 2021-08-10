@@ -3,7 +3,7 @@ Contributors: paoltaia, stiofansisland, ayecode
 Tags: food-and-drink, blog, one-column, two-columns, three-columns, left-sidebar, right-sidebar, custom-header, custom-menu, editor-style, featured-images, microformats, post-formats, rtl-language-support, translation-ready
 Requires at least: 4.0
 Tested up to: 5.8
-Stable tag: 2.1.0.6
+Stable tag: 2.1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,9 +21,10 @@ No, this is optional but recommended.
 
 == Changelog ==
 
-= 2.1.0.6 =
+= 2.1.0.7 =
 * Template changes for UsersWP Compatibility - CHANGED
 * AUI framework updated to latest version - UPDATED
+* Some composer files missing in 2.1.0.6 updated - FIXED
 
 = 2.1.0.5 =
 * Option added to be able to change content/sidebar order on mobile view - ADDED
