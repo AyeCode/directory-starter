@@ -35,7 +35,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '0.1.45';
+		public $version = '0.1.58';
 
 		/**
 		 * Class textdomain.
@@ -210,20 +210,27 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					'page',
 					'post',
 					'settings_page_ayecode-ui-settings',
-					'appearance_page_gutenberg-widgets'
+					'appearance_page_gutenberg-widgets',
+					'widgets'
 				);
 				$screen_ids = apply_filters( 'aui_screen_ids', $aui_screens );
 
 				$screen = get_current_screen();
 
 //				echo '###'.$screen->id;
-				
+
+				// check if we are on a AUI screen
 				if ( $screen && in_array( $screen->id, $screen_ids ) ) {
+					$load = true;
+				}
+
+				//load for widget previews in WP 5.8
+				if( !empty($_REQUEST['legacy-widget-preview'])){
 					$load = true;
 				}
 			}
 
-			return $load;
+			return apply_filters( 'aui_load_on_admin' , $load );
 		}
 
 		/**
@@ -286,6 +293,9 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				}
 				.blocks-widgets-container .bsui *{
 					box-sizing: border-box;
+				}
+				.bs-tooltip-top .arrow{
+					margin-left:0px;
 				}
                 ";
 
@@ -467,21 +477,22 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				 * @param selector string The .class selector
 				 */
 				function aui_time_ago(selector) {
+					var aui_timeago_params = <?php echo self::timeago_locale(); ?>;
 
 					var templates = {
-						prefix: "",
-						suffix: " ago",
-						seconds: "less than a minute",
-						minute: "about a minute",
-						minutes: "%d minutes",
-						hour: "about an hour",
-						hours: "about %d hours",
-						day: "a day",
-						days: "%d days",
-						month: "about a month",
-						months: "%d months",
-						year: "about a year",
-						years: "%d years"
+						prefix: aui_timeago_params.prefix_ago,
+						suffix: aui_timeago_params.suffix_ago,
+						seconds: aui_timeago_params.seconds,
+						minute: aui_timeago_params.minute,
+						minutes: aui_timeago_params.minutes,
+						hour: aui_timeago_params.hour,
+						hours: aui_timeago_params.hours,
+						day: aui_timeago_params.day,
+						days: aui_timeago_params.days,
+						month: aui_timeago_params.month,
+						months: aui_timeago_params.months,
+						year: aui_timeago_params.year,
+						years: aui_timeago_params.years
 					};
 					var template = function (t, n) {
 						return templates[t] && templates[t].replace(/%d/i, Math.abs(Math.round(n)));
@@ -818,6 +829,131 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					});
 
 				}
+
+
+				/**
+				 * Open a lightbox when an embed item is clicked.
+				 */
+				function aui_lightbox_embed($link,ele){
+					ele.preventDefault();
+
+					// remove it first
+					jQuery('.aui-carousel-modal').remove();
+
+					var $modal = '<div class="modal fade aui-carousel-modal bsui" tabindex="-1" role="dialog" aria-labelledby="aui-modal-title" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-xl mw-100"><div class="modal-content bg-transparent border-0"><div class="modal-header"><h5 class="modal-title" id="aui-modal-title"></h5></div><div class="modal-body text-center"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div></div></div>';
+					jQuery('body').append($modal);
+
+					jQuery('.aui-carousel-modal').modal({
+						//backdrop: 'static'
+					});
+					jQuery('.aui-carousel-modal').on('hidden.bs.modal', function (e) {
+						jQuery("iframe").attr('src', '');
+					});
+
+					$container = jQuery($link).closest('.aui-gallery');
+
+					$clicked_href = jQuery($link).attr('href');
+					$images = [];
+					$container.find('.aui-lightbox-image').each(function() {
+						var a = this;
+						var href = jQuery(a).attr('href');
+						if (href) {
+							$images.push(href);
+						}
+					});
+
+					if( $images.length ){
+						var $carousel = '<div id="aui-embed-slider-modal" class="carousel slide" >';
+
+						// indicators
+						if($images.length > 1){
+							$i = 0;
+							$carousel  += '<ol class="carousel-indicators position-fixed">';
+							$container.find('.aui-lightbox-image').each(function() {
+								$active = $clicked_href == jQuery(this).attr('href') ? 'active' : '';
+								$carousel  += '<li data-target="#aui-embed-slider-modal" data-slide-to="'+$i+'" class="'+$active+'"></li>';
+								$i++;
+
+							});
+							$carousel  += '</ol>';
+						}
+
+
+
+						// items
+						$i = 0;
+						$carousel  += '<div class="carousel-inner">';
+						$container.find('.aui-lightbox-image').each(function() {
+							var a = this;
+
+							$active = $clicked_href == jQuery(this).attr('href') ? 'active' : '';
+							$carousel  += '<div class="carousel-item '+ $active+'"><div>';
+
+
+							// image
+							var css_height = window.innerWidth > window.innerHeight ? '90vh' : 'auto';
+							var img = jQuery(a).find('img').clone().removeClass().addClass('mx-auto d-block w-auto mw-100 rounded').css('height',css_height).get(0).outerHTML;
+							$carousel  += img;
+							// captions
+							if(jQuery(a).parent().find('.carousel-caption').length ){
+								$carousel  += jQuery(a).parent().find('.carousel-caption').clone().removeClass('sr-only').get(0).outerHTML;
+							}
+							$carousel  += '</div></div>';
+							$i++;
+
+						});
+						$container.find('.aui-lightbox-iframe').each(function() {
+							var a = this;
+
+							$active = $clicked_href == jQuery(this).attr('href') ? 'active' : '';
+							$carousel  += '<div class="carousel-item '+ $active+'"><div class="modal-xl mx-auto embed-responsive embed-responsive-16by9">';
+
+
+							// iframe
+							var css_height = window.innerWidth > window.innerHeight ? '95vh' : 'auto';
+							var url = jQuery(a).attr('href');
+							var iframe = '<iframe class="embed-responsive-item" style="height:'+css_height +'" src="'+url+'?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1" id="video" allow="autoplay"></iframe>';
+							var img = iframe ;//.css('height',css_height).get(0).outerHTML;
+							$carousel  += img;
+
+							$carousel  += '</div></div>';
+							$i++;
+
+						});
+						$carousel  += '</div>';
+
+
+						// next/prev indicators
+						if($images.length > 1) {
+							$carousel += '<a class="carousel-control-prev" href="#aui-embed-slider-modal" role="button" data-slide="prev">';
+							$carousel += '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
+							$carousel += ' <a class="carousel-control-next" href="#aui-embed-slider-modal" role="button" data-slide="next">';
+							$carousel += '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
+							$carousel += '</a>';
+						}
+
+
+						$carousel  += '</div>';
+
+						var $close = '<button type="button" class="close text-white text-right position-fixed" style="font-size: 2.5em;right: 20px;top: 10px; z-index: 1055;" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+
+						jQuery('.aui-carousel-modal .modal-content').html($carousel).prepend($close);
+
+						// enable ajax load
+						//gd_init_carousel_ajax();
+					}
+
+				}
+
+				/**
+				 * Init lightbox embed.
+				 */
+				function aui_init_lightbox_embed(){
+					// Open a lightbox for embeded items
+					jQuery('.aui-lightbox-image, .aui-lightbox-iframe').unbind('click').click(function(ele) {
+						aui_lightbox_embed(this,ele);
+					});
+				}
 				
 
 				/**
@@ -844,6 +980,9 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					
 					// init multiple item carousels
 					aui_init_carousel_multiple_items();
+					
+					// init lightbox embeds
+					aui_init_lightbox_embed();
 				}
 
 				// run on window loaded
@@ -851,9 +990,35 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					aui_init();
 				});
 
+				/* Fix modal background scroll on iOS mobile device */
+				jQuery(function($) {
+					var ua = navigator.userAgent.toLowerCase();
+					var isiOS = ua.match(/(iphone|ipod|ipad)/);
+					if (isiOS) {
+						var pS = 0; pM = parseFloat($('body').css('marginTop'));
+
+						$(document).on('show.bs.modal', function() {
+							pS = window.scrollY;
+							$('body').css({
+								marginTop: -pS,
+								overflow: 'hidden',
+								position: 'fixed',
+							});
+						}).on('hidden.bs.modal', function() {
+							$('body').css({
+								marginTop: pM,
+								overflow: 'visible',
+								position: 'inherit',
+							});
+							window.scrollTo(0, pS);
+						});
+					}
+				});
 			</script>
 			<?php
 			$output = ob_get_clean();
+
+
 
 			/*
 			 * We only add the <script> tags for code highlighting, so we strip them from the output.
@@ -861,7 +1026,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			return str_replace( array(
 				'<script>',
 				'</script>'
-			), '', $output );
+			), '', self::minify_js($output) );
 		}
 
 
@@ -1235,7 +1400,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 			<?php if( defined( 'SVQ_THEME_VERSION' ) ){ ?>
 			/* KLEO theme specific */
-			.kleo-main-header .navbar-collapse.collapse.show:not(.in){display: inherit !important;}
+			.kleo-main-header .navbar-collapse.collapse.show:not(.in){display: block !important;}
 			<?php } ?>
 
 			<?php if( defined( 'FUSION_BUILDER_VERSION' ) ){ ?>
@@ -1249,7 +1414,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			return str_replace( array(
 				'<style>',
 				'</style>'
-			), '', ob_get_clean());
+			), '', self::minify_css( ob_get_clean() ) );
 		}
 
 
@@ -1279,7 +1444,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					}
 
 					// Set admin bar z-index lower when modal is open.
-					echo ' body.modal-open #wpadminbar{z-index:999}';
+					echo ' body.modal-open #wpadminbar{z-index:999}.embed-responsive-16by9 .fluid-width-video-wrapper{padding:0 !important;position:initial}';
                 ?>
 			</style>
 			<?php
@@ -1291,7 +1456,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			return str_replace( array(
 				'<style>',
 				'</style>'
-			), '', ob_get_clean());
+			), '', self::minify_css( ob_get_clean() ) );
 		}
 
 		/**
@@ -1424,7 +1589,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 
 			// button states
-			$output .= $prefix ." .btn-primary:hover{background-color: ".$darker_075.";    border-color: ".$darker_10.";} ";
+			$output .= $prefix ." .btn-primary:hover, $prefix .btn-primary:focus, $prefix .btn-primary.focus{background-color: ".$darker_075.";    border-color: ".$darker_10.";} ";
 			$output .= $prefix ." .btn-outline-primary:not(:disabled):not(.disabled):active:focus, $prefix .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show>$prefix .btn-outline-primary.dropdown-toggle:focus{box-shadow: 0 0 0 0.2rem $op_25;} ";
 			$output .= $prefix ." .btn-primary:not(:disabled):not(.disabled):active, $prefix .btn-primary:not(:disabled):not(.disabled).active, .show>$prefix .btn-primary.dropdown-toggle{background-color: ".$darker_10.";    border-color: ".$darker_125.";} ";
 			$output .= $prefix ." .btn-primary:not(:disabled):not(.disabled):active:focus, $prefix .btn-primary:not(:disabled):not(.disabled).active:focus, .show>$prefix .btn-primary.dropdown-toggle:focus {box-shadow: 0 0 0 0.2rem $op_25;} ";
@@ -1911,6 +2076,128 @@ if ( 0 ) { ?><script><?php } ?>
 			$locale = json_encode( $params );
 
 			return apply_filters( 'ayecode_ui_select2_locale', trim( $locale ) );
+		}
+
+		/**
+		 * Time ago JS localize.
+		 *
+		 * @since 0.1.47
+		 *
+		 * @return string Time ago JS locale.
+		 */
+		public static function timeago_locale() {
+			$params = array(
+				'prefix_ago' => '',
+				'suffix_ago' => ' ' . _x( 'ago', 'time ago', 'directory-starter' ),
+				'prefix_after' => _x( 'after', 'time ago', 'directory-starter' ) . ' ',
+				'suffix_after' => '',
+				'seconds' => _x( 'less than a minute', 'time ago', 'directory-starter' ),
+				'minute' => _x( 'about a minute', 'time ago', 'directory-starter' ),
+				'minutes' => _x( '%d minutes', 'time ago', 'directory-starter' ),
+				'hour' => _x( 'about an hour', 'time ago', 'directory-starter' ),
+				'hours' => _x( 'about %d hours', 'time ago', 'directory-starter' ),
+				'day' => _x( 'a day', 'time ago', 'directory-starter' ),
+				'days' => _x( '%d days', 'time ago', 'directory-starter' ),
+				'month' => _x( 'about a month', 'time ago', 'directory-starter' ),
+				'months' => _x( '%d months', 'time ago', 'directory-starter' ),
+				'year' => _x( 'about a year', 'time ago', 'directory-starter' ),
+				'years' => _x( '%d years', 'time ago', 'directory-starter' ),
+			);
+
+			$params = apply_filters( 'ayecode_ui_timeago_params', $params );
+
+			foreach ( (array) $params as $key => $value ) {
+				if ( ! is_scalar( $value ) ) {
+					continue;
+				}
+
+				$params[ $key ] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
+			}
+
+			$locale = json_encode( $params );
+
+			return apply_filters( 'ayecode_ui_timeago_locale', trim( $locale ) );
+		}
+
+		/**
+		 * JavaScript Minifier
+		 *
+		 * @param $input
+		 *
+		 * @return mixed
+		 */
+		public static function minify_js($input) {
+			if(trim($input) === "") return $input;
+			return preg_replace(
+				array(
+					// Remove comment(s)
+					'#\s*("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')\s*|\s*\/\*(?!\!|@cc_on)(?>[\s\S]*?\*\/)\s*|\s*(?<![\:\=])\/\/.*(?=[\n\r]|$)|^\s*|\s*$#',
+					// Remove white-space(s) outside the string and regex
+					'#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/)|\/(?!\/)[^\n\r]*?\/(?=[\s.,;]|[gimuy]|$))|\s*([!%&*\(\)\-=+\[\]\{\}|;:,.<>?\/])\s*#s',
+					// Remove the last semicolon
+					'#;+\}#',
+					// Minify object attribute(s) except JSON attribute(s). From `{'foo':'bar'}` to `{foo:'bar'}`
+					'#([\{,])([\'])(\d+|[a-z_][a-z0-9_]*)\2(?=\:)#i',
+					// --ibid. From `foo['bar']` to `foo.bar`
+					'#([a-z0-9_\)\]])\[([\'"])([a-z_][a-z0-9_]*)\2\]#i'
+				),
+				array(
+					'$1',
+					'$1$2',
+					'}',
+					'$1$3',
+					'$1.$3'
+				),
+				$input);
+		}
+
+		/**
+		 * Minify CSS
+		 *
+		 * @param $input
+		 *
+		 * @return mixed
+		 */
+		public static function minify_css($input) {
+			if(trim($input) === "") return $input;
+			return preg_replace(
+				array(
+					// Remove comment(s)
+					'#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')|\/\*(?!\!)(?>.*?\*\/)|^\s*|\s*$#s',
+					// Remove unused white-space(s)
+					'#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/))|\s*+;\s*+(})\s*+|\s*+([*$~^|]?+=|[{};,>~]|\s(?![0-9\.])|!important\b)\s*+|([[(:])\s++|\s++([])])|\s++(:)\s*+(?!(?>[^{}"\']++|"(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')*+{)|^\s++|\s++\z|(\s)\s+#si',
+					// Replace `0(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)` with `0`
+					'#(?<=[\s:])(0)(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)#si',
+					// Replace `:0 0 0 0` with `:0`
+					'#:(0\s+0|0\s+0\s+0\s+0)(?=[;\}]|\!important)#i',
+					// Replace `background-position:0` with `background-position:0 0`
+					'#(background-position):0(?=[;\}])#si',
+					// Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
+					'#(?<=[\s:,\-])0+\.(\d+)#s',
+					// Minify string value
+					'#(\/\*(?>.*?\*\/))|(?<!content\:)([\'"])([a-z_][a-z0-9\-_]*?)\2(?=[\s\{\}\];,])#si',
+					'#(\/\*(?>.*?\*\/))|(\burl\()([\'"])([^\s]+?)\3(\))#si',
+					// Minify HEX color code
+					'#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i',
+					// Replace `(border|outline):none` with `(border|outline):0`
+					'#(?<=[\{;])(border|outline):none(?=[;\}\!])#',
+					// Remove empty selector(s)
+					'#(\/\*(?>.*?\*\/))|(^|[\{\}])(?:[^\s\{\}]+)\{\}#s'
+				),
+				array(
+					'$1',
+					'$1$2$3$4$5$6$7',
+					'$1',
+					':0',
+					'$1:0 0',
+					'.$1',
+					'$1$3',
+					'$1$2$4$5',
+					'$1$2$3',
+					'$1:0',
+					'$1$2'
+				),
+				$input);
 		}
 	}
 
