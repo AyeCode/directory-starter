@@ -20,7 +20,7 @@ function directory_theme_scripts() {
     wp_add_inline_style( 'ayecode-ui', $customizer_css );
 	
 }
-add_action( 'wp_enqueue_scripts', 'directory_theme_scripts' );
+add_action( 'wp_enqueue_scripts', 'directory_theme_scripts', 200 );
 
 
 

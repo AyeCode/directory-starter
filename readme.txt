@@ -2,8 +2,8 @@
 Contributors: paoltaia, stiofansisland, ayecode
 Tags: food-and-drink, blog, one-column, two-columns, three-columns, left-sidebar, right-sidebar, custom-header, custom-menu, editor-style, featured-images, microformats, post-formats, rtl-language-support, translation-ready
 Requires at least: 4.0
-Tested up to: 5.8
-Stable tag: 2.1.0.7
+Tested up to: 6.1
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,11 @@ Check out the 1st child theme for DS called Supreme directory (https://wpgeodire
 No, this is optional but recommended.
 
 == Changelog ==
+
+= 2.1.1 =
+* AyeCode UI updated to latest - UPDATED
+* Font Awesome settings now include option to load CSS locally - ADDED
+* If BS3 compatibility flag is set custom color overrides my not work - FIXED
 
 = 2.1.0.7 =
 * Template changes for UsersWP Compatibility - CHANGED
@@ -79,5 +84,19 @@ No, this is optional but recommended.
 = 2.1.0.0 =
 NOTICE: v2.1 has changed to using bootstrap styles, this is a huge design change that should be checked over.
 
+== Copyright ==
+
+Directory Starter WordPress Theme, Copyright AyeCode Ltd
+Directory Starter is distributed under the terms of the GNU GPL.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
 == Resources ==
