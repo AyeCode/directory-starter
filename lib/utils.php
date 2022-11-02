@@ -27,12 +27,24 @@ function dt_header_image() {
 	return $style;
 }
 
-// Replaces the excerpt "more" text by a link
-function dt_excerpt_more() {
+/**
+ * Filters the string in the "more" link displayed after a trimmed excerpt.
+ *
+ * @since 2.0
+ *
+ * @param string $more_string The string shown within the more link.
+ * @return string Read more link.
+ */
+function dt_excerpt_more( $more_string ) {
 	global $post;
-	return '<a class="moretag" href="'. get_permalink($post->ID) . '"> Read more...</a>';
+
+	if ( ! empty( $post ) ) {
+		$more_string = ' <a class="moretag" href="'. esc_url( get_permalink( $post->ID ) ) . '">' . __( 'Read more...', 'directory-starter' ) . '</a>';
+	}
+
+	return $more_string;
 }
-add_filter('excerpt_more', 'dt_excerpt_more');
+add_filter( 'excerpt_more', 'dt_excerpt_more', 10, 1 );
 
 function dt_content_classes(){
 	$classes = array();
