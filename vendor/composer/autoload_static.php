@@ -7,8 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInitffa8903fae97cc4de8ee9a69ae9a9822
 {
     public static $files = array (
-        '24583d3588ebda5228dd453cfaa070da' => __DIR__ . '/..' . '/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php',
         'e8d544c98e79f913e13eae1306ab635e' => __DIR__ . '/..' . '/ayecode/wp-ayecode-ui/ayecode-ui-loader.php',
+        '24583d3588ebda5228dd453cfaa070da' => __DIR__ . '/..' . '/ayecode/wp-font-awesome-settings/wp-font-awesome-settings.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -25,16 +25,11 @@ class ComposerStaticInitffa8903fae97cc4de8ee9a69ae9a9822
         ),
     );
 
-    public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitffa8903fae97cc4de8ee9a69ae9a9822::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitffa8903fae97cc4de8ee9a69ae9a9822::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitffa8903fae97cc4de8ee9a69ae9a9822::$classMap;
 
         }, null, ClassLoader::class);
     }

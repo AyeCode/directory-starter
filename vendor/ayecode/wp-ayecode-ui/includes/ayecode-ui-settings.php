@@ -35,14 +35,14 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '0.1.58';
+		public $version = '0.1.80';
 
 		/**
 		 * Class textdomain.
 		 *
 		 * @var string
 		 */
-		public $textdomain = 'directory-starter';
+		public $textdomain = 'directory-starter' ;
 
 		/**
 		 * Latest version of Bootstrap at time of publish published.
@@ -88,6 +88,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 */
 		private static $instance = null;
 
+
 		/**
 		 * Main AyeCode_UI_Settings Instance.
 		 *
@@ -110,6 +111,10 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 					// Maybe show example page
 					add_action( 'template_redirect', array( self::$instance,'maybe_show_examples' ) );
+
+					if ( defined( 'BLOCKSTRAP_VERSION' ) ) {
+						add_filter( 'sd_aui_colors', array( self::$instance,'sd_aui_colors' ), 10, 3 );
+					}
 				}
 
 				add_action( 'customize_register', array( self::$instance, 'customizer_settings' ));
@@ -121,19 +126,162 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		}
 
 		/**
+         * Add custom colors to the color selector.
+         *
+		 * @param $theme_colors
+		 * @param $include_outlines
+		 * @param $include_branding
+		 *
+		 * @return mixed
+		 */
+		public function sd_aui_colors( $theme_colors, $include_outlines, $include_branding ){
+
+
+			$setting = wp_get_global_settings();
+
+			if(!empty($setting['color']['palette']['custom'])){
+				foreach($setting['color']['palette']['custom'] as $color){
+					$theme_colors[$color['slug']] = esc_attr($color['name']);
+				}
+			}
+
+			return $theme_colors;
+		}
+
+		/**
 		 * Setup some constants.
 		 */
 		public function constants(){
-			define('AUI_PRIMARY_COLOR_ORIGINAL', "#1e73be");
-			define('AUI_SECONDARY_COLOR_ORIGINAL', '#6c757d');
-			if (!defined('AUI_PRIMARY_COLOR')) define('AUI_PRIMARY_COLOR', AUI_PRIMARY_COLOR_ORIGINAL);
-			if (!defined('AUI_SECONDARY_COLOR')) define('AUI_SECONDARY_COLOR', AUI_SECONDARY_COLOR_ORIGINAL);
+			define( 'AUI_PRIMARY_COLOR_ORIGINAL', "#1e73be" );
+			define( 'AUI_SECONDARY_COLOR_ORIGINAL', '#6c757d' );
+			define( 'AUI_INFO_COLOR_ORIGINAL', '#17a2b8' );
+			define( 'AUI_WARNING_COLOR_ORIGINAL', '#ffc107' );
+			define( 'AUI_DANGER_COLOR_ORIGINAL', '#dc3545' );
+			define( 'AUI_SUCCESS_COLOR_ORIGINAL', '#44c553' );
+			define( 'AUI_LIGHT_COLOR_ORIGINAL', '#f8f9fa' );
+			define( 'AUI_DARK_COLOR_ORIGINAL', '#343a40' );
+			define( 'AUI_WHITE_COLOR_ORIGINAL', '#fff' );
+			define( 'AUI_PURPLE_COLOR_ORIGINAL', '#ad6edd' );
+			define( 'AUI_SALMON_COLOR_ORIGINAL', '#ff977a' );
+			define( 'AUI_CYAN_COLOR_ORIGINAL', '#35bdff' );
+			define( 'AUI_GRAY_COLOR_ORIGINAL', '#ced4da' );
+			define( 'AUI_INDIGO_COLOR_ORIGINAL', '#502c6c' );
+			define( 'AUI_ORANGE_COLOR_ORIGINAL', '#orange' );
+			define( 'AUI_BLACK_COLOR_ORIGINAL', '#000' );
+
+			if ( ! defined( 'AUI_PRIMARY_COLOR' ) ) {
+				define( 'AUI_PRIMARY_COLOR', AUI_PRIMARY_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_SECONDARY_COLOR' ) ) {
+				define( 'AUI_SECONDARY_COLOR', AUI_SECONDARY_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_INFO_COLOR' ) ) {
+				define( 'AUI_INFO_COLOR', AUI_INFO_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_WARNING_COLOR' ) ) {
+				define( 'AUI_WARNING_COLOR', AUI_WARNING_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_DANGER_COLOR' ) ) {
+				define( 'AUI_DANGER_COLOR', AUI_DANGER_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_SUCCESS_COLOR' ) ) {
+				define( 'AUI_SUCCESS_COLOR', AUI_SUCCESS_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_LIGHT_COLOR' ) ) {
+				define( 'AUI_LIGHT_COLOR', AUI_LIGHT_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_DARK_COLOR' ) ) {
+				define( 'AUI_DARK_COLOR', AUI_DARK_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_WHITE_COLOR' ) ) {
+				define( 'AUI_WHITE_COLOR', AUI_WHITE_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_PURPLE_COLOR' ) ) {
+				define( 'AUI_PURPLE_COLOR', AUI_PURPLE_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_SALMON_COLOR' ) ) {
+				define( 'AUI_SALMON_COLOR', AUI_SALMON_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_CYAN_COLOR' ) ) {
+				define( 'AUI_CYAN_COLOR', AUI_CYAN_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_GRAY_COLOR' ) ) {
+				define( 'AUI_GRAY_COLOR', AUI_GRAY_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_INDIGO_COLOR' ) ) {
+				define( 'AUI_INDIGO_COLOR', AUI_INDIGO_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_ORANGE_COLOR' ) ) {
+				define( 'AUI_ORANGE_COLOR', AUI_ORANGE_COLOR_ORIGINAL );
+			}
+			if ( ! defined( 'AUI_BLACK_COLOR' ) ) {
+				define( 'AUI_BLACK_COLOR', AUI_BLACK_COLOR_ORIGINAL );
+			}
+
 		}
+
+        public static function get_colors( $original = false){
+
+	        if ( ! defined( 'AUI_PRIMARY_COLOR' ) ) {
+                return array();
+	        }
+	        if ( $original ) {
+                return array(
+	                'primary'   => AUI_PRIMARY_COLOR_ORIGINAL,
+	                'secondary' => AUI_SECONDARY_COLOR_ORIGINAL,
+	                'info'      => AUI_INFO_COLOR_ORIGINAL,
+	                'warning'   => AUI_WARNING_COLOR_ORIGINAL,
+	                'danger'    => AUI_DANGER_COLOR_ORIGINAL,
+	                'success'   => AUI_SUCCESS_COLOR_ORIGINAL,
+	                'light'     => AUI_LIGHT_COLOR_ORIGINAL,
+	                'dark'      => AUI_DARK_COLOR_ORIGINAL,
+	                'white'     => AUI_WHITE_COLOR_ORIGINAL,
+	                'purple'    => AUI_PURPLE_COLOR_ORIGINAL,
+	                'salmon'    => AUI_SALMON_COLOR_ORIGINAL,
+	                'cyan'      => AUI_CYAN_COLOR_ORIGINAL,
+	                'gray'      => AUI_GRAY_COLOR_ORIGINAL,
+	                'indigo'    => AUI_INDIGO_COLOR_ORIGINAL,
+	                'orange'    => AUI_ORANGE_COLOR_ORIGINAL,
+	                'black'     => AUI_BLACK_COLOR_ORIGINAL,
+                );
+	        }
+
+            return array(
+	            'primary'   => AUI_PRIMARY_COLOR,
+	            'secondary' => AUI_SECONDARY_COLOR,
+	            'info'      => AUI_INFO_COLOR,
+	            'warning'   => AUI_WARNING_COLOR,
+	            'danger'    => AUI_DANGER_COLOR,
+	            'success'   => AUI_SUCCESS_COLOR,
+	            'light'     => AUI_LIGHT_COLOR,
+	            'dark'      => AUI_DARK_COLOR,
+	            'white'     => AUI_WHITE_COLOR,
+	            'purple'    => AUI_PURPLE_COLOR,
+	            'salmon'    => AUI_SALMON_COLOR,
+	            'cyan'      => AUI_CYAN_COLOR,
+	            'gray'      => AUI_GRAY_COLOR,
+	            'indigo'    => AUI_INDIGO_COLOR,
+	            'orange'    => AUI_ORANGE_COLOR,
+	            'black'     => AUI_BLACK_COLOR,
+            );
+        }
 
 		/**
 		 * Initiate the settings and add the required action hooks.
 		 */
 		public function init() {
+
+			// Maybe fix settings
+			if ( ! empty( $_REQUEST['aui-fix-admin'] ) && !empty($_REQUEST['nonce']) && wp_verify_nonce( $_REQUEST['nonce'], "aui-fix-admin" ) ) {
+				$db_settings = get_option( 'ayecode-ui-settings' );
+				if ( ! empty( $db_settings ) ) {
+					$db_settings['css_backend'] = 'compatibility';
+					$db_settings['js_backend'] = 'core-popper';
+					update_option( 'ayecode-ui-settings', $db_settings );
+					wp_safe_redirect(admin_url("options-general.php?page=ayecode-ui-settings&updated=true"));
+				}
+			}
+
 			$this->constants();
 			$this->settings = $this->get_settings();
 			$this->url = $this->get_url();
@@ -144,7 +292,8 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			 * We load super early in case there is a theme version that might change the colors
 			 */
 			if ( $this->settings['css'] ) {
-				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ), 1 );
+				$priority = $this->is_bs3_compat() ? 100 : 1;
+				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_style' ), $priority );
 			}
 			if ( $this->settings['css_backend'] && $this->load_admin_scripts() ) {
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_style' ), 1 );
@@ -164,7 +313,21 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				add_action( 'wp_footer', array( $this, 'html_font_size' ), 10 );
 			}
 
+			// Maybe show backend style error
+			if( $this->settings['css_backend'] != 'compatibility' || $this->settings['js_backend'] != 'core-popper' ){
+				add_action( 'admin_notices', array( $this, 'show_admin_style_notice' ) );
+			}
 
+		}
+
+		/**
+		 * Show admin notice if backend scripts not loaded.
+		 */
+		public function show_admin_style_notice(){
+			$fix_url = admin_url("options-general.php?page=ayecode-ui-settings&aui-fix-admin=true&nonce=".wp_create_nonce('aui-fix-admin'));
+			$button = '<a href="'.esc_url($fix_url).'" class="button-primary">Fix Now</a>';
+			$message = __( '<b>Style Issue:</b> AyeCode UI is disable or set wrong.')." " .$button;
+			echo '<div class="notice notice-error aui-settings-error-notice"><p>'.$message.'</p></div>';
 		}
 
 		/**
@@ -202,6 +365,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 * @return bool
 		 */
 		public function is_aui_screen(){
+//			echo '###';exit;
 			$load = false;
 			// check if we should load or not
 			if ( is_admin() ) {
@@ -211,7 +375,9 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					'post',
 					'settings_page_ayecode-ui-settings',
 					'appearance_page_gutenberg-widgets',
-					'widgets'
+					'widgets',
+					'ayecode-ui-settings',
+					'site-editor'
 				);
 				$screen_ids = apply_filters( 'aui_screen_ids', $aui_screens );
 
@@ -234,9 +400,23 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		}
 
 		/**
+         * Check if the current theme is a block theme.
+         *
+		 * @return bool
+		 */
+		public static function is_block_theme() {
+			if ( function_exists( 'wp_is_block_theme' && wp_is_block_theme() ) ) {
+				return true;
+			}
+
+			return false;
+		}
+
+		/**
 		 * Adds the styles.
 		 */
 		public function enqueue_style() {
+
 
 			if( is_admin() && !$this->is_aui_screen()){
 				// don't add wp-admin scripts if not requested to
@@ -248,12 +428,11 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				if($this->settings[$css_setting]){
 					$compatibility = $this->settings[$css_setting]=='core' ? false : true;
 					$url = $this->settings[$css_setting]=='core' ? $this->url.'assets/css/ayecode-ui'.$rtl.'.css' : $this->url.'assets/css/ayecode-ui-compatibility'.$rtl.'.css';
-					wp_register_style( 'ayecode-ui', $url, array(), $this->latest );
+					wp_register_style( 'ayecode-ui', $url, array(), $this->version );
 					wp_enqueue_style( 'ayecode-ui' );
 
 					// flatpickr
-					wp_register_style( 'flatpickr', $this->url.'assets/css/flatpickr.min.css', array(), $this->latest );
-
+					wp_register_style( 'flatpickr', $this->url.'assets/css/flatpickr.min.css', array(), $this->version );
 
 					// fix some wp-admin issues
 					if(is_admin()){
@@ -296,6 +475,10 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				}
 				.bs-tooltip-top .arrow{
 					margin-left:0px;
+				}
+				
+				.custom-switch input[type=checkbox]{
+				    display:none;
 				}
                 ";
 
@@ -467,8 +650,11 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				 */
 				function aui_init_select2(){
 					var select2_args = jQuery.extend({}, aui_select2_locale());
-
-					jQuery("select.aui-select2").select2(select2_args);
+					jQuery("select.aui-select2").each(function() {
+						if (!jQuery(this).hasClass("select2-hidden-accessible")) {
+							jQuery(this).select2(select2_args);
+						}
+					});
 				}
 
 				/**
@@ -575,7 +761,56 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					$aui_doing_init_flatpickr = false;
 				}
 
-				function aui_modal($title,$body,$footer,$dismissible,$class,$dialog_class) {
+				/**
+				 * Initiate iconpicker on the page.
+				 */
+				$aui_doing_init_iconpicker = false;
+				function aui_init_iconpicker(){
+					if ( typeof jQuery.fn.iconpicker === "function" && !$aui_doing_init_iconpicker) {
+						$aui_doing_init_iconpicker = true;
+						jQuery('input[data-aui-init="iconpicker"]:not(.iconpicker-input)').iconpicker();
+					}
+					$aui_doing_init_iconpicker= false;
+				}
+
+				function aui_modal_iframe($title,$url,$footer,$dismissible,$class,$dialog_class,$body_class,responsive){
+					if(!$body_class){$body_class = 'p-0';}
+					var wClass = 'text-center position-absolute w-100 text-dark overlay overlay-white p-0 m-0 d-none d-flex justify-content-center align-items-center';
+					var $body = "", sClass = "w-100 p-0 m-0";
+					if (responsive) {
+						$body += '<div class="embed-responsive embed-responsive-16by9">';
+						wClass += ' h-100';
+						sClass += ' embed-responsive-item';
+					} else {
+						wClass += ' vh-100';
+						sClass += ' vh-100';
+					}
+					$body += '<div class="ac-preview-loading ' + wClass + '" style="left:0;top:0"><div class="spinner-border" role="status"></div></div>';
+					$body += '<iframe id="embedModal-iframe" class="' + sClass + '" src="" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>';
+					if (responsive) {
+						$body += '</div>';
+					}
+
+					$m = aui_modal($title,$body,$footer,$dismissible,$class,$dialog_class,$body_class);
+					jQuery( $m ).on( 'shown.bs.modal', function ( e ) {
+						iFrame = jQuery( '#embedModal-iframe') ;
+
+						jQuery('.ac-preview-loading').addClass('d-flex');
+						iFrame.attr({
+							src: $url
+						});
+
+						//resize the iframe once loaded.
+						iFrame.load(function() {
+							jQuery('.ac-preview-loading').removeClass('d-flex');
+						});
+					});
+
+					return $m;
+
+				}
+
+				function aui_modal($title,$body,$footer,$dismissible,$class,$dialog_class,$body_class) {
 					if(!$class){$class = '';}
 					if(!$dialog_class){$dialog_class = '';}
 					if(!$body){$body = '<div class="text-center"><div class="spinner-border" role="status"></div></div>';}
@@ -587,7 +822,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 					$modal += '<div class="modal aui-modal fade shadow bsui '+$class+'" tabindex="-1">'+
 						'<div class="modal-dialog modal-dialog-centered '+$dialog_class+'">'+
-							'<div class="modal-content">';
+							'<div class="modal-content border-0 shadow">';
 
 					if($title) {
 						$modal += '<div class="modal-header">' +
@@ -601,7 +836,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 						$modal += '</div>';
 					}
-					$modal += '<div class="modal-body">'+
+					$modal += '<div class="modal-body '+$body_class+'">'+
 									$body+
 								'</div>';
 
@@ -617,7 +852,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 					jQuery('body').append($modal);
 
-					jQuery('.aui-modal').modal('hide').modal({
+					return jQuery('.aui-modal').modal('hide').modal({
 						//backdrop: 'static'
 					});
 				}
@@ -634,7 +869,6 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 							$element_require = $element_require.replace("&#039;", "'"); // replace single quotes
 							$element_require = $element_require.replace("&quot;", '"'); // replace double quotes
-
 							if (aui_check_form_condition($element_require,form)) {
 								jQuery(this).removeClass('d-none');
 							} else {
@@ -892,12 +1126,14 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 							// image
 							var css_height = window.innerWidth > window.innerHeight ? '90vh' : 'auto';
-							var img = jQuery(a).find('img').clone().removeClass().addClass('mx-auto d-block w-auto mw-100 rounded').css('height',css_height).get(0).outerHTML;
+							var img = jQuery(a).find('img').clone().removeClass().addClass('mx-auto d-block w-auto mw-100 rounded').css('max-height',css_height).get(0).outerHTML;
 							$carousel  += img;
 							// captions
 							if(jQuery(a).parent().find('.carousel-caption').length ){
 								$carousel  += jQuery(a).parent().find('.carousel-caption').clone().removeClass('sr-only').get(0).outerHTML;
-							}
+							}else if(jQuery(a).parent().find('.figure-caption').length ){
+                                $carousel  += jQuery(a).parent().find('.figure-caption').clone().removeClass('sr-only').addClass('carousel-caption').get(0).outerHTML;
+                            }
 							$carousel  += '</div></div>';
 							$i++;
 
@@ -950,16 +1186,161 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				 */
 				function aui_init_lightbox_embed(){
 					// Open a lightbox for embeded items
-					jQuery('.aui-lightbox-image, .aui-lightbox-iframe').unbind('click').click(function(ele) {
+					jQuery('.aui-lightbox-image, .aui-lightbox-iframe').off('click').on("click",function(ele) {
 						aui_lightbox_embed(this,ele);
 					});
 				}
+
+				/**
+				 * Init modal iframe.
+				 */
+				function aui_init_modal_iframe() {
+					jQuery('.aui-has-embed, [data-aui-embed="iframe"]').each(function(e){
+						if (!jQuery(this).hasClass('aui-modal-iframed') && jQuery(this).data('embed-url')) {
+							jQuery(this).addClass('aui-modal-iframed');
+
+							jQuery(this).on("click",function(e1) {
+								aui_modal_iframe('',jQuery(this).data('embed-url'),'',true,'','modal-lg','aui-modal-iframe p-0',true);
+								return false;
+							});
+						}
+					});
+				}
+
+				/**
+				 * Show a toast.
+				 */
+				$aui_doing_toast = false;
+				function aui_toast($id,$type,$title,$title_small,$body,$time,$can_close){
+
+					if($aui_doing_toast){setTimeout(function(){
+						aui_toast($id,$type,$title,$title_small,$body,$time,$can_close);
+					}, 500); return;}
+
+					$aui_doing_toast = true;
+
+					if($can_close == null){$can_close = false;}
+					if($time == '' || $time == null ){$time = 3000;}
+
+					// if already setup then just show
+					if(document.getElementById($id)){
+						jQuery('#'+$id).toast('show');
+						setTimeout(function(){ $aui_doing_toast = false; }, 500);
+						return;
+					}
+
+					var uniqid = Date.now();
+					if($id){
+						uniqid = $id;
+					}
+
+					$op = "";
+					$tClass = '';
+					$thClass = '';
+					$icon = "";
+
+					if ($type == 'success') {
+						$op = "opacity:.92;";
+						$tClass = 'alert alert-success';
+						$thClass = 'bg-transparent border-0 alert-success';
+						$icon = "<div class='h5 m-0 p-0'><i class='fas fa-check-circle mr-2'></i></div>";
+					} else if ($type == 'error' || $type == 'danger') {
+						$op = "opacity:.92;";
+						$tClass = 'alert alert-danger';
+						$thClass = 'bg-transparent border-0 alert-danger';
+						$icon = "<div class='h5 m-0 p-0'><i class='far fa-times-circle mr-2'></i></div>";
+					} else if ($type == 'info') {
+						$op = "opacity:.92;";
+						$tClass = 'alert alert-info';
+						$thClass = 'bg-transparent border-0 alert-info';
+						$icon = "<div class='h5 m-0 p-0'><i class='fas fa-info-circle mr-2'></i></div>";
+					} else if ($type == 'warning') {
+						$op = "opacity:.92;";
+						$tClass = 'alert alert-warning';
+						$thClass = 'bg-transparent border-0 alert-warning';
+						$icon = "<div class='h5 m-0 p-0'><i class='fas fa-exclamation-triangle mr-2'></i></div>";
+					}
+
+
+					// add container if not exist
+					if(!document.getElementById("aui-toasts")){
+						jQuery('body').append('<div class="bsui" id="aui-toasts"><div class="position-fixed aui-toast-bottom-right pr-3 mb-1" style="z-index: 500000;right: 0;bottom: 0;'+$op+'"></div></div>');
+					}
+
+					$toast = '<div id="'+uniqid+'" class="toast fade hide shadow hover-shadow '+$tClass+'" style="" role="alert" aria-live="assertive" aria-atomic="true" data-delay="'+$time+'">';
+					if($type || $title || $title_small){
+						$toast += '<div class="toast-header '+$thClass+'">';
+						if($icon ){$toast += $icon;}
+						if($title){$toast += '<strong class="mr-auto">'+$title+'</strong>';}
+						if($title_small){$toast += '<small>'+$title_small+'</small>';}
+						if($can_close){$toast += '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">×</span></button>';}
+						$toast += '</div>';
+					}
+					
+					if($body){
+						$toast += '<div class="toast-body">'+$body+'</div>';
+					}
+
+					$toast += '</div>';
+
+					jQuery('.aui-toast-bottom-right').prepend($toast);
+					jQuery('#'+uniqid).toast('show');
+					setTimeout(function(){ $aui_doing_toast = false; }, 500);
+				}
+
+                /**
+                 * Animate a number.
+                 */
+                function aui_init_counters(){
+
+                    const animNum = (EL) => {
+
+                        if (EL._isAnimated) return; // Animate only once!
+                        EL._isAnimated = true;
+
+                        let end = EL.dataset.auiend;
+                        let start = EL.dataset.auistart;
+                        let duration = EL.dataset.auiduration ? EL.dataset.auiduration : 2000;
+                        let seperator = EL.dataset.auisep ? EL.dataset.auisep: '';
+
+                        jQuery(EL).prop('Counter', start).animate({
+                            Counter: end
+                        }, {
+                            duration: Math.abs(duration),
+                            easing: 'swing',
+                            step: function(now) {
+                                const text = seperator ?  (Math.ceil(now)).toLocaleString('en-US') : Math.ceil(now);
+                                const html = seperator ? text.split(",").map(n => `<span class="count">${n}</span>`).join(",") : text;
+                                if(seperator && seperator!=','){
+                                    html.replace(',',seperator);
+                                }
+                                jQuery(this).html(html);
+                            }
+                        });
+                    };
+
+                    const inViewport = (entries, observer) => {
+                        // alert(1);
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) animNum(entry.target);
+                        });
+                    };
+
+                    jQuery("[data-auicounter]").each((i, EL) => {
+                        const observer = new IntersectionObserver(inViewport);
+                        observer.observe(EL);
+                    });
+                }
 				
 
 				/**
 				 * Initiate all AUI JS.
 				 */
 				function aui_init(){
+
+                    // init counters
+                    aui_init_counters();
+
 					// nav menu submenus
 					init_nav_sub_menus();
 					
@@ -972,6 +1353,9 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					// init flatpickr
 					aui_init_flatpickr();
 
+					// init iconpicker
+					aui_init_iconpicker();
+
 					// init Greedy nav
 					aui_init_greedy_nav();
 
@@ -983,6 +1367,9 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					
 					// init lightbox embeds
 					aui_init_lightbox_embed();
+
+					/* Init modal iframe */
+					aui_init_modal_iframe();
 				}
 
 				// run on window loaded
@@ -1014,6 +1401,84 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 						});
 					}
 				});
+
+				/**
+				 * Show a "confirm" dialog to the user (using jQuery UI's dialog)
+				 *
+				 * @param {string} message The message to display to the user
+				 * @param {string} okButtonText OPTIONAL - The OK button text, defaults to "Yes"
+				 * @param {string} cancelButtonText OPTIONAL - The Cancel button text, defaults to "No"
+				 * @returns {Q.Promise<boolean>} A promise of a boolean value
+				 */
+				var aui_confirm = function (message, okButtonText, cancelButtonText, isDelete, large ) {
+					okButtonText = okButtonText || 'Yes';
+					cancelButtonText = cancelButtonText || 'Cancel';
+					message = message || 'Are you sure?';
+					sizeClass = large ? '' : 'modal-sm';
+					btnClass = isDelete ? 'btn-danger' : 'btn-primary';
+
+					deferred = jQuery.Deferred();
+					var $body = "";
+					$body += "<h3 class='h4 py-3 text-center text-dark'>"+message+"</h3>";
+					$body += "<div class='d-flex'>";
+					$body += "<button class='btn btn-outline-secondary w-50 btn-round' data-dismiss='modal'  onclick='deferred.resolve(false);'>"+cancelButtonText+"</button>";
+					$body += "<button class='btn "+btnClass+" ml-2 w-50 btn-round' data-dismiss='modal'  onclick='deferred.resolve(true);'>"+okButtonText+"</button>";
+					$body += "</div>";
+					$modal = aui_modal('',$body,'',false,'',sizeClass);
+
+					return deferred.promise();
+				};
+
+                /**
+                 * Add a window scrolled data element.
+                 */
+                window.onscroll = function () {
+                    aui_set_data_scroll()
+                };
+
+                /**
+                 * Set scroll data element.
+                 */
+                function aui_set_data_scroll(){
+                    document.documentElement.dataset.scroll = window.scrollY;
+                }
+
+                // call data scroll function ASAP.
+                aui_set_data_scroll();
+
+				<?php
+                // FSE tweaks.
+                if(!empty($_REQUEST['postType']) && $_REQUEST['postType']=='wp_template'){ ?>
+                function aui_fse_set_data_scroll() {
+                    console.log('init scroll');
+                    let Iframe = document.getElementsByClassName("edit-site-visual-editor__editor-canvas");
+                    if( Iframe[0] === undefined ){ return; }
+                    let iframe_doc = Iframe[0].contentWindow ? Iframe[0].contentWindow.document : Iframe[0].contentDocument;
+                    Iframe[0].contentWindow.onscroll = function () {
+                        iframe_doc.documentElement.dataset.scroll = Iframe[0].contentWindow.scrollY;
+                    };
+                }
+
+                setTimeout(function(){
+                    aui_fse_set_data_scroll();
+                }, 3000);
+
+                // fire when URL changes also.
+                let FSElastUrl = location.href;
+                new MutationObserver(() => {
+                    const url = location.href;
+                    if (url !== FSElastUrl) {
+                        FSElastUrl = url;
+                        aui_fse_set_data_scroll();
+                        // fire a second time incase of load delays.
+                        setTimeout(function(){
+                            aui_fse_set_data_scroll();
+                        }, 2000);
+                    }
+                }).observe(document, {subtree: true, childList: true});
+				<?php } ?>
+
+
 			</script>
 			<?php
 			$output = ob_get_clean();
@@ -1093,8 +1558,11 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				wp_register_script( 'select2', $this->url . 'assets/js/select2.min.js', array( 'jquery' ), $this->select2_version );
 
 				// flatpickr
-				wp_register_script( 'flatpickr', $this->url . 'assets/js/flatpickr.min.js', array(), $this->latest );
+				wp_register_script( 'flatpickr', $this->url . 'assets/js/flatpickr.min.js', array(), $this->version );
 
+				// flatpickr
+				wp_register_script( 'iconpicker', $this->url . 'assets/js/fa-iconpicker.min.js', array(), $this->version );
+				
 				// Bootstrap file browser
 				wp_register_script( 'aui-custom-file-input', $url = $this->url . 'assets/js/bs-custom-file-input.min.js', array( 'jquery' ), $this->select2_version );
 				wp_add_inline_script( 'aui-custom-file-input', $this->inline_script_file_browser() );
@@ -1107,14 +1575,14 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					wp_register_script( 'bootstrap-js-bundle', $url, array(
 						'select2',
 						'jquery'
-					), $this->latest, $this->is_bs3_compat() );
+					), $this->version, $this->is_bs3_compat() );
 					// if in admin then add to footer for compatibility.
 					is_admin() ? wp_enqueue_script( 'bootstrap-js-bundle', '', null, null, true ) : wp_enqueue_script( 'bootstrap-js-bundle' );
 					$script = $this->inline_script();
 					wp_add_inline_script( 'bootstrap-js-bundle', $script );
 				} elseif ( $this->settings[ $js_setting ] == 'popper' ) {
 					$url = $this->url . 'assets/js/popper.min.js';
-					wp_register_script( 'bootstrap-js-popper', $url, array( 'select2', 'jquery' ), $this->latest );
+					wp_register_script( 'bootstrap-js-popper', $url, array( 'select2', 'jquery' ), $this->version );
 					wp_enqueue_script( 'bootstrap-js-popper' );
 					$load_inline = true;
 				} else {
@@ -1141,11 +1609,40 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		}
 
 		/**
+		 * Enqueue iconpicker if called.
+		 */
+		public function enqueue_iconpicker(){
+			wp_enqueue_style( 'iconpicker' );
+			wp_enqueue_script( 'iconpicker' );
+		}
+
+		/**
 		 * Get the url path to the current folder.
 		 *
 		 * @return string
 		 */
 		public function get_url() {
+			$content_dir = wp_normalize_path( untrailingslashit( WP_CONTENT_DIR ) );
+			$content_url = untrailingslashit( WP_CONTENT_URL );
+
+			// Replace http:// to https://.
+			if ( strpos( $content_url, 'http://' ) === 0 && strpos( plugins_url(), 'https://' ) === 0 ) {
+				$content_url = str_replace( 'http://', 'https://', $content_url );
+			}
+
+			// Check if we are inside a plugin
+			$file_dir = str_replace( "/includes", "", wp_normalize_path( dirname( __FILE__ ) ) );
+			$url = str_replace( $content_dir, $content_url, $file_dir );
+
+			return trailingslashit( $url );
+		}
+
+		/**
+		 * Get the url path to the current folder.
+		 *
+		 * @return string
+		 */
+		public function get_url_old() {
 
 			$url = '';
 			// check if we are inside a plugin
@@ -1242,88 +1739,88 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 */
 		public function settings_page() {
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_die( __( 'You do not have sufficient permissions to access this page.', 'directory-starter' ) );
+				wp_die( __( 'You do not have sufficient permissions to access this page.', 'directory-starter'  ) );
 			}
 			?>
 			<div class="wrap">
 				<h1><?php echo $this->name; ?></h1>
-				<p><?php _e("Here you can adjust settings if you are having compatibility issues.",'directory-starter');?></p>
+				<p><?php _e("Here you can adjust settings if you are having compatibility issues.",'directory-starter' );?></p>
 				<form method="post" action="options.php">
 					<?php
 					settings_fields( 'ayecode-ui-settings' );
 					do_settings_sections( 'ayecode-ui-settings' );
 					?>
 
-					<h2><?php _e( 'Frontend', 'directory-starter' ); ?></h2>
+					<h2><?php _e( 'Frontend', 'directory-starter'  ); ?></h2>
 					<table class="form-table wpbs-table-settings">
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-css"><?php _e( 'Load CSS', 'directory-starter' ); ?></label></th>
+									for="wpbs-css"><?php _e( 'Load CSS', 'directory-starter'  ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[css]" id="wpbs-css">
-									<option	value="compatibility" <?php selected( $this->settings['css'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode (default)', 'directory-starter' ); ?></option>
-									<option value="core" <?php selected( $this->settings['css'], 'core' ); ?>><?php _e( 'Full Mode', 'directory-starter' ); ?></option>
-									<option	value="" <?php selected( $this->settings['css'], '' ); ?>><?php _e( 'Disabled', 'directory-starter' ); ?></option>
+									<option	value="compatibility" <?php selected( $this->settings['css'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode (default)', 'directory-starter'  ); ?></option>
+									<option value="core" <?php selected( $this->settings['css'], 'core' ); ?>><?php _e( 'Full Mode', 'directory-starter'  ); ?></option>
+									<option	value="" <?php selected( $this->settings['css'], '' ); ?>><?php _e( 'Disabled', 'directory-starter'  ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-js"><?php _e( 'Load JS', 'directory-starter' ); ?></label></th>
+									for="wpbs-js"><?php _e( 'Load JS', 'directory-starter'  ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[js]" id="wpbs-js">
-									<option	value="core-popper" <?php selected( $this->settings['js'], 'core-popper' ); ?>><?php _e( 'Core + Popper (default)', 'directory-starter' ); ?></option>
-									<option value="popper" <?php selected( $this->settings['js'], 'popper' ); ?>><?php _e( 'Popper', 'directory-starter' ); ?></option>
-									<option value="required" <?php selected( $this->settings['js'], 'required' ); ?>><?php _e( 'Required functions only', 'directory-starter' ); ?></option>
-									<option	value="" <?php selected( $this->settings['js'], '' ); ?>><?php _e( 'Disabled (not recommended)', 'directory-starter' ); ?></option>
+									<option	value="core-popper" <?php selected( $this->settings['js'], 'core-popper' ); ?>><?php _e( 'Core + Popper (default)', 'directory-starter'  ); ?></option>
+									<option value="popper" <?php selected( $this->settings['js'], 'popper' ); ?>><?php _e( 'Popper', 'directory-starter'  ); ?></option>
+									<option value="required" <?php selected( $this->settings['js'], 'required' ); ?>><?php _e( 'Required functions only', 'directory-starter'  ); ?></option>
+									<option	value="" <?php selected( $this->settings['js'], '' ); ?>><?php _e( 'Disabled (not recommended)', 'directory-starter'  ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-font_size"><?php _e( 'HTML Font Size (px)', 'directory-starter' ); ?></label></th>
+									for="wpbs-font_size"><?php _e( 'HTML Font Size (px)', 'directory-starter'  ); ?></label></th>
 							<td>
 								<input type="number" name="ayecode-ui-settings[html_font_size]" id="wpbs-font_size" value="<?php echo absint( $this->settings['html_font_size']); ?>" placeholder="16" />
-								<p class="description" ><?php _e("Our font sizing is rem (responsive based) here you can set the html font size in-case your theme is setting it too low.",'directory-starter');?></p>
+								<p class="description" ><?php _e("Our font sizing is rem (responsive based) here you can set the html font size in-case your theme is setting it too low.",'directory-starter' );?></p>
 							</td>
 						</tr>
 
 					</table>
 
-					<h2><?php _e( 'Backend', 'directory-starter' ); ?> (wp-admin)</h2>
+					<h2><?php _e( 'Backend', 'directory-starter'  ); ?> (wp-admin)</h2>
 					<table class="form-table wpbs-table-settings">
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-css-admin"><?php _e( 'Load CSS', 'directory-starter' ); ?></label></th>
+									for="wpbs-css-admin"><?php _e( 'Load CSS', 'directory-starter'  ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[css_backend]" id="wpbs-css-admin">
-									<option	value="compatibility" <?php selected( $this->settings['css_backend'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode (default)', 'directory-starter' ); ?></option>
-									<option value="core" <?php selected( $this->settings['css_backend'], 'core' ); ?>><?php _e( 'Full Mode (will cause style issues)', 'directory-starter' ); ?></option>
-									<option	value="" <?php selected( $this->settings['css_backend'], '' ); ?>><?php _e( 'Disabled', 'directory-starter' ); ?></option>
+									<option	value="compatibility" <?php selected( $this->settings['css_backend'], 'compatibility' ); ?>><?php _e( 'Compatibility Mode (default)', 'directory-starter'  ); ?></option>
+									<option value="core" <?php selected( $this->settings['css_backend'], 'core' ); ?>><?php _e( 'Full Mode (will cause style issues)', 'directory-starter'  ); ?></option>
+									<option	value="" <?php selected( $this->settings['css_backend'], '' ); ?>><?php _e( 'Disabled', 'directory-starter'  ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-js-admin"><?php _e( 'Load JS', 'directory-starter' ); ?></label></th>
+									for="wpbs-js-admin"><?php _e( 'Load JS', 'directory-starter'  ); ?></label></th>
 							<td>
 								<select name="ayecode-ui-settings[js_backend]" id="wpbs-js-admin">
-									<option	value="core-popper" <?php selected( $this->settings['js_backend'], 'core-popper' ); ?>><?php _e( 'Core + Popper (default)', 'directory-starter' ); ?></option>
-									<option value="popper" <?php selected( $this->settings['js_backend'], 'popper' ); ?>><?php _e( 'Popper', 'directory-starter' ); ?></option>
-									<option value="required" <?php selected( $this->settings['js_backend'], 'required' ); ?>><?php _e( 'Required functions only', 'directory-starter' ); ?></option>
-									<option	value="" <?php selected( $this->settings['js_backend'], '' ); ?>><?php _e( 'Disabled (not recommended)', 'directory-starter' ); ?></option>
+									<option	value="core-popper" <?php selected( $this->settings['js_backend'], 'core-popper' ); ?>><?php _e( 'Core + Popper (default)', 'directory-starter'  ); ?></option>
+									<option value="popper" <?php selected( $this->settings['js_backend'], 'popper' ); ?>><?php _e( 'Popper', 'directory-starter'  ); ?></option>
+									<option value="required" <?php selected( $this->settings['js_backend'], 'required' ); ?>><?php _e( 'Required functions only', 'directory-starter'  ); ?></option>
+									<option	value="" <?php selected( $this->settings['js_backend'], '' ); ?>><?php _e( 'Disabled (not recommended)', 'directory-starter'  ); ?></option>
 								</select>
 							</td>
 						</tr>
 
 						<tr valign="top">
 							<th scope="row"><label
-									for="wpbs-disable-admin"><?php _e( 'Disable load on URL', 'directory-starter' ); ?></label></th>
+									for="wpbs-disable-admin"><?php _e( 'Disable load on URL', 'directory-starter'  ); ?></label></th>
 							<td>
-								<p><?php _e( 'If you have backend conflict you can enter a partial URL argument that will disable the loading of AUI on those pages. Add each argument on a new line.', 'directory-starter' ); ?></p>
+								<p><?php _e( 'If you have backend conflict you can enter a partial URL argument that will disable the loading of AUI on those pages. Add each argument on a new line.', 'directory-starter'  ); ?></p>
 								<textarea name="ayecode-ui-settings[disable_admin]" rows="10" cols="50" id="wpbs-disable-admin" class="large-text code" spellcheck="false" placeholder="myplugin.php &#10;action=go"><?php echo $this->settings['disable_admin'];?></textarea>
 
 							</td>
@@ -1344,7 +1841,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 		public function customizer_settings($wp_customize){
 			$wp_customize->add_section('aui_settings', array(
-				'title'    => __('AyeCode UI','directory-starter'),
+				'title'    => __('AyeCode UI','directory-starter' ),
 				'priority' => 120,
 			));
 
@@ -1359,7 +1856,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				'transport'         => 'refresh',
 			));
 			$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, 'color_primary', array(
-				'label'    => __('Primary Color','directory-starter'),
+				'label'    => __('Primary Color','directory-starter' ),
 				'section'  => 'aui_settings',
 				'settings' => 'aui_options[color_primary]',
 			)));
@@ -1372,7 +1869,7 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 				'transport'         => 'refresh',
 			));
 			$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, 'color_secondary', array(
-				'label'    => __('Secondary Color','directory-starter'),
+				'label'    => __('Secondary Color','directory-starter' ),
 				'section'  => 'aui_settings',
 				'settings' => 'aui_options[color_secondary]',
 			)));
@@ -1408,6 +1905,9 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			body.modal-open .modal.in  {opacity:1;z-index: 99999}
 			body.modal-open .modal.bsui.in .modal-content  {box-shadow: none;}
 			.bsui .collapse.in{display: inherit;}
+			.bsui .collapse.in.row.show{display: flex;}
+			.bsui .collapse.in.row:not(.show){display: none;}
+
 			<?php } ?>
 			</style>
 			<?php
@@ -1419,13 +1919,31 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 
 
 		public static function custom_css($compatibility = true) {
-			$settings = get_option('aui_options');
+			$colors = array();
+			if ( defined( 'BLOCKSTRAP_VERSION' ) ) {
+
+				$setting = wp_get_global_settings();
+				if(!empty($setting['color']['palette']['theme'])){
+					foreach($setting['color']['palette']['theme'] as $color){
+						$colors[$color['slug']] = esc_attr($color['color']);
+					}
+				}
+
+				if(!empty($setting['color']['palette']['custom'])){
+					foreach($setting['color']['palette']['custom'] as $color){
+						$colors[$color['slug']] = esc_attr($color['color']);
+					}
+				}
+			}else{
+				$settings = get_option('aui_options');
+				$colors = array(
+					'primary'   => ! empty( $settings['color_primary'] ) ? $settings['color_primary'] : AUI_PRIMARY_COLOR,
+					'secondary' => ! empty( $settings['color_secondary'] ) ? $settings['color_secondary'] : AUI_SECONDARY_COLOR
+				);
+			}
 
 			ob_start();
 
-			$primary_color = !empty($settings['color_primary']) ? $settings['color_primary'] : AUI_PRIMARY_COLOR;
-			$secondary_color = !empty($settings['color_secondary']) ? $settings['color_secondary'] : AUI_SECONDARY_COLOR;
-				//AUI_PRIMARY_COLOR_ORIGINAL
 			?>
 			<style>
 				<?php
@@ -1435,16 +1953,27 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 					    echo self::bs3_compat_css();
 					}
 
-					if(!is_admin() && $primary_color != AUI_PRIMARY_COLOR_ORIGINAL){
-						echo self::css_primary($primary_color,$compatibility);
-					}
-
-					if(!is_admin() && $secondary_color != AUI_SECONDARY_COLOR_ORIGINAL){
-						echo self::css_secondary($settings['color_secondary'],$compatibility);
-					}
+                    if(!empty($colors)){
+                        $d_colors = self::get_colors(true);
+                        //print_r($d_colors );exit;
+//                        print_r($colors );exit;
+                        $is_fse = !empty($_REQUEST['postType']) && $_REQUEST['postType']=='wp_template';
+                        foreach($colors as $key => $color ){
+                            if((empty( $d_colors[$key]) ||  $d_colors[$key] != $color) || $is_fse ) {
+                                $var = $is_fse ? "var(--wp--preset--color--$key)" : $color;
+                                $compat = $is_fse ? '.editor-styles-wrapper' : $compatibility;
+                                echo self::css_overwrite($key,$var,$compat);
+                            }
+                        }
+                       // exit;
+                    }
 
 					// Set admin bar z-index lower when modal is open.
 					echo ' body.modal-open #wpadminbar{z-index:999}.embed-responsive-16by9 .fluid-width-video-wrapper{padding:0 !important;position:initial}';
+
+					if(is_admin()){
+						echo ' body.modal-open #adminmenuwrap{z-index:999} body.modal-open #wpadminbar{z-index:1025}';
+					}
                 ?>
 			</style>
 			<?php
@@ -1459,6 +1988,8 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			), '', self::minify_css( ob_get_clean() ) );
 		}
 
+
+
 		/**
 		 * Check if we should add booststrap 3 compatibility changes.
 		 *
@@ -1468,9 +1999,212 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			return defined('AYECODE_UI_BS3_COMPAT') || defined('SVQ_THEME_VERSION') || defined('FUSION_BUILDER_VERSION');
 		}
 
-		public static function css_primary($color_code,$compatibility){;
-			$color_code = sanitize_hex_color($color_code);
+		/**
+         * Build the CSS to overwrite a bootstrap color variable.
+         *
+		 * @param $type
+		 * @param $color_code
+		 * @param $compatibility
+		 *
+		 * @return string
+		 */
+		public static function css_overwrite($type,$color_code,$compatibility){
+
+            $is_var = false;
 			if(!$color_code){return '';}
+			if(!sanitize_hex_color($color_code)){
+				$color_code = esc_attr($color_code);
+				$is_var = true;
+//                echo '###1'.$color_code;//exit;
+			}
+			if(!$color_code){return '';}
+
+            if($compatibility===true || $compatibility===1){
+	            $compatibility = '.bsui';
+            }elseif(!$compatibility){
+	            $compatibility = '';
+            }else{
+	            $compatibility = esc_attr($compatibility);
+            }
+
+//            echo '####'.$color_code;exit;
+
+			$type = sanitize_html_class($type);
+
+			/**
+			 * c = color, b = background color, o = border-color, f = fill
+			 */
+			$selectors = array(
+				".btn-{$type}"                                              => array( 'b', 'o' ),
+				".btn-{$type}.disabled"                                     => array( 'b', 'o' ),
+				".btn-{$type}:disabled"                                     => array( 'b', 'o' ),
+				".btn-outline-{$type}"                                      => array( 'c', 'o' ),
+				".btn-outline-{$type}:hover"                                => array( 'b', 'o' ),
+				".btn-outline-{$type}:not(:disabled):not(.disabled).active" => array( 'b', 'o' ),
+				".btn-outline-{$type}:not(:disabled):not(.disabled):active" => array( 'b', 'o' ),
+				".show>.btn-outline-{$type}.dropdown-toggle"                => array( 'b', 'o' ),
+				".badge-{$type}"                                            => array( 'b' ),
+				".alert-{$type}"                                            => array( 'b', 'o' ),
+				".bg-{$type}"                                               => array( 'b', 'f' ),
+				".btn-link.btn-{$type}"                                     => array( 'c' ),
+			);
+
+			if ( $type == 'primary' ) {
+				$selectors = $selectors + array(
+						'a'                                                                                                    => array( 'c' ),
+						'.btn-link'                                                                                            => array( 'c' ),
+						'.dropdown-item.active'                                                                                => array( 'b' ),
+						'.custom-control-input:checked~.custom-control-label::before'                                          => array(
+							'b',
+							'o'
+						),
+						'.custom-checkbox .custom-control-input:indeterminate~.custom-control-label::before'                   => array(
+							'b',
+							'o'
+						),
+						'.nav-pills .nav-link.active'                                                                          => array( 'b' ),
+						'.nav-pills .show>.nav-link'                                                                           => array( 'b' ),
+						'.page-link'                                                                                           => array( 'c' ),
+						'.page-item.active .page-link'                                                                         => array(
+							'b',
+							'o'
+						),
+						'.progress-bar'                                                                                        => array( 'b' ),
+						'.list-group-item.active'                                                                              => array(
+							'b',
+							'o'
+						),
+						'.select2-container .select2-results__option--highlighted.select2-results__option[aria-selected=true]' => array( 'b' ),
+//				    '.custom-range::-webkit-slider-thumb' => array('b'), // these break the inline rules...
+//				    '.custom-range::-moz-range-thumb' => array('b'),
+//				    '.custom-range::-ms-thumb' => array('b'),
+					);
+			}
+
+			$important_selectors = array(
+				".bg-{$type}" => array('b','f'),
+				".border-{$type}" => array('o'),
+				".text-{$type}" => array('c'),
+			);
+
+			$color = array();
+			$color_i = array();
+			$background = array();
+			$background_i = array();
+			$border = array();
+			$border_i = array();
+			$fill = array();
+			$fill_i = array();
+
+			$output = '';
+
+			// build rules into each type
+			foreach($selectors as $selector => $types){
+				$selector = $compatibility ? $compatibility . " ".$selector : $selector;
+				$types = array_combine($types,$types);
+				if(isset($types['c'])){$color[] = $selector;}
+				if(isset($types['b'])){$background[] = $selector;}
+				if(isset($types['o'])){$border[] = $selector;}
+				if(isset($types['f'])){$fill[] = $selector;}
+			}
+
+			// build rules into each type
+			foreach($important_selectors as $selector => $types){
+				$selector = $compatibility ? $compatibility . " ".$selector : $selector;
+				$types = array_combine($types,$types);
+				if(isset($types['c'])){$color_i[] = $selector;}
+				if(isset($types['b'])){$background_i[] = $selector;}
+				if(isset($types['o'])){$border_i[] = $selector;}
+				if(isset($types['f'])){$fill_i[] = $selector;}
+			}
+
+			// add any color rules
+			if(!empty($color)){
+				$output .= implode(",",$color) . "{color: $color_code;} ";
+			}
+			if(!empty($color_i)){
+				$output .= implode(",",$color_i) . "{color: $color_code !important;} ";
+			}
+
+			// add any background color rules
+			if(!empty($background)){
+				$output .= implode(",",$background) . "{background-color: $color_code;} ";
+			}
+			if(!empty($background_i)){
+				$output .= implode(",",$background_i) . "{background-color: $color_code !important;} ";
+			}
+
+			// add any border color rules
+			if(!empty($border)){
+				$output .= implode(",",$border) . "{border-color: $color_code;} ";
+			}
+			if(!empty($border_i)){
+				$output .= implode(",",$border_i) . "{border-color: $color_code !important;} ";
+			}
+
+			// add any fill color rules
+			if(!empty($fill)){
+				$output .= implode(",",$fill) . "{fill: $color_code;} ";
+			}
+			if(!empty($fill_i)){
+				$output .= implode(",",$fill_i) . "{fill: $color_code !important;} ";
+			}
+
+
+			$prefix = $compatibility ? $compatibility . " " : "";
+
+            $transition = $is_var ? 'transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,filter 0.15s ease-in-out;' : '';
+			// darken
+			$darker_075 = $is_var ? $color_code.';filter:brightness(0.925)' : self::css_hex_lighten_darken($color_code,"-0.075");
+			$darker_10 = $is_var ? $color_code.';filter:brightness(0.9)' : self::css_hex_lighten_darken($color_code,"-0.10");
+			$darker_125 = $is_var ? $color_code.';filter:brightness(0.875)' : self::css_hex_lighten_darken($color_code,"-0.125");
+
+			// lighten
+			$lighten_25 = $is_var ? $color_code.';filter:brightness(1.25)' :self::css_hex_lighten_darken($color_code,"0.25");
+
+			// opacity see https://css-tricks.com/8-digit-hex-codes/
+			$op_25 = $color_code."40"; // 25% opacity
+
+
+			// button states
+			$output .= $is_var ? $prefix ." .btn-{$type}{{$transition }} " : '';
+			$output .= $prefix ." .btn-{$type}:hover, $prefix .btn-{$type}:focus, $prefix .btn-{$type}.focus{background-color: ".$darker_075.";    border-color: ".$darker_10.";} ";
+//			$output .= $prefix ." .btn-{$type}:hover, $prefix .btn-{$type}:focus, $prefix .btn-{$type}.focus{background-color: #000;    border-color: #000;} ";
+			$output .= $prefix ." .btn-outline-{$type}:not(:disabled):not(.disabled):active:focus, $prefix .btn-outline-{$type}:not(:disabled):not(.disabled).active:focus, .show>$prefix .btn-outline-{$type}.dropdown-toggle:focus{box-shadow: 0 0 0 0.2rem $op_25;} ";
+			$output .= $prefix ." .btn-{$type}:not(:disabled):not(.disabled):active, $prefix .btn-{$type}:not(:disabled):not(.disabled).active, .show>$prefix .btn-{$type}.dropdown-toggle{background-color: ".$darker_10.";    border-color: ".$darker_125.";} ";
+			$output .= $prefix ." .btn-{$type}:not(:disabled):not(.disabled):active:focus, $prefix .btn-{$type}:not(:disabled):not(.disabled).active:focus, .show>$prefix .btn-{$type}.dropdown-toggle:focus {box-shadow: 0 0 0 0.2rem $op_25;} ";
+
+			if ( $type == 'primary' ) {
+				// dropdown's
+				$output .= $prefix . " .dropdown-item.active, $prefix .dropdown-item:active{background-color: $color_code;} ";
+
+				// input states
+				$output .= $prefix . " .form-control:focus{border-color: " . $lighten_25 . ";box-shadow: 0 0 0 0.2rem $op_25;} ";
+
+				// page link
+				$output .= $prefix . " .page-link:focus{box-shadow: 0 0 0 0.2rem $op_25;} ";
+			}
+
+			return $output;
+		}
+
+		/**
+         *
+         * @deprecated 0.1.76 Use css_overwrite()
+         *
+		 * @param $color_code
+		 * @param $compatibility
+		 * @param $use_variable
+		 *
+		 * @return string
+		 */
+		public static function css_primary($color_code,$compatibility, $use_variable = false){
+
+            if(!$use_variable){
+				$color_code = sanitize_hex_color($color_code);
+				if(!$color_code){return '';}
+			}
+
 			/**
 			 * c = color, b = background color, o = border-color, f = fill
 			 */
@@ -1608,6 +2342,15 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 			return $output;
 		}
 
+		/**
+         *
+         * @deprecated 0.1.76 Use css_overwrite()
+         *
+		 * @param $color_code
+		 * @param $compatibility
+		 *
+		 * @return string
+		 */
 		public static function css_secondary($color_code,$compatibility){;
 			$color_code = sanitize_hex_color($color_code);
 			if(!$color_code){return '';}
@@ -1877,71 +2620,71 @@ if ( ! class_exists( 'AyeCode_UI_Settings' ) ) {
 		 */
 		public static function calendar_params() {
 			$params = array(
-				'month_long_1' => __( 'January', 'directory-starter' ),
-				'month_long_2' => __( 'February', 'directory-starter' ),
-				'month_long_3' => __( 'March', 'directory-starter' ),
-				'month_long_4' => __( 'April', 'directory-starter' ),
-				'month_long_5' => __( 'May', 'directory-starter' ),
-				'month_long_6' => __( 'June', 'directory-starter' ),
-				'month_long_7' => __( 'July', 'directory-starter' ),
-				'month_long_8' => __( 'August', 'directory-starter' ),
-				'month_long_9' => __( 'September', 'directory-starter' ),
-				'month_long_10' => __( 'October', 'directory-starter' ),
-				'month_long_11' => __( 'November', 'directory-starter' ),
-				'month_long_12' => __( 'December', 'directory-starter' ),
-				'month_s_1' => _x( 'Jan', 'January abbreviation', 'directory-starter' ),
-				'month_s_2' => _x( 'Feb', 'February abbreviation', 'directory-starter' ),
-				'month_s_3' => _x( 'Mar', 'March abbreviation', 'directory-starter' ),
-				'month_s_4' => _x( 'Apr', 'April abbreviation', 'directory-starter' ),
-				'month_s_5' => _x( 'May', 'May abbreviation', 'directory-starter' ),
-				'month_s_6' => _x( 'Jun', 'June abbreviation', 'directory-starter' ),
-				'month_s_7' => _x( 'Jul', 'July abbreviation', 'directory-starter' ),
-				'month_s_8' => _x( 'Aug', 'August abbreviation', 'directory-starter' ),
-				'month_s_9' => _x( 'Sep', 'September abbreviation', 'directory-starter' ),
-				'month_s_10' => _x( 'Oct', 'October abbreviation', 'directory-starter' ),
-				'month_s_11' => _x( 'Nov', 'November abbreviation', 'directory-starter' ),
-				'month_s_12' => _x( 'Dec', 'December abbreviation', 'directory-starter' ),
-				'day_s1_1' => _x( 'S', 'Sunday initial', 'directory-starter' ),
-				'day_s1_2' => _x( 'M', 'Monday initial', 'directory-starter' ),
-				'day_s1_3' => _x( 'T', 'Tuesday initial', 'directory-starter' ),
-				'day_s1_4' => _x( 'W', 'Wednesday initial', 'directory-starter' ),
-				'day_s1_5' => _x( 'T', 'Friday initial', 'directory-starter' ),
-				'day_s1_6' => _x( 'F', 'Thursday initial', 'directory-starter' ),
-				'day_s1_7' => _x( 'S', 'Saturday initial', 'directory-starter' ),
-				'day_s2_1' => __( 'Su', 'directory-starter' ),
-				'day_s2_2' => __( 'Mo', 'directory-starter' ),
-				'day_s2_3' => __( 'Tu', 'directory-starter' ),
-				'day_s2_4' => __( 'We', 'directory-starter' ),
-				'day_s2_5' => __( 'Th', 'directory-starter' ),
-				'day_s2_6' => __( 'Fr', 'directory-starter' ),
-				'day_s2_7' => __( 'Sa', 'directory-starter' ),
-				'day_s3_1' => __( 'Sun', 'directory-starter' ),
-				'day_s3_2' => __( 'Mon', 'directory-starter' ),
-				'day_s3_3' => __( 'Tue', 'directory-starter' ),
-				'day_s3_4' => __( 'Wed', 'directory-starter' ),
-				'day_s3_5' => __( 'Thu', 'directory-starter' ),
-				'day_s3_6' => __( 'Fri', 'directory-starter' ),
-				'day_s3_7' => __( 'Sat', 'directory-starter' ),
-				'day_s5_1' => __( 'Sunday', 'directory-starter' ),
-				'day_s5_2' => __( 'Monday', 'directory-starter' ),
-				'day_s5_3' => __( 'Tuesday', 'directory-starter' ),
-				'day_s5_4' => __( 'Wednesday', 'directory-starter' ),
-				'day_s5_5' => __( 'Thursday', 'directory-starter' ),
-				'day_s5_6' => __( 'Friday', 'directory-starter' ),
-				'day_s5_7' => __( 'Saturday', 'directory-starter' ),
-				'am_lower' => __( 'am', 'directory-starter' ),
-				'pm_lower' => __( 'pm', 'directory-starter' ),
-				'am_upper' => __( 'AM', 'directory-starter' ),
-				'pm_upper' => __( 'PM', 'directory-starter' ),
+				'month_long_1' => __( 'January', 'directory-starter'  ),
+				'month_long_2' => __( 'February', 'directory-starter'  ),
+				'month_long_3' => __( 'March', 'directory-starter'  ),
+				'month_long_4' => __( 'April', 'directory-starter'  ),
+				'month_long_5' => __( 'May', 'directory-starter'  ),
+				'month_long_6' => __( 'June', 'directory-starter'  ),
+				'month_long_7' => __( 'July', 'directory-starter'  ),
+				'month_long_8' => __( 'August', 'directory-starter'  ),
+				'month_long_9' => __( 'September', 'directory-starter'  ),
+				'month_long_10' => __( 'October', 'directory-starter'  ),
+				'month_long_11' => __( 'November', 'directory-starter'  ),
+				'month_long_12' => __( 'December', 'directory-starter'  ),
+				'month_s_1' => _x( 'Jan', 'January abbreviation', 'directory-starter'  ),
+				'month_s_2' => _x( 'Feb', 'February abbreviation', 'directory-starter'  ),
+				'month_s_3' => _x( 'Mar', 'March abbreviation', 'directory-starter'  ),
+				'month_s_4' => _x( 'Apr', 'April abbreviation', 'directory-starter'  ),
+				'month_s_5' => _x( 'May', 'May abbreviation', 'directory-starter'  ),
+				'month_s_6' => _x( 'Jun', 'June abbreviation', 'directory-starter'  ),
+				'month_s_7' => _x( 'Jul', 'July abbreviation', 'directory-starter'  ),
+				'month_s_8' => _x( 'Aug', 'August abbreviation', 'directory-starter'  ),
+				'month_s_9' => _x( 'Sep', 'September abbreviation', 'directory-starter'  ),
+				'month_s_10' => _x( 'Oct', 'October abbreviation', 'directory-starter'  ),
+				'month_s_11' => _x( 'Nov', 'November abbreviation', 'directory-starter'  ),
+				'month_s_12' => _x( 'Dec', 'December abbreviation', 'directory-starter'  ),
+				'day_s1_1' => _x( 'S', 'Sunday initial', 'directory-starter'  ),
+				'day_s1_2' => _x( 'M', 'Monday initial', 'directory-starter'  ),
+				'day_s1_3' => _x( 'T', 'Tuesday initial', 'directory-starter'  ),
+				'day_s1_4' => _x( 'W', 'Wednesday initial', 'directory-starter'  ),
+				'day_s1_5' => _x( 'T', 'Friday initial', 'directory-starter'  ),
+				'day_s1_6' => _x( 'F', 'Thursday initial', 'directory-starter'  ),
+				'day_s1_7' => _x( 'S', 'Saturday initial', 'directory-starter'  ),
+				'day_s2_1' => __( 'Su', 'directory-starter'  ),
+				'day_s2_2' => __( 'Mo', 'directory-starter'  ),
+				'day_s2_3' => __( 'Tu', 'directory-starter'  ),
+				'day_s2_4' => __( 'We', 'directory-starter'  ),
+				'day_s2_5' => __( 'Th', 'directory-starter'  ),
+				'day_s2_6' => __( 'Fr', 'directory-starter'  ),
+				'day_s2_7' => __( 'Sa', 'directory-starter'  ),
+				'day_s3_1' => __( 'Sun', 'directory-starter'  ),
+				'day_s3_2' => __( 'Mon', 'directory-starter'  ),
+				'day_s3_3' => __( 'Tue', 'directory-starter'  ),
+				'day_s3_4' => __( 'Wed', 'directory-starter'  ),
+				'day_s3_5' => __( 'Thu', 'directory-starter'  ),
+				'day_s3_6' => __( 'Fri', 'directory-starter'  ),
+				'day_s3_7' => __( 'Sat', 'directory-starter'  ),
+				'day_s5_1' => __( 'Sunday', 'directory-starter'  ),
+				'day_s5_2' => __( 'Monday', 'directory-starter'  ),
+				'day_s5_3' => __( 'Tuesday', 'directory-starter'  ),
+				'day_s5_4' => __( 'Wednesday', 'directory-starter'  ),
+				'day_s5_5' => __( 'Thursday', 'directory-starter'  ),
+				'day_s5_6' => __( 'Friday', 'directory-starter'  ),
+				'day_s5_7' => __( 'Saturday', 'directory-starter'  ),
+				'am_lower' => __( 'am', 'directory-starter'  ),
+				'pm_lower' => __( 'pm', 'directory-starter'  ),
+				'am_upper' => __( 'AM', 'directory-starter'  ),
+				'pm_upper' => __( 'PM', 'directory-starter'  ),
 				'firstDayOfWeek' => (int) get_option( 'start_of_week' ),
 				'time_24hr' => false,
-				'year' => __( 'Year', 'directory-starter' ),
-				'hour' => __( 'Hour', 'directory-starter' ),
-				'minute' => __( 'Minute', 'directory-starter' ),
-				'weekAbbreviation' => __( 'Wk', 'directory-starter' ),
-				'rangeSeparator' => __( ' to ', 'directory-starter' ),
-				'scrollTitle' => __( 'Scroll to increment', 'directory-starter' ),
-				'toggleTitle' => __( 'Click to toggle', 'directory-starter' )
+				'year' => __( 'Year', 'directory-starter'  ),
+				'hour' => __( 'Hour', 'directory-starter'  ),
+				'minute' => __( 'Minute', 'directory-starter'  ),
+				'weekAbbreviation' => __( 'Wk', 'directory-starter'  ),
+				'rangeSeparator' => __( ' to ', 'directory-starter'  ),
+				'scrollTitle' => __( 'Scroll to increment', 'directory-starter'  ),
+				'toggleTitle' => __( 'Click to toggle', 'directory-starter'  )
 			);
 
 			return apply_filters( 'ayecode_ui_calendar_params', $params );
@@ -2039,17 +2782,17 @@ if ( 0 ) { ?><script><?php } ?>
 		 */
 		public static function select2_params() {
 			$params = array(
-				'i18n_select_state_text'    => esc_attr__( 'Select an option&hellip;', 'directory-starter' ),
-				'i18n_no_matches'           => _x( 'No matches found', 'enhanced select', 'directory-starter' ),
-				'i18n_ajax_error'           => _x( 'Loading failed', 'enhanced select', 'directory-starter' ),
-				'i18n_input_too_short_1'    => _x( 'Please enter 1 or more characters', 'enhanced select', 'directory-starter' ),
-				'i18n_input_too_short_n'    => _x( 'Please enter %item% or more characters', 'enhanced select', 'directory-starter' ),
-				'i18n_input_too_long_1'     => _x( 'Please delete 1 character', 'enhanced select', 'directory-starter' ),
-				'i18n_input_too_long_n'     => _x( 'Please delete %item% characters', 'enhanced select', 'directory-starter' ),
-				'i18n_selection_too_long_1' => _x( 'You can only select 1 item', 'enhanced select', 'directory-starter' ),
-				'i18n_selection_too_long_n' => _x( 'You can only select %item% items', 'enhanced select', 'directory-starter' ),
-				'i18n_load_more'            => _x( 'Loading more results&hellip;', 'enhanced select', 'directory-starter' ),
-				'i18n_searching'            => _x( 'Searching&hellip;', 'enhanced select', 'directory-starter' )
+				'i18n_select_state_text'    => esc_attr__( 'Select an option&hellip;', 'directory-starter'  ),
+				'i18n_no_matches'           => _x( 'No matches found', 'enhanced select', 'directory-starter'  ),
+				'i18n_ajax_error'           => _x( 'Loading failed', 'enhanced select', 'directory-starter'  ),
+				'i18n_input_too_short_1'    => _x( 'Please enter 1 or more characters', 'enhanced select', 'directory-starter'  ),
+				'i18n_input_too_short_n'    => _x( 'Please enter %item% or more characters', 'enhanced select', 'directory-starter'  ),
+				'i18n_input_too_long_1'     => _x( 'Please delete 1 character', 'enhanced select', 'directory-starter'  ),
+				'i18n_input_too_long_n'     => _x( 'Please delete %item% characters', 'enhanced select', 'directory-starter'  ),
+				'i18n_selection_too_long_1' => _x( 'You can only select 1 item', 'enhanced select', 'directory-starter'  ),
+				'i18n_selection_too_long_n' => _x( 'You can only select %item% items', 'enhanced select', 'directory-starter'  ),
+				'i18n_load_more'            => _x( 'Loading more results&hellip;', 'enhanced select', 'directory-starter'  ),
+				'i18n_searching'            => _x( 'Searching&hellip;', 'enhanced select', 'directory-starter'  )
 			);
 
 			return apply_filters( 'ayecode_ui_select2_params', $params );
@@ -2088,20 +2831,20 @@ if ( 0 ) { ?><script><?php } ?>
 		public static function timeago_locale() {
 			$params = array(
 				'prefix_ago' => '',
-				'suffix_ago' => ' ' . _x( 'ago', 'time ago', 'directory-starter' ),
-				'prefix_after' => _x( 'after', 'time ago', 'directory-starter' ) . ' ',
+				'suffix_ago' => ' ' . _x( 'ago', 'time ago', 'directory-starter'  ),
+				'prefix_after' => _x( 'after', 'time ago', 'directory-starter'  ) . ' ',
 				'suffix_after' => '',
-				'seconds' => _x( 'less than a minute', 'time ago', 'directory-starter' ),
-				'minute' => _x( 'about a minute', 'time ago', 'directory-starter' ),
-				'minutes' => _x( '%d minutes', 'time ago', 'directory-starter' ),
-				'hour' => _x( 'about an hour', 'time ago', 'directory-starter' ),
-				'hours' => _x( 'about %d hours', 'time ago', 'directory-starter' ),
-				'day' => _x( 'a day', 'time ago', 'directory-starter' ),
-				'days' => _x( '%d days', 'time ago', 'directory-starter' ),
-				'month' => _x( 'about a month', 'time ago', 'directory-starter' ),
-				'months' => _x( '%d months', 'time ago', 'directory-starter' ),
-				'year' => _x( 'about a year', 'time ago', 'directory-starter' ),
-				'years' => _x( '%d years', 'time ago', 'directory-starter' ),
+				'seconds' => _x( 'less than a minute', 'time ago', 'directory-starter'  ),
+				'minute' => _x( 'about a minute', 'time ago', 'directory-starter'  ),
+				'minutes' => _x( '%d minutes', 'time ago', 'directory-starter'  ),
+				'hour' => _x( 'about an hour', 'time ago', 'directory-starter'  ),
+				'hours' => _x( 'about %d hours', 'time ago', 'directory-starter'  ),
+				'day' => _x( 'a day', 'time ago', 'directory-starter'  ),
+				'days' => _x( '%d days', 'time ago', 'directory-starter'  ),
+				'month' => _x( 'about a month', 'time ago', 'directory-starter'  ),
+				'months' => _x( '%d months', 'time ago', 'directory-starter'  ),
+				'year' => _x( 'about a year', 'time ago', 'directory-starter'  ),
+				'years' => _x( '%d years', 'time ago', 'directory-starter'  ),
 			);
 
 			$params = apply_filters( 'ayecode_ui_timeago_params', $params );
@@ -2198,6 +2941,521 @@ if ( 0 ) { ?><script><?php } ?>
 					'$1$2'
 				),
 				$input);
+		}
+
+		/**
+		 * Get the conditional fields JavaScript.
+		 *
+		 * @return mixed
+		 */
+		public function conditional_fields_js() {
+			ob_start();
+			?>
+<script>
+/**
+ * Conditional Fields
+ */
+var aui_cf_field_rules = [], aui_cf_field_key_rules = {}, aui_cf_field_default_values = {};
+
+jQuery(function($) {
+    aui_cf_field_init_rules($);
+});
+
+/**
+ * Conditional fields init.
+ */
+function aui_cf_field_init_rules($) {
+    if (!$('[data-has-rule]').length) {
+        return;
+    }
+    $('input.select2-search__field').attr('data-ignore-rule','');
+    $('[data-rule-key]').on('change keypress keyup gdclear', 'input, textarea', function() {
+        aui_cf_field_apply_rules($(this));
+    });
+
+    $('[data-rule-key]').on('change gdclear', 'select', function() {
+        aui_cf_field_apply_rules($(this));
+    });
+
+    $('[data-rule-key]').on('change.select2', 'select', function() {
+        aui_cf_field_apply_rules($(this));
+    });
+
+    aui_cf_field_setup_rules($);
+}
+
+/**
+ * Setup conditional field rules.
+ */
+function aui_cf_field_setup_rules($) {
+    var aui_cf_field_keys = [];
+
+    $('[data-rule-key]').each(function() {
+        var key = $(this).data('rule-key'), irule = parseInt($(this).data('has-rule'));
+        if (key) {
+            aui_cf_field_keys.push(key);
+        }
+
+        var parse_conds = {};
+        if ($(this).data('rule-fie-0')) {
+            $(this).find('input,select,textarea').each(function() {
+                if ($(this).attr('required') || $(this).attr('oninvalid')) {
+                    $(this).addClass('aui-cf-req');
+                    if ($(this).attr('required')) {
+                        $(this).attr('data-rule-req', true);
+                    }
+                    if ($(this).attr('oninvalid')) {
+                        $(this).attr('data-rule-oninvalid', $(this).attr('oninvalid'));
+                    }
+                }
+            });
+            for (var i = 0; i < irule; i++) {
+                var field = $(this).data('rule-fie-' + i);
+                if (typeof parse_conds[i] === 'undefined') {
+                    parse_conds[i] = {};
+                }
+                parse_conds[i]['action'] = $(this).data('rule-act-' + i);
+                parse_conds[i]['field'] = $(this).data('rule-fie-' + i);
+                parse_conds[i]['condition'] = $(this).data('rule-con-' + i);
+                parse_conds[i]['value'] = $(this).data('rule-val-' + i);
+            }
+
+            $.each(parse_conds, function(j, data) {
+                var item = {
+                    'field': {
+                        key: key,
+                        action: data.action,
+                        field: data.field,
+                        condition: data.condition,
+                        value: data.value,
+                        rule: {
+                            key: key,
+                            action: data.action,
+                            condition: data.condition,
+                            value: data.value
+                        }
+                    }
+                };
+                aui_cf_field_rules.push(item);
+            });
+        }
+        aui_cf_field_default_values[$(this).data('rule-key')] = aui_cf_field_get_default_value($(this));
+    });
+
+    $.each(aui_cf_field_keys, function(i, fkey) {
+        aui_cf_field_key_rules[fkey] = aui_cf_field_get_children(fkey);
+    });
+
+    $('[data-rule-key]:visible').each(function() {
+        var conds = aui_cf_field_key_rules[$(this).data('rule-key')];
+        if (conds && conds.length) {
+            var $main_el = $(this), el = aui_cf_field_get_element($main_el);
+            if ($(el).length) {
+                aui_cf_field_apply_rules($(el));
+            }
+        }
+    });
+}
+
+/**
+ * Apply conditional field rules.
+ */
+function aui_cf_field_apply_rules($el) {
+    if (!$el.parents('[data-rule-key]').length) {
+        return;
+    }
+
+    if ($el.data('no-rule')) {
+        return;
+    }
+
+    var key = $el.parents('[data-rule-key]').data('rule-key');
+    var conditions = aui_cf_field_key_rules[key];
+    if (typeof conditions === 'undefined') {
+        return;
+    }
+    var field_type = aui_cf_field_get_type($el.parents('[data-rule-key]')), current_value = aui_cf_field_get_value($el);
+    var $keys = {}, $keys_values = {}, $key_rules = {};
+
+    jQuery.each(conditions, function(index, condition) {
+        if (typeof $keys_values[condition.key] == 'undefined') {
+            $keys_values[condition.key] = [];
+            $key_rules[condition.key] = {}
+        }
+
+        $keys_values[condition.key].push(condition.value);
+        $key_rules[condition.key] = condition;
+    });
+
+    jQuery.each(conditions, function(index, condition) {
+        if (typeof $keys[condition.key] == 'undefined') {
+            $keys[condition.key] = {};
+        }
+
+        if (condition.condition === 'empty') {
+            var field_value = Array.isArray(current_value) ? current_value.join('') : current_value;
+            if (!field_value || field_value === '') {
+                $keys[condition.key][index] = true;
+            } else {
+                $keys[condition.key][index] = false;
+            }
+        } else if (condition.condition === 'not empty') {
+            var field_value = Array.isArray(current_value) ? current_value.join('') : current_value;
+            if (field_value && field_value !== '') {
+                $keys[condition.key][index] = true;
+            } else {
+                $keys[condition.key][index] = false;
+            }
+        } else if (condition.condition === 'equals to') {
+            var field_value = (Array.isArray(current_value) && current_value.length === 1) ? current_value[0] : current_value;
+            if (((condition.value && condition.value == condition.value) || (condition.value === field_value)) && aui_cf_field_in_array(field_value, $keys_values[condition.key])) {
+                $keys[condition.key][index] = true;
+            } else {
+                $keys[condition.key][index] = false;
+            }
+        } else if (condition.condition === 'not equals') {
+            var field_value = (Array.isArray(current_value) && current_value.length === 1) ? current_value[0] : current_value;
+            if (jQuery.isNumeric(condition.value) && parseInt(field_value) !== parseInt(condition.value) && field_value && !aui_cf_field_in_array(field_value, $keys_values[condition.key])) {
+                $keys[condition.key][index] = true;
+            } else if (condition.value != field_value && !aui_cf_field_in_array(field_value, $keys_values[condition.key])) {
+                $keys[condition.key][index] = true;
+            } else {
+                $keys[condition.key][index] = false;
+            }
+        } else if (condition.condition === 'greater than') {
+            var field_value = (Array.isArray(current_value) && current_value.length === 1) ? current_value[0] : current_value;
+            if (jQuery.isNumeric(condition.value) && parseInt(field_value) > parseInt(condition.value)) {
+                $keys[condition.key][index] = true;
+            } else {
+                $keys[condition.key][index] = false;
+            }
+        } else if (condition.condition === 'less than') {
+            var field_value = (Array.isArray(current_value) && current_value.length === 1) ? current_value[0] : current_value;
+            if (jQuery.isNumeric(condition.value) && parseInt(field_value) < parseInt(condition.value)) {
+                $keys[condition.key][index] = true;
+            } else {
+                $keys[condition.key][index] = false;
+            }
+        } else if (condition.condition === 'contains') {
+            switch (field_type) {
+                case 'multiselect':
+                    if (current_value && ((!Array.isArray(current_value) && current_value.indexOf(condition.value) >= 0) || (Array.isArray(current_value) && aui_cf_field_in_array(condition.value, current_value)))) {
+                        $keys[condition.key][index] = true;
+                    } else {
+                        $keys[condition.key][index] = false;
+                    }
+                    break;
+                case 'checkbox':
+                    if (current_value && ((!Array.isArray(current_value) && current_value.indexOf(condition.value) >= 0) || (Array.isArray(current_value) && aui_cf_field_in_array(condition.value, current_value)))) {
+                        $keys[condition.key][index] = true;
+                    } else {
+                        $keys[condition.key][index] = false;
+                    }
+                    break;
+                default:
+                    if (typeof $keys[condition.key][index] === 'undefined') {
+                        if (current_value && current_value.indexOf(condition.value) >= 0 && aui_cf_field_in_array(current_value, $keys_values[condition.key], false, true)) {
+                            $keys[condition.key][index] = true;
+                        } else {
+                            $keys[condition.key][index] = false;
+                        }
+                    }
+                    break;
+            }
+        }
+    });
+
+    jQuery.each($keys, function(index, field) {
+        if (aui_cf_field_in_array(true, field)) {
+            aui_cf_field_apply_action($el, $key_rules[index], true);
+        } else {
+            aui_cf_field_apply_action($el, $key_rules[index], false);
+        }
+    });
+
+    /* Trigger field change */
+    if ($keys.length) {
+        $el.trigger('aui_cf_field_on_change');
+    }
+}
+
+/**
+ * Get the field element.
+ */
+function aui_cf_field_get_element($el) {
+    var el = $el.find('input:not("[data-ignore-rule]"),textarea,select'), type = aui_cf_field_get_type($el);
+    if (type && window._aui_cf_field_elements && typeof window._aui_cf_field_elements == 'object' && typeof window._aui_cf_field_elements[type] != 'undefined') {
+        el = window._aui_cf_field_elements[type];
+    }
+    return el;
+}
+
+/**
+ * Get the field type.
+ */
+function aui_cf_field_get_type($el) {
+    return $el.data('rule-type');
+}
+
+/**
+ * Get the field value.
+ */
+function aui_cf_field_get_value($el) {
+    var current_value = $el.val();
+
+    if ($el.is(':checkbox')) {
+        current_value = '';
+        if ($el.parents('[data-rule-key]').find('input:checked').length > 1) {
+            $el.parents('[data-rule-key]').find('input:checked').each(function() {
+                current_value = current_value + jQuery(this).val() + ' ';
+            });
+        } else {
+            if ($el.parents('[data-rule-key]').find('input:checked').length >= 1) {
+                current_value = $el.parents('[data-rule-key]').find('input:checked').val();
+            }
+        }
+    }
+
+    if ($el.is(':radio')) {
+        current_value = $el.parents('[data-rule-key]').find('input[type=radio]:checked').val();
+    }
+
+    return current_value;
+}
+
+/**
+ * Get the field default value.
+ */
+function aui_cf_field_get_default_value($el) {
+    var value = '', type = aui_cf_field_get_type($el);
+
+    switch (type) {
+        case 'text':
+        case 'number':
+        case 'date':
+        case 'textarea':
+        case 'select':
+            value = $el.find('input:text,input[type="number"],textarea,select').val();
+            break;
+        case 'phone':
+        case 'email':
+        case 'color':
+        case 'url':
+        case 'hidden':
+        case 'password':
+        case 'file':
+            value = $el.find('input[type="' + type + '"]').val();
+            break;
+        case 'multiselect':
+            value = $el.find('select').val();
+            break;
+        case 'radio':
+            if ($el.find('input[type="radio"]:checked').length >= 1) {
+                value = $el.find('input[type="radio"]:checked').val();
+            }
+            break;
+        case 'checkbox':
+            if ($el.find('input[type="checkbox"]:checked').length >= 1) {
+                if ($el.find('input[type="checkbox"]:checked').length > 1) {
+                    var values = [];
+                    values.push(value);
+                    $el.find('input[type="checkbox"]:checked').each(function() {
+                        values.push(jQuery(this).val());
+                    });
+                    value = values;
+                } else {
+                    value = $el.find('input[type="checkbox"]:checked').val();
+                }
+            }
+            break;
+        default:
+            if (window._aui_cf_field_default_values && typeof window._aui_cf_field_default_values == 'object' && typeof window._aui_cf_field_default_values[type] != 'undefined') {
+                value = window._aui_cf_field_default_values[type];
+            }
+            break;
+    }
+    return {
+        type: type,
+        value: value
+    };
+}
+
+/**
+ * Reset field default value.
+ */
+function aui_cf_field_reset_default_value($el) {
+    var type = aui_cf_field_get_type($el), key = $el.data('rule-key'), field = aui_cf_field_default_values[key];
+
+    switch (type) {
+        case 'text':
+        case 'number':
+        case 'date':
+        case 'textarea':
+            $el.find('input:text,input[type="number"],textarea').val(field.value);
+            break;
+        case 'phone':
+        case 'email':
+        case 'color':
+        case 'url':
+        case 'hidden':
+        case 'password':
+        case 'file':
+            $el.find('input[type="' + type + '"]').val(field.value);
+            break;
+        case 'select':
+            $el.find('select').find('option').prop('selected', false);
+            $el.find('select').val(field.value);
+            $el.find('select').trigger('change');
+            break;
+        case 'multiselect':
+            $el.find('select').find('option').prop('selected', false);
+            if ((typeof field.value === 'object' || typeof field.value === 'array') && !field.value.length && $el.find('select option:first').text() == '') {
+                $el.find('select option:first').remove(); // Clear first option to show placeholder.
+            }
+            jQuery.each(field.value, function(i, v) {
+                $el.find('select').find('option[value="' + v + '"]').attr('selected', true);
+            });
+            $el.find('select').trigger('change');
+            break;
+        case 'checkbox':
+            if ($el.find('input[type="checkbox"]:checked').length >= 1) {
+                $el.find('input[type="checkbox"]:checked').prop('checked', false);
+                if (Array.isArray(field.value)) {
+                    jQuery.each(field.value, function(i, v) {
+                        $el.find('input[type="checkbox"][value="' + v + '"]').attr('checked', true);
+                    });
+                } else {
+                    $el.find('input[type="checkbox"][value="' + field.value + '"]').attr('checked', true);
+                }
+            }
+            break;
+        case 'radio':
+            if ($el.find('input[type="radio"]:checked').length >= 1) {
+                setTimeout(function() {
+                    $el.find('input[type="radio"]:checked').prop('checked', false);
+                    $el.find('input[type="radio"][value="' + field.value + '"]').attr('checked', true);
+                }, 100);
+            }
+            break;
+        default:
+            jQuery(document.body).trigger('aui_cf_field_reset_default_value', type, $el, field);
+            break;
+    }
+
+    if (!$el.hasClass('aui-cf-field-has-changed')) {
+        var el = aui_cf_field_get_element($el);
+        if (type === 'radio' || type === 'checkbox') {
+            el = el.find(':checked');
+        }
+        if (el) {
+            el.trigger('change');
+            $el.addClass('aui-cf-field-has-changed');
+        }
+    }
+}
+
+/**
+ * Get the field children.
+ */
+function aui_cf_field_get_children(field_key) {
+    var rules = [];
+    jQuery.each(aui_cf_field_rules, function(j, rule) {
+        if (rule.field.field === field_key) {
+            rules.push(rule.field.rule);
+        }
+    });
+    return rules;
+}
+
+/**
+ * Check in array field value.
+ */
+function aui_cf_field_in_array(find, item, exact, match) {
+    var found = false, key;
+    exact = !!exact;
+
+    for (key in item) {
+        if ((exact && item[key] === find) || (!exact && item[key] == find) || (match && (typeof find === 'string' || typeof find === 'number') && (typeof item[key] === 'string' || typeof item[key] === 'number') && find.length && find.indexOf(item[key]) >= 0)) {
+            found = true;
+            break;
+        }
+    }
+    return found;
+}
+
+/**
+ * App the field condition action.
+ */
+function aui_cf_field_apply_action($el, rule, isTrue) {
+    var $destEl = jQuery('[data-rule-key="' + rule.key + '"]');
+
+    if (rule.action === 'show' && isTrue) {
+        if ($destEl.is(':hidden')) {
+            aui_cf_field_reset_default_value($destEl);
+        }
+        aui_cf_field_show_element($destEl);
+    } else if (rule.action === 'show' && !isTrue) {
+        aui_cf_field_hide_element($destEl);
+    } else if (rule.action === 'hide' && isTrue) {
+        aui_cf_field_hide_element($destEl);
+    } else if (rule.action === 'hide' && !isTrue) {
+        if ($destEl.is(':hidden')) {
+            aui_cf_field_reset_default_value($destEl);
+        }
+        aui_cf_field_show_element($destEl);
+    }
+    return $el.removeClass('aui-cf-field-has-changed');
+}
+
+/**
+ * Show field element.
+ */
+function aui_cf_field_show_element($el) {
+    $el.removeClass('d-none').show();
+
+    $el.find('.aui-cf-req').each(function() {
+        if (jQuery(this).data('rule-req')) {
+            jQuery(this).removeAttr('required').prop('required', true);
+        }
+        if (jQuery(this).data('rule-oninvalid')) {
+            jQuery(this).removeAttr('oninvalid').attr('oninvalid', jQuery(this).data('rule-oninvalid'));
+        }
+    });
+
+    if (window && window.navigator.userAgent.indexOf("MSIE") !== -1) {
+        $el.css({
+            "visibility": "visible"
+        });
+    }
+}
+
+/**
+ * Hide field element.
+ */
+function aui_cf_field_hide_element($el) {
+    $el.addClass('d-none').hide();
+
+    $el.find('.aui-cf-req').each(function() {
+        if (jQuery(this).data('rule-req')) {
+            jQuery(this).removeAttr('required');
+        }
+        if (jQuery(this).data('rule-oninvalid')) {
+            jQuery(this).removeAttr('oninvalid');
+        }
+    });
+
+    if (window && window.navigator.userAgent.indexOf("MSIE") !== -1) {
+        $el.css({
+            "visibility": "hidden"
+        });
+    }
+}
+<?php do_action( 'aui_conditional_fields_js', $this ); ?>
+</script>
+			<?php
+			$output = ob_get_clean();
+
+			return str_replace( array( '<script>', '</script>' ), '', self::minify_js( $output ) );
 		}
 	}
 
