@@ -22,7 +22,7 @@ No, this is optional but recommended.
 == Changelog ==
 
 = 2.1.2 =
-* Read more... text is not translatabale - FIXED
+* Read more... text is not translatable - FIXED
 
 = 2.1.1 =
 * AyeCode UI updated to latest - UPDATED
