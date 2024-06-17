@@ -1,5 +1,7 @@
 <?php
 function ds_add_top_header() {
+    global $aui_bs5;
+
     $enable_header_top = esc_attr(get_theme_mod('dt_enable_header_top', DT_ENABLE_HEADER_TOP));
     if ($enable_header_top != '1') {
         return;
@@ -12,7 +14,7 @@ function ds_add_top_header() {
                 echo get_bloginfo( 'description', 'display' );
             }
             ?>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#top-nav" aria-controls="top-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" <?php echo ( $aui_bs5 ? 'data-bs-toggle="collapse" data-bs-target="#top-nav"' : 'data-toggle="collapse" data-target="#top-nav"' ); ?> aria-controls="top-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
