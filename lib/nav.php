@@ -24,8 +24,7 @@ add_filter( 'nav_menu_link_attributes', 'ds_menu_a_class' , 10, 3 );
  * @return mixed
  */
 function ds_menu_a_class( $atts, $item, $args ) {
-
-//	print_r($args);
+	global $aui_bs5;
 
 	isset( $atts['class'] ) ? $atts['class'] .= " nav-link" : $atts['class'] = " nav-link";
 
@@ -37,7 +36,11 @@ function ds_menu_a_class( $atts, $item, $args ) {
 	if ( in_array( 'menu-item-has-children', $item->classes ) ) {
 		$atts['class'] .= ' dropdown-toggle';
 		$atts['role']          = 'button';
-		$atts['data-toggle']   = 'dropdown';
+		if ( $aui_bs5 ) {
+			$atts['data-bs-toggle']   = 'dropdown';
+		} else {
+			$atts['data-toggle']   = 'dropdown';
+		}
 		$atts['aria-haspopup'] = 'true';
 		$atts['aria-expanded'] = 'false';
 	}
