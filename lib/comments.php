@@ -83,16 +83,18 @@ function ds_comment_form_defaults($defaults){
 	);
 
 	// website url
-	$defaults['fields']['cookies'] = aui()->input(
-		array(
-			'id'                => 'wp-comment-cookies-consent',
-			'name'              => 'wp-comment-cookies-consent',
-			'required'          => true,
-			'value'             => 'yes',
-			'label'              => esc_html__( "Save my name, email, and website in this browser for the next time I comment.", 'directory-starter'),
-			'type'              => 'checkbox',
-		)
-	);
+	if ( has_action( 'set_comment_cookies', 'wp_set_comment_cookies' ) && get_option( 'show_comments_cookies_opt_in' ) ) {
+		$defaults['fields']['cookies'] = aui()->input(
+			array(
+				'id'                => 'wp-comment-cookies-consent',
+				'name'              => 'wp-comment-cookies-consent',
+				'required'          => true,
+				'value'             => 'yes',
+				'label'              => esc_html__( "Save my name, email, and website in this browser for the next time I comment.", 'directory-starter'),
+				'type'              => 'checkbox',
+			)
+		);
+	}
 
 	// logged in as
 	$defaults['logged_in_as'] = str_replace("logged-in-as","logged-in-as mb-3",$defaults['logged_in_as'] );
