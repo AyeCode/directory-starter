@@ -21,6 +21,9 @@ No, this is optional but recommended.
 
 == Changelog ==
 
+= 2.1.3 - TBD =
+* Comments cookies checkbox is always visible to non-logged-in users - FIXED
+
 = 2.1.2 =
 * Read more... text is not translatable - FIXED
 * Menu don't toggle on mobile with BootStrap v5 - FIXED
